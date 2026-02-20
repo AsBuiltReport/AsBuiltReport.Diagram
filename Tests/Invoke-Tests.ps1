@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Invoke Pester tests for AsBuiltReport.Chart module
+    Invoke Pester tests for Diagrammer.Core module
 
 .DESCRIPTION
     This script runs Pester tests with optional code coverage analysis.
@@ -38,7 +38,7 @@ if (-not (Test-Path $TestsPath)) {
 
 # Get the module root directory
 $ModuleRoot = Split-Path -Path $TestsPath -Parent
-$ModuleName = 'AsBuiltReport.Chart'
+$ModuleName = 'Diagrammer.Core'
 $ModulePath = Join-Path -Path $ModuleRoot -ChildPath $ModuleName
 
 Write-Host "Module Root: $ModuleRoot" -ForegroundColor Cyan
