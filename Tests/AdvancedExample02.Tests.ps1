@@ -1,5 +1,6 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
+    . (Join-Path -Path $PublicFolder -ChildPath 'New-Diagrammer.ps1')
 }
 
 Describe AdvancedExample02 {
