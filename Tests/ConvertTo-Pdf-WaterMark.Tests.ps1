@@ -25,8 +25,7 @@ Describe ConvertTo-Pdf-WaterMark {
     }
 
     It 'Should return output.pdf path' {
-        Write-Host "Testing with parameters: $($PassParamsValidParameters | Out-String)"
-        (ConvertTo-Pdf-WaterMark @PassParamsValidParameters -Verbose -Debug).FullName | Should -Exist
+        (ConvertTo-Pdf-WaterMark @PassParamsValidParameters).FullName | Should -Exist
     }
     It 'Should throw not found exception when ImageInput does not exist' {
         $scriptBlock = { ConvertTo-Pdf-WaterMark @PassParamsInvalidImagePath -ErrorAction Stop }
