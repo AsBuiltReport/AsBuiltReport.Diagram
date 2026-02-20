@@ -50,14 +50,17 @@ function ConvertTo-Pdf-WaterMark {
                 'Core' {
                     # Net 9.0 assembly call
                     $Null = [Diagrammer.ConvertImageToPDF]::ConvertPngToPdf($ImageInput.FullName, $DestinationPath)
+                    Write-Verbose -Message 'Successfully loaded the .Net 9.0 assembly for PDF conversion.'
                 }
                 'Desktop' {
                     # Net 4.8 assembly call
                     $Null = [DiaConvertImageToPDF.ConvertImageToPDF]::ConvertPngToPdf($ImageInput.FullName, $DestinationPath)
+                    Write-Verbose -Message 'Successfully loaded the .Net 4.8 assembly for PDF conversion.'
                 }
                 default {
                     # Net 4.8 assembly call (Fucking shit)
                     $Null = [DiaConvertImageToPDF.ConvertImageToPDF]::ConvertPngToPdf($ImageInput.FullName, $DestinationPath)
+                    Write-Verbose -Message 'Successfully loaded the .Net 4.8 assembly for PDF conversion.'
                 }
             }
 
