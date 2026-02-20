@@ -31,6 +31,7 @@ jobs:
 
       - name: Install Graphviz
         uses: tlylt/install-graphviz@v1
+        if: runner.os != 'Windows'
 
       - name: Install PSGraph
         shell: pwsh
@@ -49,6 +50,20 @@ jobs:
           CodeCoverage_OutputFormat: "JaCoCo"
           Prescript: |
             Import-Module PSGraph
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.shell }}
+          path: ./test-results.xml
+
+      - name: Upload coverage results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.os }}-${{ matrix.shell }}
+          path: ./coverage.xml
 
       - name: Process test results
         if: always()
