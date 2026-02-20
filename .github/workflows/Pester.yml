@@ -60,7 +60,6 @@ jobs:
           Install-Module -Name PSGraph -MinimumVersion 2.1.38.27 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Run Script with Module
-        shell: powershell
         run: |
           Import-Module Diagrammer.Core -Force
 
