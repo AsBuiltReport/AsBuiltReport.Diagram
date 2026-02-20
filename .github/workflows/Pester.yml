@@ -37,7 +37,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
 
       - name: Set up PowerShell Gallery
         run: |
@@ -47,17 +50,13 @@ jobs:
         run: |
           Install-Module -Name Pester -MinimumVersion 5.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
-      - name: Install PScribo
-        run: |
-          Install-Module -Name PScribo -MinimumVersion 0.11.1 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
-
       - name: Install PSScriptAnalyzer
         run: |
           Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Install AsBuiltReport.Core
         run: |
-          Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.2 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Run Pester Tests
         run: |
