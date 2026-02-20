@@ -1,14 +1,5 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PublicFolder -ChildPath 'New-Diagrammer.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeIcon.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Format-NodeObject.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaHtmlNodeTable.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaHtmlSubGraph.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Join-Hashtable.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeText.ps1')
 }
 
 Describe AdvancedExample02 {

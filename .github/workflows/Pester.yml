@@ -1,90 +1,46 @@
-name: Pester Tests
+name: Run Pester Tests
 
 on:
-  push:
-    branches:
-      - main
-      - dev
-      - master
-  pull_request:
-    branches:
-      - main
-      - dev
-      - master
-  workflow_dispatch:
+    push:
+        branches: ["dev", "main"]
+    pull_request:
+        branches: ["dev"]
 
 jobs:
-  test:
-    name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-        shell: [pwsh]
-        include:
-          - os: windows-latest
-            shell: powershell
-        exclude:
-          - os: ubuntu-latest
-            shell: powershell
-          - os: macos-latest
-            shell: powershell
+    test:
+        runs-on: windows-latest
+        steps:
+            - uses: actions/checkout@v6
 
-    defaults:
-      run:
-        shell: ${{ matrix.shell }}
+            - name: Install PSGraph
+              shell: pwsh
+              run: Install-Module -Name PSGraph -Force -Scope CurrentUser
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+            - name: Run Pester tests
+              uses: PSModule/Invoke-Pester@v5
+              id: action-test
+              with:
+                  Path: "./Tests"
+                  TestResult_Enabled: "true"
+                  TestResult_OutputPath: "./test-results.xml"
+                  CodeCoverage_Enabled: "true"
+                  CodeCoverage_Path: "./Src"
+                  CodeCoverage_OutputPath: "./coverage.xml"
+                  CodeCoverage_OutputFormat: "JaCoCo"
+                  Prescript: |
+                      Import-Module PSGraph
 
-      - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
-        if: runner.os != 'Windows'
+            - name: Process test results
+              if: always()
+              run: |
+                  Write-Output "Total tests: ${{ steps.action-test.outputs.TotalCount }}"
+                  Write-Output "Passed tests: ${{ steps.action-test.outputs.PassedCount }}"
+                  Write-Output "Failed tests: ${{ steps.action-test.outputs.FailedCount }}"
+                  Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
+                  Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
+                  Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
+              shell: pwsh
 
-      - name: Set up PowerShell Gallery
-        run: |
-          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-
-      - name: Install Pester
-        run: |
-          Install-Module -Name Pester -MinimumVersion 5.0.0 -Repository PSGallery -Force
-
-      - name: Install PSScriptAnalyzer
-        run: |
-          Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.0.0 -Repository PSGallery -Force
-
-      - name: Install PSGraph
-        run: |
-          Install-Module -Name PSGraph -MinimumVersion 2.1.38.27 -Repository PSGallery -Force
-
-      - name: Run Pester Tests
-        run: |
-          $CodeCoverageParam = @{}
-          $OutputFormatParam = @{ OutputFormat = 'NUnitXml' }
-
-          # Only enable code coverage for Windows + pwsh
-          if ('${{ matrix.os }}' -eq 'windows-latest' -and '${{ matrix.shell }}' -eq 'pwsh') {
-            $CodeCoverageParam = @{ CodeCoverage = $true }
-          }
-
-          .\Tests\Invoke-Tests.ps1 @CodeCoverageParam @OutputFormatParam
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.os }}-${{ matrix.shell }}
-          path: Tests/testResults.xml
-          retention-days: 30
-
-      - name: Upload code coverage to Codecov
-        if: matrix.os == 'windows-latest' && matrix.shell == 'pwsh'
-        uses: codecov/codecov-action@v5
-        with:
-          files: ./Tests/coverage.xml
-          flags: unit
-          name: codecov-${{ matrix.os }}-${{ matrix.shell }}
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
+            - name: Take action based on test outcome
+              if: steps.action-test.outputs.Result == 'Passed'
+              run: echo "All tests passed! Ready to proceed with deployment."
