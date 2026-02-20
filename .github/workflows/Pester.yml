@@ -49,19 +49,19 @@ jobs:
 
       - name: Install Pester
         run: |
-          Install-Module -Name Pester -MinimumVersion 5.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          Install-Module -Name Pester -MinimumVersion 5.0.0 -Repository PSGallery -Force
 
       - name: Install PSScriptAnalyzer
         run: |
-          Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.0.0 -Repository PSGallery -Force
 
       - name: Install PSGraph
         run: |
-          Install-Module -Name PSGraph -MinimumVersion 2.1.38.27 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          Install-Module -Name PSGraph -MinimumVersion 2.1.38.27 -Repository PSGallery -Force
 
       - name: Run Script with Module
         run: |
-          Import-Module Diagrammer.Core -Force
+          Import-Module ./Diagrammer.Core.psm1 -Force
 
       - name: Run Pester Tests
         run: |
