@@ -24,8 +24,6 @@ $Script:GraphvizPath = switch ($PSVersionTable.Platform) {
     default { Join-Path -Path $ProjectRoot -ChildPath 'Tools\Graphviz\bin\dot.exe' }
 }
 
-Write-Host "Graphviz Root: $GraphvizPath"
-
 if (-not (Get-Module $ModuleName)) {
     Import-Module $ModuleRoot -Force
 }
