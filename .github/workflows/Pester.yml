@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+
       - name: Install PSGraph
         shell: pwsh
         run: Install-Module -Name PSGraph -Force -Scope CurrentUser
