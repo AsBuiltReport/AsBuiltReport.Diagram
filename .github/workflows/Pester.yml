@@ -43,10 +43,10 @@ jobs:
         with:
           Path: "./Tests"
           TestResult_Enabled: "true"
-          TestResult_OutputPath: "./test-results.xml"
+          TestResult_OutputPath: "./Tests/test-results-${{ matrix.os }}-${{ matrix.shell }}.xml"
           CodeCoverage_Enabled: "true"
           CodeCoverage_Path: "./Src"
-          CodeCoverage_OutputPath: "./coverage.xml"
+          CodeCoverage_OutputPath: "./Tests/coverage-${{ matrix.os }}-${{ matrix.shell }}.xml"
           CodeCoverage_OutputFormat: "JaCoCo"
           Prescript: |
             Import-Module PSGraph
@@ -56,14 +56,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.os }}-${{ matrix.shell }}
-          path: ./test-results.xml
+          path: ./Tests/test-results-${{ matrix.os }}-${{ matrix.shell }}.xml
 
       - name: Upload coverage results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.os }}-${{ matrix.shell }}
-          path: ./coverage.xml
+          path: ./Tests/coverage-${{ matrix.os }}-${{ matrix.shell }}.xml
 
       - name: Process test results
         if: always()
