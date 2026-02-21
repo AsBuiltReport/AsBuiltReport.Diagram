@@ -16,6 +16,10 @@ jobs:
               shell: pwsh
               run: Install-Module -Name PSGraph -Force -Scope CurrentUser
 
+            - name: Install Graphviz
+              uses: tlylt/install-graphviz@v1
+              if: runner.os != 'Windows'
+
             - name: Run Pester tests
               uses: PSModule/Invoke-Pester@v4
               id: action-test
