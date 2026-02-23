@@ -1,4 +1,11 @@
-﻿namespace Diagrammer
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.Fonts;
+using System;
+
+namespace Diagrammer
 {
     public class ImageProcessor
     {
