@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile Solution - DiaConvertImageToPDF",
+            "type": "dotnet",
+            "task": "build",
+            "file": "${workspaceFolder}/Sources/DiaConvertImageToPDF/DiaConvertImageToPDF.csproj",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Compile Solution - Diagrammer",
+            "type": "dotnet",
+            "task": "build",
+            "file": "${workspaceFolder}/Sources/Diagrammer/Diagrammer.csproj",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Debug PowerShell Binary Module - DiaConvertImageToPDF",
+            "dependsOn": [
+                "Compile Solution - DiaConvertImageToPDF",
+                // "Copy SkiaSharp runtime", // Ensure SkiaSharp runtime is copied before debugging on Linux
+                // "Copy libHarfBuzzSharp runtime"
+            ],
+            "dependsOrder": "sequence" // "sequence" ensures tasks run one after another; default is "parallel"
+        },
+        {
+            "label": "Debug PowerShell Binary Module - Diagrammer",
+            "dependsOn": [
+                "Compile Solution - Diagrammer",
+                // "Copy SkiaSharp runtime", // Ensure SkiaSharp runtime is copied before debugging on Linux
+                // "Copy libHarfBuzzSharp runtime"
+            ],
+            "dependsOrder": "sequence" // "sequence" ensures tasks run one after another; default is "parallel"
+        }
+    ]
+}

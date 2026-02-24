@@ -45,5 +45,12 @@ namespace DiaConvertImageToPDF
                 return false; // Or throw a more specific exception
             }
         }
+        public static string GenerateToken(Byte length)
+        {
+            var bytes = new byte[length];
+            var rnd = new Random();
+            rnd.NextBytes(bytes);
+            return Convert.ToBase64String(bytes).Replace("=", "").Replace("+", "").Replace("/", "");
+        }
     }
 }

@@ -1,26 +1,13 @@
 # Get assemblies files and import them
-$assemblyName = switch ($PSVersionTable.PSEdition) {
+switch ($PSVersionTable.PSEdition) {
     'Core' {
-        @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net90{0}*.dll" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue)
+        Import-Module ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net90{0}Diagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar)
     }
     'Desktop' {
-        @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}*.dll" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue)
+        Import-Module ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}DiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue
     }
     default {
         @()
-    }
-}
-
-$loadedassemblies = [System.AppDomain]::CurrentDomain.GetAssemblies().ManifestModule.Name
-
-foreach ($Assembly in $assemblyName) {
-    if ($Assembly.Name -notin $loadedassemblies) {
-        try {
-            Write-Verbose -Message "Loading assembly '$($Assembly.Name)'."
-            Add-Type -Path $Assembly.FullName -Verbose
-        } catch {
-            Write-Error -Message "Failed to add assembly $($Assembly.FullName): $_"
-        }
     }
 }
 
