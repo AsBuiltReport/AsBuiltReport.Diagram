@@ -7,9 +7,9 @@ using System;
 
 namespace DiaConvertImageToPDF
 {
-    public class ConvertImageToPDF
+    internal class ConvertImageToPDF
     {
-        public static bool ConvertPngToPdf(string pngFilePath, string pdfFilePath)
+        internal static bool ConvertPngToPdf(string pngFilePath, string pdfFilePath)
         {
             try
             {

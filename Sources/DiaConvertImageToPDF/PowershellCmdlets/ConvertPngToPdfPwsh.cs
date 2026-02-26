@@ -18,19 +18,38 @@ namespace DiaConvertImageToPDF.PowerShell
         [Parameter(Mandatory = false, HelpMessage = "Output folder path where the pdf will be saved.")]
         public string OutputFolderPath { get; set; } = Directory.GetCurrentDirectory();
 
+        [Parameter(Mandatory = false, HelpMessage = "Full Path Output filename for the pdf.")]
+        public string OutputFileNamePath { get; set; }
+
         protected override void ProcessRecord()
         {
             if (SourcePngFile.FullName != null && SourcePngFile.Exists)
             {
-                FileInfo outputPath = new FileInfo(Path.Combine(OutputFolderPath, $"{OutputFilename}.pdf"));
-                ConvertImageToPDF.ConvertPngToPdf(SourcePngFile.FullName, outputPath.FullName);
-                if (outputPath.Exists)
+                if (OutputFileNamePath != null)
                 {
-                    WriteObject(outputPath);
+                    ConvertImageToPDF.ConvertPngToPdf(SourcePngFile.FullName, OutputFileNamePath);
+                    FileInfo outputPath = new FileInfo(OutputFileNamePath);
+                    if (outputPath.Exists)
+                    {
+                        WriteObject(outputPath);
+                    }
+                    else
+                    {
+                        WriteError(new ErrorRecord(new IOException($"Failed to create PDF file: {OutputFileNamePath}"), "FileCreationFailed", ErrorCategory.WriteError, OutputFileNamePath));
+                    }
                 }
                 else
                 {
-                    WriteError(new ErrorRecord(new IOException($"Failed to create PDF file: {outputPath}"), "FileCreationFailed", ErrorCategory.WriteError, outputPath));
+                    FileInfo outputPath = new FileInfo(Path.Combine(OutputFolderPath, $"{OutputFilename}.pdf"));
+                    ConvertImageToPDF.ConvertPngToPdf(SourcePngFile.FullName, outputPath.FullName);
+                    if (outputPath.Exists)
+                    {
+                        WriteObject(outputPath);
+                    }
+                    else
+                    {
+                        WriteError(new ErrorRecord(new IOException($"Failed to create PDF file: {outputPath}"), "FileCreationFailed", ErrorCategory.WriteError, outputPath));
+                    }
                 }
             }
             else
