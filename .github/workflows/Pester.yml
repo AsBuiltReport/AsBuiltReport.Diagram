@@ -66,16 +66,6 @@ jobs:
           Path: "./Tests"
           Prescript: |
             Import-Module PSGraph
-      - name: Run Pester tests - Windows PowerShell
-        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
-        uses: PSModule/Invoke-Pester@v4
-        shell: powershell
-        id: action-test
-        with:
-          Path: "./Tests"
-          Prescript: |
-            Import-Module PSGraph
-
 
       - name: Process test results
         if: always()
