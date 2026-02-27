@@ -59,13 +59,23 @@ jobs:
         uses: tlylt/install-graphviz@v1
         if: runner.os != 'Windows'
 
-      - name: Run Pester tests
+      - name: Run Pester tests - PWSH
         uses: PSModule/Invoke-Pester@v4
         id: action-test
         with:
           Path: "./Tests"
           Prescript: |
             Import-Module PSGraph
+      - name: Run Pester tests - Windows PowerShell
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
+        uses: PSModule/Invoke-Pester@v4
+        shell: powershell
+        id: action-test
+        with:
+          Path: "./Tests"
+          Prescript: |
+            Import-Module PSGraph
+
 
       - name: Process test results
         if: always()
