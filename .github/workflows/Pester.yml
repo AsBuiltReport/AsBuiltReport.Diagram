@@ -29,6 +29,31 @@ jobs:
     name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
     steps:
       - uses: actions/checkout@v6
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+            dotnet-version: "8.0.x"
+      - name: Restore dependencies Diagrammer
+        run: dotnet restore ./Sources/Diagrammer
+        if: matrix.shell == 'pwsh'
+
+      - name: Restore dependencies DiaConvertImageToPDF
+        run: dotnet restore ./Sources/DiaConvertImageToPDF
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
+
+      - name: Build the library PWSH
+        run: dotnet publish ./Sources/Diagrammer -c Release
+        if: matrix.shell == 'pwsh'
+      - name: Copy the library PWSH
+        run: Copy-Item -Path ./Sources/Diagrammer/bin/Release/net8.0/publish/* -Destination ./Src/Bin/net80 -Recurse
+        if: matrix.shell == 'pwsh'
+
+      - name: Build the library for Windows PowerShell
+        run: dotnet publish ./Sources/DiaConvertImageToPDF -c Release
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
+      - name: Copy the library for Windows PowerShell
+        run: Copy-Item -Path ./Sources/DiaConvertImageToPDF/bin/Release/net48/publish/* -Destination ./Src/Bin/net48 -Recurse
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
       - name: Install PSGraph
         run: Install-Module -Name PSGraph -Force -Scope CurrentUser
