@@ -1,4 +1,4 @@
-name: Run Pester Tests
+name: Pester Tests
 
 on:
   push:
@@ -11,6 +11,7 @@ jobs:
     name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
         shell: [pwsh]
