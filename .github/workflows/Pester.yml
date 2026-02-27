@@ -68,10 +68,10 @@ jobs:
         with:
           Path: "./Tests"
           TestResult_Enabled: "true"
-          TestResult_OutputPath: "./test-results.xml"
+          TestResult_OutputPath: "./test-results-${{ matrix.os }}-${{ matrix.shell }}.xml"
           CodeCoverage_Enabled: "true"
           CodeCoverage_Path: "./Src"
-          CodeCoverage_OutputPath: "./coverage.xml"
+          CodeCoverage_OutputPath: "./coverage-${{ matrix.os }}-${{ matrix.shell }}.xml"
           CodeCoverage_OutputFormat: "JaCoCo"
           Prescript: |
             Import-Module PSGraph
