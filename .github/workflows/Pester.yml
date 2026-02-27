@@ -8,7 +8,6 @@ on:
 
 jobs:
   test:
-    name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -26,6 +25,7 @@ jobs:
     defaults:
         run:
             shell: ${{ matrix.shell }}
+    name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
     steps:
       - uses: actions/checkout@v6
 
