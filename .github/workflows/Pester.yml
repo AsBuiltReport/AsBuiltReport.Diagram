@@ -23,7 +23,9 @@ jobs:
               shell: powershell
             - os: macos-latest
               shell: powershell
-
+    defaults:
+        run:
+            shell: ${{ matrix.shell }}
     name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
     steps:
       - uses: actions/checkout@v6
