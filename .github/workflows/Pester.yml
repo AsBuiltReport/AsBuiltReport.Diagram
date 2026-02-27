@@ -58,7 +58,6 @@ jobs:
           Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
           Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
           Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
-        shell: ${{ matrix.shell }}
 
       - name: Take action based on test outcome
         if: steps.action-test.outputs.Result == 'Passed'
