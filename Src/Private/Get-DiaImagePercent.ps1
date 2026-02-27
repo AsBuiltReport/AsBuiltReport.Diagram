@@ -5,7 +5,7 @@ function Get-DiaImagePercent {
     .DESCRIPTION
         This allow the diagram image to fit the report page margins
     .NOTES
-        Version:        0.2.33
+        Version:        0.2.39
         Author:         Jonathan Colon
     .EXAMPLE
     .LINK
@@ -66,10 +66,10 @@ function Get-DiaImagePercent {
             switch ($PSVersionTable.Platform) {
                 'Unix' {
                     & {
-                        if ([Diagrammer.ImageProcessor]) {
-                            $Image_FromStream.Width = [Diagrammer.ImageProcessor]::GetImageWidthFromBase64($GraphObj)
-                            $Image_FromStream.Height = [Diagrammer.ImageProcessor]::GetImageHeightFromBase64($GraphObj)
-                        } else {
+                        try {
+                            $Image_FromStream.Width = Get-ImageWidthFromBase64 -Base64 $GraphObj
+                            $Image_FromStream.Height = Get-ImageHeightFromBase64 -Base64 $GraphObj
+                        } catch {
                             throw 'Unable to convert Graphviz object to base64 format needed to get image dimensions'
                         }
                     }
@@ -110,10 +110,9 @@ function Get-DiaImagePercent {
                 switch ($PSVersionTable.Platform) {
                     'Unix' {
                         & {
-                            if ([Diagrammer.ImageProcessor]) {
-                                $ImageFromFile.Width = [Diagrammer.ImageProcessor]::GetImageWidthFromFile((Get-ChildItem -Path $ImageInput).FullName)
-                                $ImageFromFile.Height = [Diagrammer.ImageProcessor]::GetImageHeightFromFile((Get-ChildItem -Path $ImageInput).FullName)
-                            } else {
+                            $ImageFromFile.Width = Get-ImageWidthFromFile -SourceImageFilePath ((Get-ChildItem -Path $ImageInput).FullName)
+                            $ImageFromFile.Height = Get-ImageHeightFromFile -SourceImageFilePath ((Get-ChildItem -Path $ImageInput).FullName)
+                            if (-not $ImageFromFile.Width -or -not $ImageFromFile.Height) {
                                 throw 'Unable to get image dimensions on Unix platforms.'
                             }
                         }

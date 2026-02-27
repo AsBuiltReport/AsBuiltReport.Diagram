@@ -5,9 +5,9 @@ using iText.IO.Image;
 
 namespace Diagrammer
 {
-    public class ConvertImageToPDF
+    internal class ConvertImageToPDF
     {
-        public static bool ConvertPngToPdf(string pngFilePath, string pdfFilePath)
+        internal static bool ConvertPngToPdf(string pngFilePath, string pdfFilePath)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Diagrammer
                 return false; // Or throw a more specific exception
             }
         }
-        public static string GenerateToken(Byte length)
+        internal static string GenerateToken(Byte length)
         {
             var bytes = new byte[length];
             var rnd = new Random();

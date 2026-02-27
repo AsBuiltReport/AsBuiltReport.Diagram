@@ -24,6 +24,18 @@ $Script:GraphvizPath = switch ($PSVersionTable.Platform) {
     default { Join-Path -Path $ProjectRoot -ChildPath 'Tools\Graphviz\bin\dot.exe' }
 }
 
+switch ($PSVersionTable.PSEdition) {
+    'Core' {
+        Import-Module ("$ProjectRoot{0}Src{0}Bin{0}Assemblies{0}net80{0}Diagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar)
+    }
+    'Desktop' {
+        Import-Module ("$ProjectRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}DiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar)
+    }
+    default {
+        @()
+    }
+}
+
 if (-not (Get-Module $ModuleName)) {
     Import-Module $ModuleRoot -Force
 }

@@ -7,9 +7,9 @@ using System;
 
 namespace Diagrammer
 {
-    public class ImageProcessor
+    internal class ImageProcessor
     {
-        public static int GetImageWidthFromFile(string imagePath)
+        internal static int GetImageWidthFromFile(string imagePath)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace Diagrammer
                 return -1; // Or throw a more specific exception
             }
         }
-        public static int GetImageHeightFromFile(string imagePath)
+        internal static int GetImageHeightFromFile(string imagePath)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Diagrammer
             }
         }
 
-        public static SixLabors.ImageSharp.Image? GetImagePropertiesFromFile(string imagePath)
+        internal static SixLabors.ImageSharp.Image? GetImagePropertiesFromFile(string imagePath)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Diagrammer
                 return null; // Or throw a more specific exception
             }
         }
-        public static int GetImageWidthFromBase64(string base64String)
+        internal static int GetImageWidthFromBase64(string base64String)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Diagrammer
                 return -1; // Or throw a more specific exception
             }
         }
-        public static int GetImageHeightFromBase64(string base64String)
+        internal static int GetImageHeightFromBase64(string base64String)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Diagrammer
             }
         }
 
-        public static bool RotateImageFromFile(string imagePath, string outputPath, int angle)
+        internal static bool RotateImageFromFile(string imagePath, string outputPath, int angle)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Diagrammer
             }
         }
 
-        public static bool ResizeImageFromFile(string imagePath, int newWidth, int newHeight, string outputPath)
+        internal static bool ResizeImageFromFile(string imagePath, int newWidth, int newHeight, string outputPath)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace Diagrammer
             }
         }
 
-        public static bool AddWatermarkToImage(string imagePath, string watermarkText, string outputPath, int fontSize, System.Drawing.Color fontColor, string fontName = "Arial", float opacity = 0.7f, string fontPath = "")
+        internal static bool AddWatermarkToImage(string imagePath, string watermarkText, string outputPath, int fontSize, System.Drawing.Color fontColor, string fontName = "Arial", float opacity = 0.7f, string fontPath = "")
         {
             try
             {

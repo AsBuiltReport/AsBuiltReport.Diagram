@@ -4,7 +4,7 @@ switch ($PSVersionTable.PSEdition) {
         Import-Module ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net80{0}Diagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar)
     }
     'Desktop' {
-        Import-Module ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}DiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue
+        Import-Module ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}DiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar)
     }
     default {
         @()
