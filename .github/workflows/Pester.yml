@@ -64,8 +64,6 @@ jobs:
         id: action-test
         with:
           Path: "./Tests"
-          TestResult_Enabled: "true"
-          TestResult_OutputPath: "./test-results-${{ matrix.os }}-${{ matrix.shell }}.xml"
           Prescript: |
             Import-Module PSGraph
 
