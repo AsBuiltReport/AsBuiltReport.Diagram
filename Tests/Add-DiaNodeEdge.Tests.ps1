@@ -17,6 +17,18 @@ Describe Add-DiaNodeEdge {
         [string]$DotOutPutTailPort = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -TailPort 'e'
         [string]$DotOutPutHeadPort = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadPort 'w'
         [string]$DotOutPutAllParams = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dashed' -EdgeColor '#FF0000' -EdgeThickness 3 -Arrowhead 'vee' -Arrowtail 'diamond' -EdgeLabel 'Link' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'blue' -TailPort 'e' -HeadPort 'w'
+
+        # HTML edge label
+        $HtmlLabel = '<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD>Protocol: HTTPS</TD></TR><TR><TD>Port: 443</TD></TR></TABLE>'
+        [string]$DotOutPutHtmlLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HtmlEdgeLabel $HtmlLabel
+        [string]$DotOutPutHtmlLabelPrecedence = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HtmlEdgeLabel $HtmlLabel -EdgeLabel 'Ignored'
+
+        # HeadLabel and TailLabel
+        [string]$DotOutPutHeadLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0'
+        [string]$DotOutPutTailLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -TailLabel 'eth1'
+        [string]$DotOutPutBothLabels = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -TailLabel 'eth1'
+        [string]$DotOutPutLabelDistance = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance 3
+        [string]$DotOutPutLabelAngle = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle 45
     }
 
     It 'Should return a Graphviz edge from NodeA to NodeB with default attributes' {
@@ -40,6 +52,14 @@ Describe Add-DiaNodeEdge {
 
     It 'Should not include headport attribute when HeadPort is not specified' {
         $DotOutPut | Should -Not -Match 'headport='
+    }
+
+    It 'Should not include headlabel attribute when HeadLabel is not specified' {
+        $DotOutPut | Should -Not -Match 'headlabel='
+    }
+
+    It 'Should not include taillabel attribute when TailLabel is not specified' {
+        $DotOutPut | Should -Not -Match 'taillabel='
     }
 
     It 'Should return a dashed edge style' {
@@ -179,5 +199,79 @@ Describe Add-DiaNodeEdge {
     It 'Should throw when To parameter is missing' {
         $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' }
         $scriptBlock | Should -Throw
+    }
+
+    Context 'HTML edge label support' {
+        It 'Should include the HTML label content when HtmlEdgeLabel is specified' {
+            $DotOutPutHtmlLabel | Should -Match 'Protocol: HTTPS'
+            $DotOutPutHtmlLabel | Should -Match 'Port: 443'
+        }
+
+        It 'Should use HtmlEdgeLabel over EdgeLabel when both are provided' {
+            $DotOutPutHtmlLabelPrecedence | Should -Match 'Protocol: HTTPS'
+            $DotOutPutHtmlLabelPrecedence | Should -Not -Match 'label="Ignored"'
+        }
+
+        It 'Should not include label attribute when neither EdgeLabel nor HtmlEdgeLabel is specified' {
+            $DotOutPut | Should -Not -Match 'label='
+        }
+    }
+
+    Context 'HeadLabel and TailLabel support' {
+        It 'Should include headlabel when HeadLabel is specified' {
+            $DotOutPutHeadLabel | Should -Match 'headlabel="eth0"'
+        }
+
+        It 'Should include taillabel when TailLabel is specified' {
+            $DotOutPutTailLabel | Should -Match 'taillabel="eth1"'
+        }
+
+        It 'Should include both headlabel and taillabel when both are specified' {
+            $DotOutPutBothLabels | Should -Match 'headlabel="eth0"'
+            $DotOutPutBothLabels | Should -Match 'taillabel="eth1"'
+        }
+
+        It 'Should include labeldistance when HeadLabel is specified' {
+            $DotOutPutHeadLabel | Should -Match 'labeldistance='
+        }
+
+        It 'Should include labelangle when HeadLabel is specified' {
+            $DotOutPutHeadLabel | Should -Match 'labelangle='
+        }
+
+        It 'Should include labeldistance when TailLabel is specified' {
+            $DotOutPutTailLabel | Should -Match 'labeldistance='
+        }
+
+        It 'Should include labelangle when TailLabel is specified' {
+            $DotOutPutTailLabel | Should -Match 'labelangle='
+        }
+
+        It 'Should apply the specified LabelDistance' {
+            $DotOutPutLabelDistance | Should -Match 'labeldistance="3"'
+        }
+
+        It 'Should apply the specified LabelAngle' {
+            $DotOutPutLabelAngle | Should -Match 'labelangle="45"'
+        }
+
+        It 'Should throw when LabelDistance is out of range' {
+            $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance -1 }
+            $scriptBlock | Should -Throw
+            $scriptBlock2 = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance 11 }
+            $scriptBlock2 | Should -Throw
+        }
+
+        It 'Should throw when LabelAngle is out of range' {
+            $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle -181 }
+            $scriptBlock | Should -Throw
+            $scriptBlock2 = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle 181 }
+            $scriptBlock2 | Should -Throw
+        }
+
+        It 'Should not include labeldistance or labelangle when neither HeadLabel nor TailLabel is specified' {
+            $DotOutPut | Should -Not -Match 'labeldistance='
+            $DotOutPut | Should -Not -Match 'labelangle='
+        }
     }
 }
