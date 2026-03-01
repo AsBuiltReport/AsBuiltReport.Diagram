@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Get-ImageWidthFromFile
   - Get-ResizeImageFromFile
   - Get-RotateImageFromFile
+- Add funtion to add edges between nodes
+  - (Add-DiaNodeEdge)
 
 ### :arrows_clockwise: Changed
 
