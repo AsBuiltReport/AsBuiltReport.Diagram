@@ -224,7 +224,21 @@ function Add-DiaNodeEdge {
             Mandatory = $false,
             HelpMessage = 'The port on the target node where the edge terminates.'
         )]
-        [string] $HeadPort = ''
+        [string] $HeadPort = '',
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Distance factor for HeadLabel and TailLabel from the node. Valid range is 0 to 10. Default is 1.'
+        )]
+        [ValidateRange(0, 10)]
+        [double] $EdgeLength = 1,
+
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Additional Graphviz attributes to add to the edge (e.g., style=filled,color=lightgrey)'
+        )]
+        [hashtable] $GraphvizAttributes = @{}
     )
 
     begin {}
@@ -232,13 +246,18 @@ function Add-DiaNodeEdge {
     process {
         try {
             $EdgeAttributes = @{
-                style     = $EdgeStyle
-                color     = $EdgeColor
-                penwidth  = $EdgeThickness
+                style = $EdgeStyle
+                color = $EdgeColor
+                penwidth = $EdgeThickness
                 arrowhead = $Arrowhead
                 arrowtail = $Arrowtail
-                fontsize  = $EdgeLabelFontSize
+                fontsize = $EdgeLabelFontSize
                 fontcolor = $EdgeLabelFontColor
+            }
+
+            # Merge additional Graphviz attributes
+            if ($GraphvizAttributes) {
+                $EdgeAttributes = Join-Hashtable -PrimaryHash $EdgeAttributes -SecondaryHash $GraphvizAttributes -PreferSecondary
             }
 
             # HtmlEdgeLabel takes precedence over plain-text EdgeLabel
@@ -267,6 +286,10 @@ function Add-DiaNodeEdge {
 
             if ($HeadPort) {
                 $EdgeAttributes['headport'] = $HeadPort
+            }
+
+            if ($EdgeLength) {
+                $EdgeAttributes['minlen'] = $EdgeLength
             }
 
             Edge -From $From -To $To $EdgeAttributes

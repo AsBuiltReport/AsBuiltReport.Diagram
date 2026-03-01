@@ -18,19 +18,19 @@
   - [ ] Add example for this funtionality
 
 ## Medium Priority
-- [ ] Add funtion (Add-DiaNodeEdge) to add edges between nodes
-  - [ ] Add pester to test this funtionality
-  - [ ] Add documentation for this funtionality
-  - [ ] Add example for this funtionality
-  - [ ] Add option to set edge style (solid, dashed, dotted, bold)
-  - [ ] Add option to set edge color (Hex color)
-  - [ ] Add option to set edge thickness (1-10)
-  - [ ] Add option to set edge arrow type (none, normal, vee, diamond)
-  - [ ] Add option to set edge label (string)
-  - [ ] Add option to set edge label font size (8-72)
-  - [ ] Add option to set edge label font color (Hex color)
-  - [ ] Add option to set tailport (string)
-  - [ ] Add option to set headport (string)
+- [x] Add funtion (Add-DiaNodeEdge) to add edges between nodes
+  - [x] Add pester to test this funtionality
+  - [x] Add documentation for this funtionality
+  - [x] Add example for this funtionality
+  - [x] Add option to set edge style (solid, dashed, dotted, bold)
+  - [x] Add option to set edge color (Hex color)
+  - [x] Add option to set edge thickness (1-10)
+  - [x] Add option to set edge arrow type (none, normal, vee, diamond)
+  - [x] Add option to set edge label (string)
+  - [x] Add option to set edge label font size (8-72)
+  - [x] Add option to set edge label font color (Hex color)
+  - [x] Add option to set tailport (string)
+  - [x] Add option to set headport (string)
 
 ## Low Priority
 - [ ] Create Pester tests for:

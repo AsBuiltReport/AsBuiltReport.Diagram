@@ -145,6 +145,7 @@ All commands in the latest release of Diagrammer.Core can be found in the table 
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- |
 | [Add-DiaCrossShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-DiaCrossShapeLine/)         | Adds a line between two cross shapes        | 0.2.31  |
 | [Add-DiaNodeIcon](https://diagrammer.techmyth.blog/dev-guide/commands/Add-DiaNodeIcon/)                     | Adds an icon to a node                      | 0.2.31  |
+| [Add-DiaNodeEdge](https://diagrammer.techmyth.blog/dev-guide/commands/Add-DiaNodeEdge/)                     | Adds an edge between two nodes              | 0.2.39  |
 | [Add-DiaHTMLLabel](https://diagrammer.techmyth.blog/dev-guide/commands/Add-DiaHTMLLabel/)                   | Adds an HTML label to the diagram           | 0.2.31  |
 | [Add-DiaHTMLNodeTable](https://diagrammer.techmyth.blog/dev-guide/commands/Add-DiaHTMLNodeTable/)           | Adds an HTML node table to the diagram      | 0.2.31  |
 | [Add-DiaHtmlSignatureTable](https://diagrammer.techmyth.blog/dev-guide/commands/Add-DiaHtmlSignatureTable/) | Adds an HTML signature table to the diagram | 0.2.31  |
