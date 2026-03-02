@@ -99,7 +99,6 @@ namespace Diagrammer
                 using var image = Image.Load(imagePath);
                 image.Mutate(x => x.Resize(newWidth, newHeight));
                 image.Save(outputPath);
-                image.Dispose();
                 return true;
             }
             catch (Exception ex)
