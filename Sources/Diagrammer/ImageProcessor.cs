@@ -114,8 +114,20 @@ namespace Diagrammer
             try
             {
                 using var image = Image.Load(imagePath);
-                FontCollection collection = new();
-                FontFamily family = collection.Add(fontPath);
+                FontFamily family;
+                if (!string.IsNullOrEmpty(fontPath) && File.Exists(fontPath))
+                {
+                    FontCollection collection = new();
+                    family = collection.Add(fontPath);
+                }
+                else if (!SystemFonts.TryGet(fontName, out family))
+                {
+                    if (!SystemFonts.Families.Any())
+                    {
+                        throw new InvalidOperationException($"Font '{fontName}' not found and no system fonts are available. Please provide a valid font path via the WatermarkTextFontPath parameter.");
+                    }
+                    family = SystemFonts.Families.First();
+                }
 
                 if (fontSize == 0)
                 {
