@@ -141,12 +141,12 @@ $example10 = & {
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            The Edge statements create connections between the nodes. (Edge is a reserved word in the PSGraph module)
-            https://psgraph.readthedocs.io/en/latest/Command-Edge/
+            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
+            https://github.com/rebelinux/Diagrammer.Core
         #>
 
-        Edge -From 'Web-Server-Farm' -To 'App-Server-01' @{label = 'gRPC'; color = 'black'; fontsize = 14; fontcolor = 'black'; minlen = 3 }
-        Edge -From 'App-Server-01' -To 'Db-Server-01' @{label = 'SQL'; color = 'black'; fontsize = 14; fontcolor = 'black'; minlen = 3 }
+        Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3
+        Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3
 
         <#
             The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -165,7 +165,7 @@ $example10 = & {
 
         Add-DiaNodeIcon -Name 'Core-Router' -AdditionalInfo $RouterInfo -ImagesObj $Images -IconType 'Router' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
-        Edge -From 'Core-Router' -To 'Web-Server-Farm' @{label = 'GE0/0'; color = 'black'; fontsize = 18; fontcolor = 'black'; minlen = 2 }
+        Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2
 
         <#
             This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of Diagrammer.Core module).
@@ -176,7 +176,7 @@ $example10 = & {
 
         Add-DiaNodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Cloud' -IconPath $IconPath -ImageSizePercent 30 -NodeObject -DraftMode:$DraftMode
 
-        Edge -From 'WAN' -To 'Core-Router' @{label = 'Serial0/0'; color = 'black'; fontsize = 18; fontcolor = 'black'; minlen = 2 }
+        Add-DiaNodeEdge -From 'WAN' -To 'Core-Router' -EdgeLabel 'Serial0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2
     }
 }
 
