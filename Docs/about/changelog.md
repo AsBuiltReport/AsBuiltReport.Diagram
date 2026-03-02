@@ -1,6 +1,6 @@
 ---
 title: Changelog
-description: Github Changelog file for Maintainers.
+description: GitHub Changelog file for Maintainers.
 comments: false
 hide:
   - toc
