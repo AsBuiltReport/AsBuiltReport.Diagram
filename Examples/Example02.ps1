@@ -43,8 +43,8 @@ $example2 = & {
 
     <#
         This section creates connections between the nodes in a herarchical layout.
-        The Edge statements create connections between the nodes. (Edge is a reserved word in PSGraph module)
-        https://psgraph.readthedocs.io/en/latest/Command-Edge/
+        The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
+        https://github.com/rebelinux/Diagrammer.Core
 
                         |      Main Logo      |
                         |    MainGraphLabel   |
@@ -65,8 +65,8 @@ $example2 = & {
                               ---------
     #>
 
-    Edge -From 'Web-Server-01' -To 'App-Server-01' @{label = 'HTTP'; color = 'black'; fontsize = 12; fontcolor = 'black' }
-    Edge -From 'App-Server-01' -To 'Db-Server-01' @{label = 'SQL'; color = 'black'; fontsize = 12; fontcolor = 'black' }
+    Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'HTTP' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black'
+    Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black'
 }
 
 
