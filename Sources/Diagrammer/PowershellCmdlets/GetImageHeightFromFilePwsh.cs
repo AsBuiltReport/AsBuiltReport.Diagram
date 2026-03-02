@@ -19,7 +19,7 @@ namespace Diagrammer.PowerShell
                     if (SourceImageFilePath.Exists)
                     {
                         int imageHeight = ImageProcessor.GetImageHeightFromFile(SourceImageFilePath.FullName);
-                        if (imageHeight != 0)
+                        if (imageHeight > 0)
                         {
                             WriteObject(imageHeight);
                         }
