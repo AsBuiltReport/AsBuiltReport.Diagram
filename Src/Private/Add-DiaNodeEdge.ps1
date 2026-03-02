@@ -102,7 +102,7 @@ function Add-DiaNodeEdge {
         port of NodeA and terminating at the west port of NodeB.
 
     .NOTES
-        Version:        0.2.40
+        Version:        0.2.39
         Author:         Jonathan Colon
         Bluesky:        @jcolonfpr.bsky.social
         Github:         rebelinux
