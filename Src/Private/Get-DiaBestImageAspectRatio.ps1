@@ -102,8 +102,8 @@ function Get-DiaBestImageAspectRatio {
                     'Unix' {
                         & {
                             try {
-                                $Image.Width = Get-ImageWidthFromFile((Get-ChildItem -Path $ImageInput).FullName)
-                                $Image.Height = Get-ImageHeightFromFile((Get-ChildItem -Path $ImageInput).FullName)
+                                $Image.Width = Get-ImageWidthFromFile -SourceImageFilePath (Get-ChildItem -Path $ImageInput).FullName
+                                $Image.Height = Get-ImageHeightFromFile -SourceImageFilePath (Get-ChildItem -Path $ImageInput).FullName
                             } catch {
                                 throw 'Unable to read image dimensions from file'
                             }
