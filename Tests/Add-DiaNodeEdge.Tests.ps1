@@ -1,6 +1,7 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeEdge.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Join-Hashtable.ps1')
 }
 
 Describe Add-DiaNodeEdge {
