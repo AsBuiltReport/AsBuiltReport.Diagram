@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### :arrows_clockwise: Changed
 
 - Update Release.yml to remove Sources directory during cleanup
+- Update module version to v0.2.40
 
 ## [0.2.39] - 2026-03-02
 
