@@ -1,26 +1,21 @@
 # Get assemblies files and import them
-$assemblyName = switch ($PSVersionTable.PSEdition) {
+switch ($PSVersionTable.PSEdition) {
     'Core' {
-        @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net90{0}*.dll" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue)
+        $assemblyPath = "$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net80{0}Diagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar
+        if (-not (Test-Path -Path $assemblyPath)) {
+            throw "Required assembly not found: '$assemblyPath'. Please run the build/publish step (e.g., 'dotnet publish') before importing this module."
+        }
+        Import-Module $assemblyPath
     }
     'Desktop' {
-        @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}*.dll" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue)
+        $assemblyPath = "$PSScriptRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}DiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar
+        if (-not (Test-Path -Path $assemblyPath)) {
+            throw "Required assembly not found: '$assemblyPath'. Please run the build/publish step (e.g., 'dotnet publish') before importing this module."
+        }
+        Import-Module $assemblyPath
     }
     default {
         @()
-    }
-}
-
-$loadedassemblies = [System.AppDomain]::CurrentDomain.GetAssemblies().ManifestModule.Name
-
-foreach ($Assembly in $assemblyName) {
-    if ($Assembly.Name -notin $loadedassemblies) {
-        try {
-            Write-Verbose -Message "Loading assembly '$($Assembly.Name)'."
-            Add-Type -Path $Assembly.FullName -Verbose
-        } catch {
-            Write-Error -Message "Failed to add assembly $($Assembly.FullName): $_"
-        }
     }
 }
 

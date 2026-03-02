@@ -35,7 +35,7 @@ function ConvertTo-RotateImage {
 
     .NOTES
         Author: Jonathan Colon
-        Version: 0.2.27
+        Version: 0.2.39
         GitHub: https://github.com/rebelinux/Diagrammer.Core
 
     .LINK
@@ -97,7 +97,7 @@ function ConvertTo-RotateImage {
 
         # Load image from path as bitmap
         if ($PSVersionTable.Platform -eq 'Unix') {
-            $RotatedIMG = [Diagrammer.ImageProcessor]::RotateImageFromFile($ImageName.FullName, $TempImageOutput, $Angle)
+            $RotatedIMG = Get-RotateImageFromFile -SourceImageFilePath $ImageName.FullName -OutputImageFilePath $TempImageOutput -Angle $Angle
         } else {
             Add-Type -AssemblyName System.Windows.Forms
             $RotatedIMG = [System.Drawing.image]::FromFile($ImageName.FullName)

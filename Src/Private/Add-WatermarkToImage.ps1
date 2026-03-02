@@ -9,7 +9,7 @@ function Add-WatermarkToImage {
         Add-WatermarkToImage ImageInput "c:\Image.png" DestinationPath "c:\Image_Edited.png" -WaterMarkText "Zen PR Solutions" -FontName 'Arial' -FontSize 20 -FontColor 'Red'
 
     .NOTES
-        Version:        0.2.35
+        Version:        0.2.39
         Author:         Jonathan Colon
         Bluesky:        @jcolonfpr.bsky.social
         Github:         rebelinux
@@ -109,7 +109,7 @@ function Add-WatermarkToImage {
 
                 $FontPath = Join-Path -Path $RootPath -ChildPath 'Tools/Fonts/ARIAL.TTF'
 
-                $Null = [Diagrammer.ImageProcessor]::AddWatermarkToImage($ImageName.FullName, $WaterMarkText, $TempImageOutput, $FontSize, $FontColor, $FontName, ($FontOpacity / 100), $FontPath)
+                $Null = New-WatermarkToImage -SourceImagePath $ImageName.FullName -WatermarkText $WaterMarkText -OutputImageFilePath $TempImageOutput -WatermarkTextFontSize $FontSize -WatermarkTextFontColor $FontColor -WatermarkTextFontName $FontName -WatermarkTextOpacity ($FontOpacity / 100) -WatermarkTextFontPath $FontPath
             } else {
                 # Fallback to System.Drawing
 

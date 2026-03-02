@@ -24,6 +24,26 @@ $Script:GraphvizPath = switch ($PSVersionTable.Platform) {
     default { Join-Path -Path $ProjectRoot -ChildPath 'Tools\Graphviz\bin\dot.exe' }
 }
 
+switch ($PSVersionTable.PSEdition) {
+    'Core' {
+        $Script:CoreAssemblyPath = "$ProjectRoot{0}Src{0}Bin{0}Assemblies{0}net80{0}Diagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar
+        if (-not (Test-Path -Path $Script:CoreAssemblyPath)) {
+            throw "Required assembly not found: '$Script:CoreAssemblyPath'. Please build the project before running tests (e.g. 'dotnet build' in the Src directory)."
+        }
+        Import-Module $Script:CoreAssemblyPath
+    }
+    'Desktop' {
+        $Script:DesktopAssemblyPath = "$ProjectRoot{0}Src{0}Bin{0}Assemblies{0}net48{0}DiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar
+        if (-not (Test-Path -Path $Script:DesktopAssemblyPath)) {
+            throw "Required assembly not found: '$Script:DesktopAssemblyPath'. Please build the project before running tests (e.g. run MSBuild or Visual Studio build targeting net48)."
+        }
+        Import-Module $Script:DesktopAssemblyPath
+    }
+    default {
+        @()
+    }
+}
+
 if (-not (Get-Module $ModuleName)) {
     Import-Module $ModuleRoot -Force
 }

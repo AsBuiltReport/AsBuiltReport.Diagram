@@ -1,4 +1,4 @@
-#     ** This time we will extend the edges size using the Graphviz minlen attribute. **
+#     ** This time we will extend the edges size using the Add-DiaNodeEdge EdgeLength attribute. **
 <#
     Simple example of how to create a 3 tier web application diagram using the Diagrammer module. Without using any object icons.
 #>
@@ -43,14 +43,14 @@ $example3 = & {
 
     <#
         This section creates connections between the nodes in a herarchical layout.
-        The Edge statements create connections between the nodes. (Edge is a reserved word in PSGraph module)
-        https://psgraph.readthedocs.io/en/latest/Command-Edge/
+        The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
+        https://github.com/rebelinux/Diagrammer.Core
 
         ** The minlen attribute is used to increase the minimum length of the edge lines. **
     #>
 
-    Edge -From 'Web-Server-01' -To 'App-Server-01' @{label = 'gRPC'; color = 'black'; fontsize = 12; fontcolor = 'black'; minlen = 3 }
-    Edge -From 'App-Server-01' -To 'Db-Server-01' @{label = 'SQL'; color = 'black'; fontsize = 12; fontcolor = 'black'; minlen = 3 }
+    Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
+    Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
 }
 
 

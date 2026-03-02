@@ -133,6 +133,7 @@ function Add-DiaHtmlTable {
             Mandatory = $false,
             HelpMessage = 'The table array to process'
         )]
+        [Alias('AdditionalInfo')]
         [string[]] $Rows,
 
         [Parameter(

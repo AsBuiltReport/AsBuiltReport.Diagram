@@ -1,50 +1,82 @@
-name: Run Pester Tests
+name: Pester Tests
 
 on:
-    push:
-        branches: ["dev", "main"]
-    pull_request:
-        branches: ["dev"]
+  push:
+    branches: ["dev", "main"]
+  pull_request:
+    branches: ["dev"]
+  workflow_dispatch:
 
 jobs:
-    test:
-        runs-on: windows-latest
-        steps:
-            - uses: actions/checkout@v6
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        shell: [pwsh, powershell]
+        exclude:
+            - os: ubuntu-latest
+              shell: powershell
+            - os: macos-latest
+              shell: powershell
+    defaults:
+        run:
+            shell: ${{ matrix.shell }}
+    name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+            dotnet-version: "8.0.x"
+      - name: Restore dependencies Diagrammer
+        run: dotnet restore ./Sources/Diagrammer
+        if: matrix.shell == 'pwsh'
 
-            - name: Install PSGraph
-              shell: pwsh
-              run: Install-Module -Name PSGraph -Force -Scope CurrentUser
+      - name: Restore dependencies DiaConvertImageToPDF
+        run: dotnet restore ./Sources/DiaConvertImageToPDF
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
-            - name: Install Graphviz
-              uses: tlylt/install-graphviz@v1
-              if: runner.os != 'Windows'
+      - name: Build the library PWSH
+        run: dotnet publish ./Sources/Diagrammer -c Release
+        if: matrix.shell == 'pwsh'
+      - name: Copy the library PWSH
+        run: Copy-Item -Path ./Sources/Diagrammer/bin/Release/net8.0/publish/* -Destination ./Src/Bin/Assemblies/net80 -Recurse
+        if: matrix.shell == 'pwsh'
 
-            - name: Run Pester tests
-              uses: PSModule/Invoke-Pester@v4
-              id: action-test
-              with:
-                  Path: "./Tests"
-                  TestResult_Enabled: "true"
-                  TestResult_OutputPath: "./test-results.xml"
-                  CodeCoverage_Enabled: "true"
-                  CodeCoverage_Path: "./Src"
-                  CodeCoverage_OutputPath: "./coverage.xml"
-                  CodeCoverage_OutputFormat: "JaCoCo"
-                  Prescript: |
-                      Import-Module PSGraph
+      - name: Build the library for Windows PowerShell
+        run: dotnet publish ./Sources/DiaConvertImageToPDF -c Release
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
+      - name: Copy the library for Windows PowerShell
+        run: Copy-Item -Path ./Sources/DiaConvertImageToPDF/bin/Release/net48/publish/* -Destination ./Src/Bin/Assemblies/net48 -Recurse
+        if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
-            - name: Process test results
-              if: always()
-              run: |
-                  Write-Output "Total tests: ${{ steps.action-test.outputs.TotalCount }}"
-                  Write-Output "Passed tests: ${{ steps.action-test.outputs.PassedCount }}"
-                  Write-Output "Failed tests: ${{ steps.action-test.outputs.FailedCount }}"
-                  Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
-                  Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
-                  Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
-              shell: pwsh
+      - name: Install PSGraph
+        run: Install-Module -Name PSGraph -Force -Scope CurrentUser
 
-            - name: Take action based on test outcome
-              if: steps.action-test.outputs.Result == 'Passed'
-              run: echo "All tests passed! Ready to proceed with deployment."
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+        if: runner.os != 'Windows'
+
+      - name: Run Pester tests - PWSH
+        uses: PSModule/Invoke-Pester@v4
+        id: action-test
+        with:
+          Path: "./Tests"
+          Prescript: |
+            Import-Module PSGraph
+
+      - name: Process test results
+        if: always()
+        run: |
+          Write-Output "Total tests: ${{ steps.action-test.outputs.TotalCount }}"
+          Write-Output "Passed tests: ${{ steps.action-test.outputs.PassedCount }}"
+          Write-Output "Failed tests: ${{ steps.action-test.outputs.FailedCount }}"
+          Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
+          Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
+          Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
+
+      - name: Take action based on test outcome
+        if: steps.action-test.outputs.Result == 'Passed'
+        run: echo "All tests passed! Ready to proceed with deployment."

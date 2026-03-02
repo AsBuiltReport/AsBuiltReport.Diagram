@@ -160,12 +160,12 @@ $example14 = & {
 
             <#
                 This section creates connections between the nodes in a hierarchical layout.
-                The Edge statements create connections between the nodes. (Edge is a reserved word in the PSGraph module)
-                https://psgraph.readthedocs.io/en/latest/Command-Edge/
+                The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
+                https://github.com/rebelinux/Diagrammer.Core
             #>
 
-            Edge -From 'Web-Server-Farm' -To 'App-Server-01' @{label = 'gRPC'; color = 'black'; fontsize = 14; fontcolor = 'black'; minlen = 3 }
-            Edge -From 'App-Server-01' -To 'Db-Server-01' @{label = 'SQL'; color = 'black'; fontsize = 14; fontcolor = 'black'; minlen = 3 }
+            Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -184,7 +184,7 @@ $example14 = & {
 
             Add-DiaNodeIcon -Name 'Core-Router' -AdditionalInfo $RouterInfo -ImagesObj $Images -IconType 'Router' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
-            Edge -From 'Core-Router' -To 'Web-Server-Farm' @{label = 'GE0/0'; color = 'black'; fontsize = 18; fontcolor = 'black'; minlen = 2 }
+            Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of Diagrammer.Core module).
@@ -210,7 +210,7 @@ $example14 = & {
 
             Add-DiaHtmlTable -Name 'RouterNetworkInfo' -Rows $RouterNetworkInfo -NodeObject -ColumnSize 2 -TableBorder 1 -TableBorderColor 'black' -FontSize 14 -Subgraph -SubgraphLabel 'Interfaces Table' -SubgraphLabelPos 'top' -SubgraphTableStyle 'solid,rounded' -SubgraphLabelFontsize 20 -SubgraphFontUnderline -SubgraphFontBold -DraftMode:$DraftMode -TableBackgroundColor 'lightblue'
 
-            Edge -From 'Core-Router' -To 'RouterNetworkInfo' @{color = 'black'; fontsize = 18; fontcolor = 'black'; minlen = 1; style = 'filled'; arrowhead = 'none'; arrowtail = 'none' }
+            Add-DiaNodeEdge -From 'Core-Router' -To 'RouterNetworkInfo' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 1 -Arrowhead 'none' -Arrowtail 'none' -GraphvizAttributes @{style = 'filled' }
 
             Rank 'Core-Router', 'RouterNetworkInfo'
 
@@ -232,8 +232,8 @@ $example14 = & {
 
             Add-DiaNodeShape -Name 'Firewall' -Shape rectangle -ShapeStyle 'filled' -ShapeFillColor 'red:white' -ShapeFontSize 14 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeWidth 3 -ShapeLabelPosition center -ShapeLineColor 'black' -DraftMode:$DraftMode
 
-            Edge -From 'WAN' -To 'Firewall' @{labeldistance = 5; headlabel = 'port1'; color = 'black'; fontsize = 18; fontcolor = 'black'; minlen = 2; arrowhead = 'normal'; arrowtail = 'normal' }
-            Edge -From 'Firewall' -To 'Core-Router' @{labeldistance = 4; headlabel = 'Serial0/0'; taillabel = 'port2'; color = 'black'; fontsize = 18; fontcolor = 'black'; minlen = 2; arrowhead = 'normal'; arrowtail = 'normal' }
+            Add-DiaNodeEdge -From 'WAN' -To 'Firewall' -HeadLabel 'port1' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -Arrowhead 'normal' -Arrowtail 'normal' -LabelDistance 5 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-DiaNodeEdge -From 'Firewall' -To 'Core-Router' -HeadLabel 'Serial0/0' -TailLabel 'port2' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -Arrowhead 'normal' -Arrowtail 'normal' -LabelDistance 4 -EdgeThickness 3 -EdgeStyle 'dashed'
         }
     }
 }

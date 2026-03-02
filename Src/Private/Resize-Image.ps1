@@ -45,7 +45,7 @@ function Resize-Image {
                     Test-Path $_
                 }
             })]
-        [String[]]$ImagePath,
+        [System.IO.FileInfo[]]$ImagePath,
         [Parameter(
             Mandatory = $True,
             HelpMessage = 'Please provide the path to the image output file'
@@ -118,7 +118,7 @@ function Resize-Image {
 
             switch ($PSVersionTable.Platform) {
                 'Unix' {
-                    $NewImage = [Diagrammer.ImageProcessor]::ResizeImageFromFile($ImagePath, $Width, $Height, $OutputPath)
+                    $NewImage = Get-ResizeImageFromFile -SourceImageFilePath $Image -NewWidth $Width -NewHeight $Height -OutputImageFilePath $OutputPath
                 }
                 default {
                     $Bitmap = New-Object -TypeName System.Drawing.Bitmap -ArgumentList $Width, $Height

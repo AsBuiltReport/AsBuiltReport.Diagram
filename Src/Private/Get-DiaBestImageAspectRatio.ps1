@@ -5,10 +5,14 @@ function Get-DiaBestImageAspectRatio {
     .DESCRIPTION
         This allow the diagram image to fit the report page margins
     .NOTES
-        Version:        0.2.37
+        Version:        0.2.39
         Author:         Jonathan Colon
     .EXAMPLE
+        Get-DiaBestImageAspectRatio -ImageInput "C:\Images\diagram.png" -MaxWidth 800 -MaxHeight 600
+
+        Returns the best aspect ratio for the specified image based on the maximum width and height.
     .LINK
+        https://github.com/rebelinux/Diagrammer.Core
     #>
     [CmdletBinding()]
     [OutputType([Hashtable])]
@@ -71,10 +75,10 @@ function Get-DiaBestImageAspectRatio {
             switch ($PSVersionTable.Platform) {
                 'Unix' {
                     & {
-                        if ([Diagrammer.ImageProcessor]) {
-                            $Image.Width = [Diagrammer.ImageProcessor]::GetImageWidthFromBase64($GraphObj)
-                            $Image.Height = [Diagrammer.ImageProcessor]::GetImageHeightFromBase64($GraphObj)
-                        } else {
+                        try {
+                            $Image.Width = Get-ImageWidthFromBase64 -Base64 $GraphObj
+                            $Image.Height = Get-ImageHeightFromBase64 -Base64 $GraphObj
+                        } catch {
                             throw 'Unable to convert Graphviz object to base64 format needed to get image dimensions'
                         }
                     }
@@ -97,11 +101,11 @@ function Get-DiaBestImageAspectRatio {
                 switch ($PSVersionTable.Platform) {
                     'Unix' {
                         & {
-                            if ([Diagrammer.ImageProcessor]) {
-                                $Image.Width = [Diagrammer.ImageProcessor]::GetImageWidthFromFile((Get-ChildItem -Path $ImageInput).FullName)
-                                $Image.Height = [Diagrammer.ImageProcessor]::GetImageHeightFromFile((Get-ChildItem -Path $ImageInput).FullName)
-                            } else {
-                                throw 'Unable to get image dimensions on Unix platforms.'
+                            try {
+                                $Image.Width = Get-ImageWidthFromFile -SourceImageFilePath (Get-ChildItem -Path $ImageInput).FullName
+                                $Image.Height = Get-ImageHeightFromFile -SourceImageFilePath (Get-ChildItem -Path $ImageInput).FullName
+                            } catch {
+                                throw 'Unable to read image dimensions from file'
                             }
                         }
                     }
@@ -110,7 +114,7 @@ function Get-DiaBestImageAspectRatio {
                     }
                 }
             } catch {
-                Write-Verbose -Message 'Unable to validate image path needed to get image dimensions'
+                Write-Verbose -Message 'Unable to read image dimensions from file'
                 Write-Debug -Message $($_.Exception.Message)
             }
         }
