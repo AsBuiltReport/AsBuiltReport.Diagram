@@ -105,7 +105,7 @@ function Get-DiaBestImageAspectRatio {
                                 $Image.Width = Get-ImageWidthFromFile((Get-ChildItem -Path $ImageInput).FullName)
                                 $Image.Height = Get-ImageHeightFromFile((Get-ChildItem -Path $ImageInput).FullName)
                             } catch {
-                                throw 'Unable to convert image file to base64 format needed to get image dimensions'
+                                throw 'Unable to read image dimensions from file'
                             }
                         }
                     }
@@ -114,7 +114,7 @@ function Get-DiaBestImageAspectRatio {
                     }
                 }
             } catch {
-                Write-Verbose -Message 'Unable to convert image file to base64 format needed to get image dimensions'
+                Write-Verbose -Message 'Unable to read image dimensions from file'
                 Write-Debug -Message $($_.Exception.Message)
             }
         }
