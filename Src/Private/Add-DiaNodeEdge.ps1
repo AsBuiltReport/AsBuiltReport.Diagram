@@ -296,6 +296,7 @@ function Add-DiaNodeEdge {
 
         } catch {
             Write-Verbose -Message $_.Exception.Message
+            Write-Error -Message $_.Exception.Message
         }
     }
 
