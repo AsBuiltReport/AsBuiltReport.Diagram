@@ -228,7 +228,7 @@ function Add-DiaNodeEdge {
 
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Distance factor for HeadLabel and TailLabel from the node. Valid range is 0 to 10. Default is 1.'
+            HelpMessage = 'Sets the minimum edge length (minlen) in rank units. Controls the minimum number of ranks between connected nodes. Valid range is 0 to 10. Default is 1.'
         )]
         [ValidateRange(0, 10)]
         [double] $EdgeLength = 1,
