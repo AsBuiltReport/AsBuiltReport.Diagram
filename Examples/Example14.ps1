@@ -164,8 +164,8 @@ $example14 = & {
                 https://github.com/rebelinux/Diagrammer.Core
             #>
 
-            Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3
-            Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3
+            Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -184,7 +184,7 @@ $example14 = & {
 
             Add-DiaNodeIcon -Name 'Core-Router' -AdditionalInfo $RouterInfo -ImagesObj $Images -IconType 'Router' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
-            Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2
+            Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of Diagrammer.Core module).
@@ -210,7 +210,7 @@ $example14 = & {
 
             Add-DiaHtmlTable -Name 'RouterNetworkInfo' -Rows $RouterNetworkInfo -NodeObject -ColumnSize 2 -TableBorder 1 -TableBorderColor 'black' -FontSize 14 -Subgraph -SubgraphLabel 'Interfaces Table' -SubgraphLabelPos 'top' -SubgraphTableStyle 'solid,rounded' -SubgraphLabelFontsize 20 -SubgraphFontUnderline -SubgraphFontBold -DraftMode:$DraftMode -TableBackgroundColor 'lightblue'
 
-            Add-DiaNodeEdge -From 'Core-Router' -To 'RouterNetworkInfo' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 1 -Arrowhead 'none' -Arrowtail 'none' -GraphvizAttributes @{style = 'filled'}
+            Add-DiaNodeEdge -From 'Core-Router' -To 'RouterNetworkInfo' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 1 -Arrowhead 'none' -Arrowtail 'none' -GraphvizAttributes @{style = 'filled' }
 
             Rank 'Core-Router', 'RouterNetworkInfo'
 
@@ -232,8 +232,8 @@ $example14 = & {
 
             Add-DiaNodeShape -Name 'Firewall' -Shape rectangle -ShapeStyle 'filled' -ShapeFillColor 'red:white' -ShapeFontSize 14 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeWidth 3 -ShapeLabelPosition center -ShapeLineColor 'black' -DraftMode:$DraftMode
 
-            Add-DiaNodeEdge -From 'WAN' -To 'Firewall' -HeadLabel 'port1' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -Arrowhead 'normal' -Arrowtail 'normal' -LabelDistance 5
-            Add-DiaNodeEdge -From 'Firewall' -To 'Core-Router' -HeadLabel 'Serial0/0' -TailLabel 'port2' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -Arrowhead 'normal' -Arrowtail 'normal' -LabelDistance 4
+            Add-DiaNodeEdge -From 'WAN' -To 'Firewall' -HeadLabel 'port1' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -Arrowhead 'normal' -Arrowtail 'normal' -LabelDistance 5 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-DiaNodeEdge -From 'Firewall' -To 'Core-Router' -HeadLabel 'Serial0/0' -TailLabel 'port2' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -Arrowhead 'normal' -Arrowtail 'normal' -LabelDistance 4 -EdgeThickness 3 -EdgeStyle 'dashed'
         }
     }
 }

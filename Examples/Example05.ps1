@@ -109,8 +109,8 @@ $example5 = & {
             https://github.com/rebelinux/Diagrammer.Core
         #>
 
-        Add-DiaNodeEdge -From Web01 -To App01 -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
-        Add-DiaNodeEdge -From App01 -To DB01 -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
+        Add-DiaNodeEdge -From Web01 -To App01 -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-DiaNodeEdge -From App01 -To DB01 -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
     }
 }
 

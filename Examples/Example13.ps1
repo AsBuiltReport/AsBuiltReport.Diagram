@@ -164,8 +164,8 @@ $example13 = & {
                 https://github.com/rebelinux/Diagrammer.Core
             #>
 
-            Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3
-            Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3
+            Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -184,7 +184,7 @@ $example13 = & {
 
             Add-DiaNodeIcon -Name 'Core-Router' -AdditionalInfo $RouterInfo -ImagesObj $Images -IconType 'Router' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
-            Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2
+            Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of Diagrammer.Core module).
@@ -195,7 +195,7 @@ $example13 = & {
 
             Add-DiaNodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Cloud' -IconPath $IconPath -ImageSizePercent 30 -NodeObject -DraftMode:$DraftMode
 
-            Add-DiaNodeEdge -From 'WAN' -To 'Core-Router' -EdgeLabel 'Serial0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2
+            Add-DiaNodeEdge -From 'WAN' -To 'Core-Router' -EdgeLabel 'Serial0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 The Add-DiaHtmlTable cmdlet is used to create a list table to display additional information about a object.
