@@ -112,7 +112,7 @@ function Get-DiaImagePercent {
                         & {
                             $ImageFromFile.Width = Get-ImageWidthFromFile -SourceImageFilePath ((Get-ChildItem -Path $ImageInput).FullName)
                             $ImageFromFile.Height = Get-ImageHeightFromFile -SourceImageFilePath ((Get-ChildItem -Path $ImageInput).FullName)
-                            if (-not $ImageFromFile.Width -or -not $ImageFromFile.Height) {
+                            if ($ImageFromFile.Width -le 0 -or $ImageFromFile.Height -le 0) {
                                 throw 'Unable to get image dimensions on Unix platforms.'
                             }
                         }
