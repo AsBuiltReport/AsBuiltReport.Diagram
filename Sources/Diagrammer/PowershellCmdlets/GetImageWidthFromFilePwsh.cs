@@ -20,7 +20,7 @@ namespace Diagrammer.PowerShell
                     if (SourceImageFilePath.Exists)
                     {
                         int imageWidth = ImageProcessor.GetImageWidthFromFile(SourceImageFilePath.FullName);
-                        if (imageWidth != 0)
+                        if (imageWidth > 0)
                         {
                             WriteObject(imageWidth);
                         }
