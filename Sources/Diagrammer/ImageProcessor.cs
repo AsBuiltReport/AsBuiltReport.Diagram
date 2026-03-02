@@ -40,8 +40,7 @@ namespace Diagrammer
         {
             try
             {
-                using var image = Image.Load(imagePath);
-                return image;
+                return Image.Load(imagePath);
             }
             catch (Exception ex)
             {
