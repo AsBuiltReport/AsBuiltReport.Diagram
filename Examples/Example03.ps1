@@ -46,7 +46,7 @@ $example3 = & {
         The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
         https://github.com/rebelinux/Diagrammer.Core
 
-        ** The minlen attribute is used to increase the minimum length of the edge lines. **
+        ** The EdgeLength attribute is used to increase the minimum length of the edge lines. **
     #>
 
     Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
