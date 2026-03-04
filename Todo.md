@@ -14,16 +14,6 @@
 
 ## Low Priority
 
-- [ ] Create Pester tests for:
-  - [ ] Add-DiaCrossShapeLine
-  - [ ] Add-DiaTShapeLine
-  - [ ] Add-DiaRightTShapeLine
-  - [ ] Add-DiaInvertedLShapeLine
-  - [ ] Add-DiaInvertedTShapeLine
-  - [ ] Add-DiaLeftTShapeLine
-  - [ ] Add-DiaLShapeLine
-  - [ ] Add-DiaRightLShapeLine
-  - [ ] Add-DiaLeftLShapeLine
 - [ ] Add Documentation (use pscribo as example)
   - [ ] Add ShapeLine example
 - [ ] Add option to set icon size by percent
