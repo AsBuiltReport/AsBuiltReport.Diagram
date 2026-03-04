@@ -39,8 +39,8 @@ $RootPath = $PSScriptRoot
 #>
 
 $script:Images = @{
-    'Main_Logo'  = 'Diagrammer.png'
-    'Server'     = 'Server.png'
+    'Main_Logo' = 'Diagrammer.png'
+    'Server' = 'Server.png'
     'Logo_Footer' = 'Signature_Logo.png'
 }
 
@@ -97,6 +97,7 @@ $example17 = & {
 
             Edge -From 'L-Server-Top' -To 'L-JunctionUp' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'steelblue'; penwidth = 2 }
             Edge -From 'L-JunctionRight' -To 'L-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'steelblue'; penwidth = 2 }
+            Rank 'L-JunctionRight', 'L-Server-Right'
         }
 
         <#
@@ -127,6 +128,7 @@ $example17 = & {
             Add-DiaLeftLShapeLine -LeftLShapeUp 'LL-JunctionUp' -LeftLShapeDown 'LL-JunctionDown' -LeftLShapeLeft 'LL-JunctionLeft' -LineColor 'darkorange' -LineWidth 2 -LeftLShapeUpLineLength 2 -LeftLShapeLeftLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'LL-Server-Left' -To 'LL-JunctionLeft' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkorange'; penwidth = 2 }
+            Rank 'LL-Server-Left', 'LL-JunctionLeft'
             Edge -From 'LL-JunctionDown' -To 'LL-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkorange'; penwidth = 2 }
         }
 
@@ -159,6 +161,8 @@ $example17 = & {
 
             Edge -From 'RL-JunctionRight' -To 'RL-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkgreen'; penwidth = 2 }
             Edge -From 'RL-JunctionDown' -To 'RL-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkgreen'; penwidth = 2 }
+
+            Rank 'RL-Server-Right', 'RL-JunctionRight'
         }
     }
 
@@ -193,6 +197,8 @@ $example17 = & {
 
             Edge -From 'IL-JunctionRight' -To 'IL-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'purple'; penwidth = 2 }
             Edge -From 'IL-JunctionDown' -To 'IL-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'purple'; penwidth = 2 }
+
+            Rank 'IL-Server-Right', 'IL-JunctionRight'
         }
     }
 
@@ -232,6 +238,9 @@ $example17 = & {
             Edge -From 'T-Server-Left' -To 'T-JunctionLeft' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'firebrick'; penwidth = 2 }
             Edge -From 'T-JunctionRight' -To 'T-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'firebrick'; penwidth = 2 }
             Edge -From 'T-JunctionMiddleDown' -To 'T-Server-Down' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'firebrick'; penwidth = 2 }
+
+            Rank 'T-Server-Left', 'T-JunctionLeft'
+            Rank 'T-Server-Right', 'T-JunctionRight'
         }
 
         <#
@@ -269,6 +278,9 @@ $example17 = & {
             Edge -From 'IT-Server-Left' -To 'IT-JunctionStart' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'teal'; penwidth = 2 }
             Edge -From 'IT-JunctionEnd' -To 'IT-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'teal'; penwidth = 2 }
             Edge -From 'IT-Server-Top' -To 'IT-JunctionMiddleTop' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'teal'; penwidth = 2 }
+
+            Rank 'IT-Server-Left', 'IT-JunctionStart'
+            Rank 'IT-Server-Right', 'IT-JunctionEnd'
         }
     }
 
@@ -309,7 +321,9 @@ $example17 = & {
 
             Edge -From 'LT-Server-Top' -To 'LT-JunctionUp' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'indigo'; penwidth = 2 }
             Edge -From 'LT-JunctionDown' -To 'LT-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'indigo'; penwidth = 2 }
-            Edge -From 'LT-JunctionMiddleLeft' -To 'LT-Server-Left' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'indigo'; penwidth = 2 }
+            Edge -From 'LT-Server-Left' -To 'LT-JunctionMiddleLeft' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'indigo'; penwidth = 2 }
+
+            Rank 'LT-Server-Left', 'LT-JunctionMiddleLeft'
         }
 
         <#
@@ -348,6 +362,8 @@ $example17 = & {
             Edge -From 'RT-Server-Top' -To 'RT-JunctionUp' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'saddlebrown'; penwidth = 2 }
             Edge -From 'RT-JunctionDown' -To 'RT-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'saddlebrown'; penwidth = 2 }
             Edge -From 'RT-JunctionMiddleRight' -To 'RT-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'saddlebrown'; penwidth = 2 }
+
+            Rank 'RT-Server-Right', 'RT-JunctionMiddleRight'
         }
     }
 
@@ -394,6 +410,9 @@ $example17 = & {
             Edge -From 'X-JunctionEnd' -To 'X-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkred'; penwidth = 2 }
             Edge -From 'X-Server-Top' -To 'X-JunctionTop' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkred'; penwidth = 2 }
             Edge -From 'X-JunctionDown' -To 'X-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkred'; penwidth = 2 }
+
+            Rank 'X-Server-Left', 'X-JunctionStart'
+            Rank 'X-Server-Right', 'X-JunctionEnd'
         }
     }
 }
