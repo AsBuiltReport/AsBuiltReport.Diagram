@@ -41,6 +41,15 @@ Describe Export-Diagrammer {
             GraphObj = $dotSource
             OutputFolderPath = $TestDrive
         }
+        $GraphvizOutputSVGWithWatermark = @{
+            FileName = 'Diagrammer-Watermark.svg'
+            Format = 'svg'
+            GraphObj = $dotSource
+            OutputFolderPath = $TestDrive
+            WaterMarkText = 'Confidential'
+            WaterMarkColor = 'DarkGray'
+            WaterMarkFontOpacity = 40
+        }
         $GraphvizOutputDot = @{
             FileName = 'Diagrammer.dot'
             Format = 'dot'
@@ -101,6 +110,11 @@ Describe Export-Diagrammer {
     It 'Should return Diagrammer.svg full path' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVG
         ($GraphvizOutput).FullName | Should -Exist
+    }
+    It 'Should include watermark text in SVG output' -Skip:(-not (Get-Command -Name New-WatermarkToSvg -ErrorAction SilentlyContinue)) {
+        $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVGWithWatermark
+        ($GraphvizOutput).FullName | Should -Exist
+        (Get-Content -Path $GraphvizOutput.FullName -Raw) | Should -Match 'Confidential'
     }
     It 'Should return Diagrammer.dot full path' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputDot

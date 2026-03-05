@@ -16,6 +16,13 @@ Describe ConvertTo-Svg {
             GraphObj = $GraphvizObj
             DestinationPath = Join-Path $TestDrive 'output.svg'
         }
+        $PassParamsWatermark = @{
+            GraphObj = $GraphvizObj
+            DestinationPath = Join-Path $TestDrive 'output-watermark.svg'
+            WaterMarkText = 'Confidential'
+            WaterMarkColor = 'DarkGray'
+            WaterMarkFontOpacity = 40
+        }
         $FailParams = @{
             GraphObj = $GraphvizObj
             DestinationPath = 'TestDriv:\output.svg'
@@ -28,5 +35,14 @@ Describe ConvertTo-Svg {
     It 'Should Not return output.svg path' {
         $scriptBlock = { ConvertTo-Svg @FailParams }
         $scriptBlock | Should -Not -Exist
+    }
+
+    It 'Should include watermark text in svg output' {
+        if (-not (Get-Command -Name New-WatermarkToSvg -ErrorAction SilentlyContinue)) {
+            Set-ItResult -Skipped -Because 'New-WatermarkToSvg cmdlet is not available in the loaded Diagrammer assembly.'
+        }
+        $result = ConvertTo-Svg @PassParamsWatermark
+        $result.FullName | Should -Exist
+        (Get-Content -Path $result.FullName -Raw) | Should -Match 'Confidential'
     }
 }

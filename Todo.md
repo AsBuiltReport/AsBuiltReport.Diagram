@@ -14,13 +14,11 @@
 
 ## Low Priority
 
-- [ ] Add Documentation (use pscribo as example)
-  - [ ] Add ShapeLine example
 - [ ] Add option to set icon size by percent
   - [ ] Add pester to test this funtionality
 - [x] Add NodeObject support see Add-DiaHTMLTable as example (use Join-Hashtable)
   - [ ] Add pester to test this funtionality
-- [ ] Add support for Watermark in SVG output format
-  - [ ] Use the Diagrammer c# package to add watermark support
+- [x] Add support for Watermark in SVG output format
+  - [x] Use the Diagrammer c# package to add watermark support
 - [ ] Add-DiaNodeImage
   - [ ] Add option to set image opacity in percent

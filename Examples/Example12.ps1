@@ -208,4 +208,4 @@ $example12 = & {
     -WaterMarkColor parameter sets the color of the watermark text.
 #>
 
-New-Diagrammer -InputObject $example12 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example12 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -WaterMarkText 'Confidential' -WaterMarkColor 'DarkGray' -WaterMarkFontOpacity 40 -DraftMode:$DraftMode
+New-Diagrammer -InputObject $example12 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example12 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -WaterMarkText 'Confidential' -WaterMarkColor 'DarkGray' -WaterMarkFontOpacity 70 -DraftMode:$DraftMode

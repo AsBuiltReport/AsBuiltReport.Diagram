@@ -1,2 +1,2 @@
-- [ ] Add support for Watermark in SVG output format
-    - [ ] Use the Diagrammer c# package to add watermark support
+- [x] Add support for Watermark in SVG output format
+    - [x] Use the Diagrammer c# package to add watermark support

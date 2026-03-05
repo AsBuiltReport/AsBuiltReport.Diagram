@@ -5,7 +5,7 @@ function Export-Diagrammer {
 
     .DESCRIPTION
         The Export-Diagrammer function exports a diagram in PDF, PNG, SVG, or base64 formats using PSgraph.
-        It supports adding watermarks to the output image (except for SVG and PDF formats) and allows for
+        It supports adding watermarks to the output image and allows for
         rotating the diagram output image.
 
     .PARAMETER GraphObj
@@ -32,7 +32,7 @@ function Export-Diagrammer {
 
     .PARAMETER WaterMarkText
         The text to be used as a watermark on the output image. This parameter is optional and not supported for
-        SVG and PDF formats.
+        DOT format.
 
     .PARAMETER WaterMarkColor
         The color of the watermark text. The default color is 'Red'. This parameter is optional.
@@ -114,7 +114,7 @@ function Export-Diagrammer {
         [Parameter(
             Position = 7,
             Mandatory = $false,
-            HelpMessage = 'Allow to add a watermark to the output image (Not supported in svg format)'
+            HelpMessage = 'Allow to add a watermark to the output image (Not supported in dot format)'
         )]
         [string] $WaterMarkText,
 
@@ -174,10 +174,7 @@ function Export-Diagrammer {
             $DestinationPath = Join-Path -Path $OutputFolderPath -ChildPath $FileName
 
             if ($Format -eq 'svg') {
-                if ($WaterMarkText) {
-                    Write-Verbose -Message 'WaterMark option is not supported with the svg format.'
-                }
-                ConvertTo-Svg -GraphObj $GraphObj -DestinationPath $DestinationPath -Angle $Rotate
+                ConvertTo-Svg -GraphObj $GraphObj -DestinationPath $DestinationPath -Angle $Rotate -WaterMarkText $WaterMarkText -WaterMarkColor $WaterMarkColor -WaterMarkFontOpacity $WaterMarkFontOpacity
             } elseif ($Format -eq 'dot') {
                 if ($WaterMarkText) {
                     Write-Verbose -Message 'WaterMark option is not supported with the dot format.'

@@ -34,7 +34,28 @@ function ConvertTo-Svg {
             Mandatory = $false,
             HelpMessage = 'Please provide the angle degree to rotate svg image'
         )]
-        [string] $Angle
+        [string] $Angle,
+
+        [Parameter(
+            Position = 3,
+            Mandatory = $false,
+            HelpMessage = 'Allow to add a watermark to the SVG output image'
+        )]
+        [string] $WaterMarkText,
+
+        [Parameter(
+            Position = 4,
+            Mandatory = $false,
+            HelpMessage = 'Allow to specify the color used for the watermark text'
+        )]
+        [string] $WaterMarkColor = 'Red',
+
+        [Parameter(
+            Position = 5,
+            Mandatory = $false,
+            HelpMessage = 'Allow to specify the font opacity used for the watermark text'
+        )]
+        [int] $WaterMarkFontOpacity = 30
     )
     process {
 
@@ -63,6 +84,16 @@ function ConvertTo-Svg {
                 $iconEncoded = [convert]::ToBase64String($iconContents)
                 ((Get-Content -Path $($Document.fullname) -Raw) -replace $iconName, "data:image/png;base64,$($iconEncoded)") | Set-Content -Path $($Document.fullname)
             }
+
+            if ($WaterMarkText) {
+                if (Get-Command -Name 'New-WatermarkToSvg' -ErrorAction SilentlyContinue) {
+                    $opacity = [Math]::Clamp(($WaterMarkFontOpacity / 100), 0, 1)
+                    $null = New-WatermarkToSvg -SourceSvgFilePath $Document.FullName -WatermarkText $WaterMarkText -OutputSvgFilePath $Document.FullName -WatermarkTextFontColor $WaterMarkColor -WatermarkTextOpacity $opacity
+                } else {
+                    Write-Verbose -Message 'WaterMark option requires New-WatermarkToSvg cmdlet from Diagrammer assembly.'
+                }
+            }
+
             if ($DeleteImage) {
                 if ($Document) {
                     Remove-Item -Path $Document
