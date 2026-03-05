@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://github.com/rebelinux/AsBuiltReport.Diagram" alt="Diagrammer"></a>
-            <img src='https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/dev/Tools/Icons/Diagrammer.png' width="15%" height="15%" /></a>
+    <a href="https://www.asbuiltreport.com/" alt="AsBuiltReport"></a>
+            <img src='https://avatars.githubusercontent.com/u/42958564' width="8%" height="8%" /></a>
 </p>
 <p align="center">
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PowerShell Gallery Version">
