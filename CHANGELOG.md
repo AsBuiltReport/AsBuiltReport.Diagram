@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.40] - 2026-03-??
 
+### :toolbox: Added
+
+- Add WaterMark support to SVG output format
+  - Use the Diagrammer c# package to add watermark support to SVG output format
+
 ### :arrows_clockwise: Changed
 
 - Update Release.yml to remove Sources directory during cleanup
