@@ -1,22 +1,22 @@
 <p align="center">
-    <a href="https://github.com/rebelinux/Diagrammer.Core" alt="Diagrammer"></a>
-            <img src='https://raw.githubusercontent.com/rebelinux/Diagrammer.Core/dev/Tools/Icons/Diagrammer.png' width="15%" height="15%" /></a>
+    <a href="https://github.com/rebelinux/AsBuiltReport.Diagram" alt="Diagrammer"></a>
+            <img src='https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/dev/Tools/Icons/Diagrammer.png' width="15%" height="15%" /></a>
 </p>
 <p align="center">
-    <a href="https://www.powershellgallery.com/packages/Diagrammer.Core/" alt="PowerShell Gallery Version">
-        <img src="https://img.shields.io/powershellgallery/v/Diagrammer.Core.svg" /></a>
-    <a href="https://www.powershellgallery.com/packages/Diagrammer.Core/" alt="PS Gallery Downloads">
-        <img src="https://img.shields.io/powershellgallery/dt/Diagrammer.Core.svg" /></a>
-    <a href="https://www.powershellgallery.com/packages/Diagrammer.Core/" alt="PS Platform">
-        <img src="https://img.shields.io/powershellgallery/p/Diagrammer.Core.svg" /></a>
+    <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PowerShell Gallery Version">
+        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.Diagram.svg" /></a>
+    <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PS Gallery Downloads">
+        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.Diagram.svg" /></a>
+    <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PS Platform">
+        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.Diagram.svg" /></a>
 </p>
 <p align="center">
-    <a href="https://github.com/rebelinux/Diagrammer.Core/graphs/commit-activity" alt="GitHub Last Commit">
-        <img src="https://img.shields.io/github/last-commit/rebelinux/Diagrammer.Core/master.svg" /></a>
-    <a href="https://raw.githubusercontent.com/rebelinux/Diagrammer.Core/master/LICENSE" alt="GitHub License">
-        <img src="https://img.shields.io/github/license/rebelinux/Diagrammer.Core.svg" /></a>
-    <a href="https://github.com/rebelinux/Diagrammer.Core/graphs/contributors" alt="GitHub Contributors">
-        <img src="https://img.shields.io/github/contributors/rebelinux/Diagrammer.Core.svg"/></a>
+    <a href="https://github.com/rebelinux/AsBuiltReport.Diagram/graphs/commit-activity" alt="GitHub Last Commit">
+        <img src="https://img.shields.io/github/last-commit/rebelinux/AsBuiltReport.Diagram/master.svg" /></a>
+    <a href="https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/master/LICENSE" alt="GitHub License">
+        <img src="https://img.shields.io/github/license/rebelinux/AsBuiltReport.Diagram.svg" /></a>
+    <a href="https://github.com/rebelinux/AsBuiltReport.Diagram/graphs/contributors" alt="GitHub Contributors">
+        <img src="https://img.shields.io/github/contributors/rebelinux/AsBuiltReport.Diagram.svg"/></a>
 </p>
 <p align="center">
     <a href="https://twitter.com/rebelinux" alt="Twitter">
@@ -27,13 +27,13 @@
     <a href='https://ko-fi.com/F1F8DEV80' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://ko-fi.com/img/githubbutton_sm.svg' border='0' alt='Want to keep alive this project? Support me on Ko-fi' /></a>
 </p>
 
-# Diagrammer.Core
+# AsBuiltReport.Diagram
 
-Diagrammer.Core is a PowerShell module that provides a foundational framework for creating as-built diagrams of various datacenter systems. It serves as a required dependency for individual diagrammer modules, which generate diagrams tailored to specific products or technologies.
+AsBuiltReport.Diagram is a PowerShell module that provides a foundational framework for creating as-built diagrams of various datacenter systems. It serves as a required dependency for individual diagrammer modules, which generate diagrams tailored to specific products or technologies.
 
 # :beginner: Getting Started
 
-The following simple list of instructions will get you started with the Diagrammer.Core module.
+The following simple list of instructions will get you started with the AsBuiltReport.Diagram module.
 
 ## :floppy_disk: Supported Versions
 ### **PowerShell**
@@ -45,7 +45,7 @@ This module is compatible with the following PowerShell versions;
 
 ## :wrench: System Requirements
 
-PowerShell 5.1/7, and the following PowerShell modules are required for generating a Diagrammer.Core diagram.
+PowerShell 5.1/7, and the following PowerShell modules are required for generating a AsBuiltReport.Diagram diagram.
 
 - [PSGraph Module](https://github.com/KevinMarquette/PSGraph)
 
@@ -54,25 +54,25 @@ PowerShell 5.1/7, and the following PowerShell modules are required for generati
 ### PowerShell
 #### Online Installation
 
-For an online installation, install the `Diagrammer.Core` module using the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=Diagrammer.Core);
+For an online installation, install the `AsBuiltReport.Diagram` module using the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=AsBuiltReport.Diagram);
 
 ```powershell
-# Install Diagrammer.Core module
-Install-Module -Name 'Diagrammer.Core' -Repository 'PSGallery' -Scope 'CurrentUser'
+# Install AsBuiltReport.Diagram module
+Install-Module -Name 'AsBuiltReport.Diagram' -Repository 'PSGallery' -Scope 'CurrentUser'
 ```
 
 #### Offline Installation
 
 For an offline installation, perform the following steps from a machine with internet connectivity;
 
-Save the required `Diagrammer.Core` module to a specified folder.
+Save the required `AsBuiltReport.Diagram` module to a specified folder.
 
 ```powershell
-# Save Diagrammer.Core module
-Save-Module -Name 'Diagrammer.Core' -Repository 'PSGallery' -Path '<Folder Path>'
+# Save AsBuiltReport.Diagram module
+Save-Module -Name 'AsBuiltReport.Diagram' -Repository 'PSGallery' -Path '<Folder Path>'
 ```
 
-Copy the downloaded `Diagrammer.Core` module folder to a location that can be made accessible to the offline system.
+Copy the downloaded `AsBuiltReport.Diagram` module folder to a location that can be made accessible to the offline system.
 e.g. USB Flash Drive, Internal File Share etc.
 
 On the offline system, open a PowerShell console window and run the following command to determine the PowerShell module path.
@@ -83,17 +83,17 @@ On the offline system, open a PowerShell console window and run the following co
 $env:PSModulePath -Split ';'
 ```
 
-Copy the downloaded `Diagrammer.Core` module folder to a folder specified in the `$env:PSModulePath` output.
+Copy the downloaded `AsBuiltReport.Diagram` module folder to a folder specified in the `$env:PSModulePath` output.
 
 ### **GitHub**
-If you are unable to use the PowerShell Gallery, you can still install the `Diagrammer.Core` module manually. Ensure you repeat the following steps for the [system requirements](https://github.com/rebelinux/Diagrammer.Core#wrench-system-requirements) also.
+If you are unable to use the PowerShell Gallery, you can still install the `AsBuiltReport.Diagram` module manually. Ensure you repeat the following steps for the [system requirements](https://github.com/rebelinux/AsBuiltReport.Diagram#wrench-system-requirements) also.
 
-1. Download the [latest release](https://github.com/rebelinux/Diagrammer.Core/releases/latest) zip from GitHub
+1. Download the [latest release](https://github.com/rebelinux/AsBuiltReport.Diagram/releases/latest) zip from GitHub
 2. Extract the zip file
-3. Copy the folder `Diagrammer.Core` to a path that is set in `$env:PSModulePath`.
+3. Copy the folder `AsBuiltReport.Diagram` to a path that is set in `$env:PSModulePath`.
 4. For Windows users only, open a PowerShell terminal window and unblock the downloaded files with
     ```powershell
-    $path = (Get-Module -Name Diagrammer.Core -ListAvailable).ModuleBase; Unblock-File -Path $path\*.psd1; Unblock-File -Path $path\Src\Public\*.ps1; Unblock-File -Path $path\Src\Private\*.ps1
+    $path = (Get-Module -Name AsBuiltReport.Diagram -ListAvailable).ModuleBase; Unblock-File -Path $path\*.psd1; Unblock-File -Path $path\Src\Public\*.ps1; Unblock-File -Path $path\Src\Private\*.ps1
     ```
 5. Close and reopen the PowerShell terminal window.
 
@@ -135,11 +135,11 @@ brew install graphviz
 
 ## :books: Documentation
 
-The documentation for the `Diagrammer.Core` module can be found in the [Docs](https://diagrammer.techmyth.blog/).
+The documentation for the `AsBuiltReport.Diagram` module can be found in the [Docs](https://diagrammer.techmyth.blog/).
 
 ### :blue_book: Cmdlets Index
 
-All commands in the latest release of Diagrammer.Core can be found in the table below, each with a link to their documentation page.
+All commands in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
 
 | Name                                                                                                        | Description                                 | Version |
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- |
@@ -170,7 +170,7 @@ All commands in the latest release of Diagrammer.Core can be found in the table 
 
 ### :blue_book: Example Index
 
-All examples in the latest release of Diagrammer.Core can be found in the table below, each with a link to their documentation page.
+All examples in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
 
 | Name                                                                                      | Description                            | Module          |
 | ----------------------------------------------------------------------------------------- | -------------------------------------- | --------------- |
@@ -178,19 +178,19 @@ All examples in the latest release of Diagrammer.Core can be found in the table 
 | [Example2](https://diagrammer.techmyth.blog/dev-guide/examples/example2/)                 | Edge cmdlet                            | PSGraph         |
 | [Example3](https://diagrammer.techmyth.blog/dev-guide/examples/example3/)                 | Edge minlen attribute                  | PSGraph         |
 | [Example4](https://diagrammer.techmyth.blog/dev-guide/examples/example4/)                 | SubGraph cmdlet                        | PSGraph         |
-| [Example5](https://diagrammer.techmyth.blog/dev-guide/examples/example5/)                 | Add-DiaNodeIcon cmdlet                 | Diagrammer.Core |
-| [Example6](https://diagrammer.techmyth.blog/dev-guide/examples/example6/)                 | DraftMode feature                      | Diagrammer.Core |
+| [Example5](https://diagrammer.techmyth.blog/dev-guide/examples/example5/)                 | Add-DiaNodeIcon cmdlet                 | AsBuiltReport.Diagram |
+| [Example6](https://diagrammer.techmyth.blog/dev-guide/examples/example6/)                 | DraftMode feature                      | AsBuiltReport.Diagram |
 | [Example7](https://diagrammer.techmyth.blog/dev-guide/examples/example7/)                 | Rank cmdlet                            | PSGraph         |
-| [Example8](https://diagrammer.techmyth.blog/dev-guide/examples/example8/)                 | Add-DiaHTMLNodeTable cmdlet            | Diagrammer.Core |
-| [Example9](https://diagrammer.techmyth.blog/dev-guide/examples/example9/)                 | Add-DiaHTMLNodeTable MultiIcon feature | Diagrammer.Core |
-| [Example10](https://diagrammer.techmyth.blog/dev-guide/examples/example10/)               | Add-DiaNodeImage cmdlet                | Diagrammer.Core |
-| [Example11](https://diagrammer.techmyth.blog/dev-guide/examples/example11/)               | Add-DiaHTMLTable cmdlet                | Diagrammer.Core |
-| [Example12](https://diagrammer.techmyth.blog/dev-guide/examples/example12/)               | WaterMark feature                      | Diagrammer.Core |
-| [Example13](https://diagrammer.techmyth.blog/dev-guide/examples/example13/)               | Signature feature                      | Diagrammer.Core |
-| [Example14](https://diagrammer.techmyth.blog/dev-guide/examples/example14/)               | Add-DiaNodeShape cmdlet                | Diagrammer.Core |
-| [Example15](https://diagrammer.techmyth.blog/dev-guide/examples/example15/)               | Add-DiaNodeSpacer cmdlet               | Diagrammer.Core |
-| [AdvancedExample1](https://diagrammer.techmyth.blog/dev-guide/examples/advancedexample1/) | Add-DiaHTMLSubGraph cmdlet             | Diagrammer.Core |
-| [AdvancedExample2](https://diagrammer.techmyth.blog/dev-guide/examples/advancedexample2/) | Add-DiaNodeText cmdlet                 | Diagrammer.Core |
+| [Example8](https://diagrammer.techmyth.blog/dev-guide/examples/example8/)                 | Add-DiaHTMLNodeTable cmdlet            | AsBuiltReport.Diagram |
+| [Example9](https://diagrammer.techmyth.blog/dev-guide/examples/example9/)                 | Add-DiaHTMLNodeTable MultiIcon feature | AsBuiltReport.Diagram |
+| [Example10](https://diagrammer.techmyth.blog/dev-guide/examples/example10/)               | Add-DiaNodeImage cmdlet                | AsBuiltReport.Diagram |
+| [Example11](https://diagrammer.techmyth.blog/dev-guide/examples/example11/)               | Add-DiaHTMLTable cmdlet                | AsBuiltReport.Diagram |
+| [Example12](https://diagrammer.techmyth.blog/dev-guide/examples/example12/)               | WaterMark feature                      | AsBuiltReport.Diagram |
+| [Example13](https://diagrammer.techmyth.blog/dev-guide/examples/example13/)               | Signature feature                      | AsBuiltReport.Diagram |
+| [Example14](https://diagrammer.techmyth.blog/dev-guide/examples/example14/)               | Add-DiaNodeShape cmdlet                | AsBuiltReport.Diagram |
+| [Example15](https://diagrammer.techmyth.blog/dev-guide/examples/example15/)               | Add-DiaNodeSpacer cmdlet               | AsBuiltReport.Diagram |
+| [AdvancedExample1](https://diagrammer.techmyth.blog/dev-guide/examples/advancedexample1/) | Add-DiaHTMLSubGraph cmdlet             | AsBuiltReport.Diagram |
+| [AdvancedExample2](https://diagrammer.techmyth.blog/dev-guide/examples/advancedexample2/) | Add-DiaNodeText cmdlet                 | AsBuiltReport.Diagram |
 
 
 ## :x: Known Issues
