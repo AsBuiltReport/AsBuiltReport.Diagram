@@ -1,4 +1,4 @@
-# :arrows_clockwise: Diagrammer.Core Changelog
+# :arrows_clockwise: AsBuiltReport.Diagram Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -358,7 +358,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :bug: Fixed
 
-- Fix issue [#45](https://github.com/rebelinux/Diagrammer.Core/issues/45)
+- Fix issue [#45](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues/45)
 
 ## [0.2.25] - 2025-05-04
 
@@ -567,7 +567,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :arrows_clockwise: Changed
 
-- Improved Add-DiaHTMLNodeTable function. Close [#14](https://github.com/rebelinux/Diagrammer.Core/issues/14)
+- Improved Add-DiaHTMLNodeTable function. Close [#14](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues/14)
   - Allow to add more Information to the Node Object
 
 ## [0.1.8] - 2024-03-16
@@ -590,8 +590,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :bug: Fixed
 
-- [#12](https://github.com/rebelinux/Diagrammer.Core/issues/12)
-- [#13](https://github.com/rebelinux/Diagrammer.Core/issues/13)
+- [#12](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues/12)
+- [#13](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues/13)
 
 ## [0.1.7] - 2024-02-26
 

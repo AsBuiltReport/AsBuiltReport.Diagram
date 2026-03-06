@@ -36,10 +36,10 @@ function ConvertTo-RotateImage {
     .NOTES
         Author: Jonathan Colon
         Version: 0.2.39
-        GitHub: https://github.com/rebelinux/Diagrammer.Core
+        GitHub: https://github.com/AsBuiltReport/AsBuiltReport.Diagram
 
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
     #>
     [CmdletBinding()]
     [OutputType([String])]

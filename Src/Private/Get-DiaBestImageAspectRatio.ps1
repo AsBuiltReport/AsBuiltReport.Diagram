@@ -12,7 +12,7 @@ function Get-DiaBestImageAspectRatio {
 
         Returns the best aspect ratio for the specified image based on the maximum width and height.
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
     #>
     [CmdletBinding()]
     [OutputType([Hashtable])]

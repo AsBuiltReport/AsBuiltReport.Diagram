@@ -11,11 +11,11 @@
         <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.Diagram.svg" /></a>
 </p>
 <p align="center">
-    <a href="https://github.com/rebelinux/AsBuiltReport.Diagram/graphs/commit-activity" alt="GitHub Last Commit">
+    <a href="https://github.com/AsBuiltReport/AsBuiltReport.Diagram/graphs/commit-activity" alt="GitHub Last Commit">
         <img src="https://img.shields.io/github/last-commit/rebelinux/AsBuiltReport.Diagram/master.svg" /></a>
     <a href="https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/master/LICENSE" alt="GitHub License">
         <img src="https://img.shields.io/github/license/rebelinux/AsBuiltReport.Diagram.svg" /></a>
-    <a href="https://github.com/rebelinux/AsBuiltReport.Diagram/graphs/contributors" alt="GitHub Contributors">
+    <a href="https://github.com/AsBuiltReport/AsBuiltReport.Diagram/graphs/contributors" alt="GitHub Contributors">
         <img src="https://img.shields.io/github/contributors/rebelinux/AsBuiltReport.Diagram.svg"/></a>
 </p>
 <p align="center">
@@ -86,9 +86,9 @@ $env:PSModulePath -Split ';'
 Copy the downloaded `AsBuiltReport.Diagram` module folder to a folder specified in the `$env:PSModulePath` output.
 
 ### **GitHub**
-If you are unable to use the PowerShell Gallery, you can still install the `AsBuiltReport.Diagram` module manually. Ensure you repeat the following steps for the [system requirements](https://github.com/rebelinux/AsBuiltReport.Diagram#wrench-system-requirements) also.
+If you are unable to use the PowerShell Gallery, you can still install the `AsBuiltReport.Diagram` module manually. Ensure you repeat the following steps for the [system requirements](https://github.com/AsBuiltReport/AsBuiltReport.Diagram#wrench-system-requirements) also.
 
-1. Download the [latest release](https://github.com/rebelinux/AsBuiltReport.Diagram/releases/latest) zip from GitHub
+1. Download the [latest release](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/releases/latest) zip from GitHub
 2. Extract the zip file
 3. Copy the folder `AsBuiltReport.Diagram` to a path that is set in `$env:PSModulePath`.
 4. For Windows users only, open a PowerShell terminal window and unblock the downloaded files with
@@ -172,15 +172,15 @@ All commands in the latest release of AsBuiltReport.Diagram can be found in the 
 
 All examples in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
 
-| Name                                                                                      | Description                            | Module          |
-| ----------------------------------------------------------------------------------------- | -------------------------------------- | --------------- |
-| [Example1](https://diagrammer.techmyth.blog/dev-guide/examples/example1/)                 | Node cmdlet                            | PSGraph         |
-| [Example2](https://diagrammer.techmyth.blog/dev-guide/examples/example2/)                 | Edge cmdlet                            | PSGraph         |
-| [Example3](https://diagrammer.techmyth.blog/dev-guide/examples/example3/)                 | Edge minlen attribute                  | PSGraph         |
-| [Example4](https://diagrammer.techmyth.blog/dev-guide/examples/example4/)                 | SubGraph cmdlet                        | PSGraph         |
+| Name                                                                                      | Description                            | Module                |
+| ----------------------------------------------------------------------------------------- | -------------------------------------- | --------------------- |
+| [Example1](https://diagrammer.techmyth.blog/dev-guide/examples/example1/)                 | Node cmdlet                            | PSGraph               |
+| [Example2](https://diagrammer.techmyth.blog/dev-guide/examples/example2/)                 | Edge cmdlet                            | PSGraph               |
+| [Example3](https://diagrammer.techmyth.blog/dev-guide/examples/example3/)                 | Edge minlen attribute                  | PSGraph               |
+| [Example4](https://diagrammer.techmyth.blog/dev-guide/examples/example4/)                 | SubGraph cmdlet                        | PSGraph               |
 | [Example5](https://diagrammer.techmyth.blog/dev-guide/examples/example5/)                 | Add-DiaNodeIcon cmdlet                 | AsBuiltReport.Diagram |
 | [Example6](https://diagrammer.techmyth.blog/dev-guide/examples/example6/)                 | DraftMode feature                      | AsBuiltReport.Diagram |
-| [Example7](https://diagrammer.techmyth.blog/dev-guide/examples/example7/)                 | Rank cmdlet                            | PSGraph         |
+| [Example7](https://diagrammer.techmyth.blog/dev-guide/examples/example7/)                 | Rank cmdlet                            | PSGraph               |
 | [Example8](https://diagrammer.techmyth.blog/dev-guide/examples/example8/)                 | Add-DiaHTMLNodeTable cmdlet            | AsBuiltReport.Diagram |
 | [Example9](https://diagrammer.techmyth.blog/dev-guide/examples/example9/)                 | Add-DiaHTMLNodeTable MultiIcon feature | AsBuiltReport.Diagram |
 | [Example10](https://diagrammer.techmyth.blog/dev-guide/examples/example10/)               | Add-DiaNodeImage cmdlet                | AsBuiltReport.Diagram |

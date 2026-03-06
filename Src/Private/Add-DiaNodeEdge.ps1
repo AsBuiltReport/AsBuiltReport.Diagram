@@ -108,7 +108,7 @@ function Add-DiaNodeEdge {
         Github:         rebelinux
 
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         https://psgraph.readthedocs.io/en/latest/Command-Edge/
         https://graphviz.org/doc/info/attrs.html
     #>

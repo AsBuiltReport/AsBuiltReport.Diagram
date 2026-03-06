@@ -1,4 +1,4 @@
-# ** This example demonstrates how to use the Add-DiaNodeText cmdlet to create a text box node in a diagram. (part of Diagrammer.Core) **
+# ** This example demonstrates how to use the Add-DiaNodeText cmdlet to create a text box node in a diagram. (part of AsBuiltReport.Diagram) **
 
 <#
     This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
@@ -16,7 +16,7 @@ param (
     It is included here for clarity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     The diagram output is a file, so we need to specify the output folder path. In this example, $OutputFolderPath is used.
@@ -88,7 +88,7 @@ $advancedexample02 = & {
         }
 
         <#
-            Diagrammer.Core provides a workaround using HTML-like labels to simulate SubGraphs with enhanced layout
+            AsBuiltReport.Diagram provides a workaround using HTML-like labels to simulate SubGraphs with enhanced layout
             and connectivity options.By using HTML-like labels, we can create more complex and flexible layouts for nodes within
             a SubGraph. This allows us to better organize and present information in the diagram.Additionally, HTML-like labels provide
             more control over the appearance and formatting of the nodes, allowing for a more polished and professional look. This approach
@@ -192,7 +192,7 @@ $advancedexample02 = & {
     }
 }
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of Diagrammer.Core).
+    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
 #>
 
 New-Diagrammer -InputObject $advancedexample02 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename AdvancedExample02 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

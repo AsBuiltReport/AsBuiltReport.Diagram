@@ -3,7 +3,7 @@
     in a diagram. Each ShapeLine cmdlet creates invisible junction/routing point nodes connected
     with edges to form a specific geometric shape (L, T, Cross, etc.). Labeled endpoint nodes
     (rectangles) are attached to the junction endpoints to illustrate practical usage.
-    (Part of Diagrammer.Core module)
+    (Part of AsBuiltReport.Diagram module)
 #>
 
 [CmdletBinding()]
@@ -17,7 +17,7 @@ param (
     Starting with PowerShell v3, modules are auto-imported when needed. Importing the module here ensures clarity and avoids ambiguity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     Since the diagram output is a file, specify the output folder path using $OutputFolderPath.

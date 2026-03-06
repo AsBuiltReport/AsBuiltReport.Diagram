@@ -1,4 +1,4 @@
-$Script:ModuleName = 'Diagrammer.Core.psd1'
+$Script:ModuleName = 'AsBuiltReport.Diagram.psd1'
 $Script:TestsFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Script:ProjectRoot = Split-Path -Parent $TestsFolder
 $Script:ModuleRoot = Join-Path -Path $ProjectRoot -ChildPath $ModuleName

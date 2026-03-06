@@ -15,7 +15,7 @@ param (
     From PowerShell v3 onwards, the module does not need to be explicitly imported. It is included here for clarity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     As the diagram output is a file, specify the output folder path using $OutputFolderPath.
@@ -49,8 +49,8 @@ $example4 = & {
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            Add-DiaNodeEdge cmdlet creates connections between nodes. (Part of Diagrammer.Core module)
-            https://github.com/rebelinux/Diagrammer.Core
+            Add-DiaNodeEdge cmdlet creates connections between nodes. (Part of AsBuiltReport.Diagram module)
+            https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
         Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
@@ -60,7 +60,7 @@ $example4 = & {
 
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of Diagrammer.Core).
+    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
     -InputObject accepts the custom object created above.
     -OutputFolderPath specifies where to save the generated diagram.
     -Format sets the output format (png, jpg, svg, etc.).
