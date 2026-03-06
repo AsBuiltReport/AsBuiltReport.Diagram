@@ -1,7 +1,7 @@
 #    ** This time, we'll demonstrate the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of AsBuiltReport.Diagram module). **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram module.
 #>
 
 [CmdletBinding()]
