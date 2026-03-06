@@ -1,5 +1,5 @@
 <#
-    Simple example of creating a 3-tier web application diagram using the Diagrammer module, without using object icons.
+    Simple example of creating a 3-tier web application diagram using the AsBuiltReport.Diagram, without using object icons.
 
     ** In this example, servers are grouped in a cluster (SubGraph).
 #>

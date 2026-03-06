@@ -1,7 +1,7 @@
 #    ** This time, we'll demonstrate the use of the Add-DiaHTMLTable to add a list table to the diagram (Part of AsBuiltReport.Diagram module). **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]

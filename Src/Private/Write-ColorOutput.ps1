@@ -1,7 +1,7 @@
 function Write-ColorOutput {
     <#
     .SYNOPSIS
-        Used by Diagrammer to output colored text.
+        Used by AsBuiltReport.Diagram to output colored text.
     .DESCRIPTION
     .NOTES
         Version:        0.1.1

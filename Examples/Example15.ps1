@@ -1,7 +1,7 @@
 #    ** This example demonstrates how to use the Add-DiaNodeSpacer cmdlet to add spacer nodes that assist with diagram alignment. (part of AsBuiltReport.Diagram) **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]

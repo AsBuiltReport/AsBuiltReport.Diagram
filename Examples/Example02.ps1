@@ -1,6 +1,6 @@
 #     ** This time we will connect the nodes to show relationships.
 <#
-    Simple example of how to create a 3 tier web application diagram using the Diagrammer module. Without using any object icons.
+    Simple example of how to create a 3 tier web application diagram using the AsBuiltReport.Diagram module. Without using any object icons.
 #>
 
 [CmdletBinding()]

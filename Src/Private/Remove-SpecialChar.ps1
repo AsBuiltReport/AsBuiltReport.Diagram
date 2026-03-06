@@ -1,7 +1,7 @@
 function Remove-SpecialChar {
     <#
     .SYNOPSIS
-        Used by Diagrammer to remove unsupported graphviz dot characters.
+        Used by AsBuiltReport.Diagram to remove unsupported graphviz dot characters.
     .DESCRIPTION
     .NOTES
         Version:        0.1.1

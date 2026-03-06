@@ -1,7 +1,7 @@
 function Test-Logo {
     <#
     .SYNOPSIS
-        Used by Diagrammer to validate logo path.
+        Used by AsBuiltReport.Diagram to validate logo path.
     .DESCRIPTION
     .NOTES
         Version:        0.1.1

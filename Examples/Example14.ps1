@@ -1,7 +1,7 @@
 #    ** This time, we'll demonstrate the use of Add-DiaNodeShape cmdlet to add custom shapes to the diagram (Part of AsBuiltReport.Diagram module). **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]

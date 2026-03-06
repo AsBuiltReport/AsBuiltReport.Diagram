@@ -220,7 +220,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :toolbox: Added
 
-- Add examples for creating 3-tier web application diagrams using Diagrammer module
+- Add examples for creating 3-tier web application diagrams using AsBuiltReport.Diagram
   - Create Example01.ps1 demonstrating a basic 3-tier web application diagram without object icons.
   - Create Example02.ps1 to illustrate connecting nodes and showing relationships in the diagram.
   - Create Example03.ps1 featuring a clustered representation of servers using SubGraph.
@@ -536,7 +536,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :arrows_clockwise: Changed
 
-- Improved New-Diagrammer module
+- Improved New-AsBuiltReport.Diagram
 
 ## [0.2.3] - 2024-08-31
 

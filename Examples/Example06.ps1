@@ -1,7 +1,7 @@
 #    ** This time, we'll turn on the DraftMode attribute to make it easier to troubleshoot and fine-tune the diagram. **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]
