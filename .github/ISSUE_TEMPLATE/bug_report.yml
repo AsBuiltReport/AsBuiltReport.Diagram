@@ -17,7 +17,7 @@ body:
     attributes:
       label: Command-line input
       description: >-
-        Please provide the command line input you are using to run Diagrammer. Please ensure that you obscure any sensitive information.
+        Please provide the command line input you are using to run AsBuiltReport.Diagram. Please ensure that you obscure any sensitive information.
     validations:
       required: true
   - type: textarea
@@ -52,7 +52,7 @@ body:
     id: operating-system
     attributes:
       label: Operating System
-      description: Please provide information about the operating system are you using.
+      description: Please provide information about the operating system you are using.
       placeholder: macOS Big Sur, Windows 10, Ubuntu 20.04 LTS
     validations:
       required: true
@@ -68,15 +68,15 @@ body:
     id: powershell-modules
     attributes:
       label: PowerShell Modules
-      description: Please provide information about the PowerShell modules are you using. Please provide the output from the following PowerShell command `Get-Module -ListAvailable @("Diagrammer.Core") | Select Name, Version`
-      placeholder: Get-Module -ListAvailable @("Diagrammer.Core") | Select Name, Version
+      description: Please provide information about the PowerShell modules you are using. Please provide the output from the following PowerShell command `Get-Module -ListAvailable @("AsBuiltReport.Diagram") | Select Name, Version`
+      placeholder: Get-Module -ListAvailable @("AsBuiltReport.Diagram") | Select Name, Version
     validations:
       required: true
   - type: textarea
     id: additional-context
     attributes:
       label: Additional Context
-      description: This field is optional. You may provide additional context for the bug you wish to report. You may wish to include links to any related [issues](https://github.com/rebelinux/Diagrammer.Core/issues) or other relevant information.
+      description: This field is optional. You may provide additional context for the bug you wish to report. You may wish to include links to any related [issues](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues) or other relevant information.
   - type: checkboxes
     id: checklist
     attributes:
@@ -86,13 +86,12 @@ body:
         If you are unsure of what a specific requirement means, please follow the links to learn about it and understand why it is necessary before submitting.
       options:
         - label: >-
-            I have read and followed the [bug reporting guidelines](https://github.com/rebelinux/Diagrammer.Core/blob/dev/CONTRIBUTING.md).
+            I have read and followed the [bug reporting guidelines](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/blob/dev/CONTRIBUTING.md).
           required: true
         - label: >-
-            I have read [the documentation](https://github.com/rebelinux/Diagrammer.Core/blob/dev/README.md),
-            and referred to the [known issues](https://github.com/rebelinux/Diagrammer.Core/?tab=readme-ov-file#x-known-issues) before submitting this bug report.
+            I have read [the documentation](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/blob/dev/README.md),
+            and referred to the [known issues](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/?tab=readme-ov-file#x-known-issues) before submitting this bug report.
           required: true
         - label: >-
-            I have checked for previously opened & closed [issues](https://github.com/reelinux/Diagrammer.Core/issues) before submitting this bug report.
+            I have checked for previously opened & closed [issues](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues) before submitting this bug report.
           required: true
-

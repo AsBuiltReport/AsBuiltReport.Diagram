@@ -1,7 +1,7 @@
 function Test-Image {
     <#
     .SYNOPSIS
-        Used by Diagrammer to validate supported logo image extension.
+        Used by AsBuiltReport.Diagram to validate supported logo image extension.
     .DESCRIPTION
     .NOTES
         Version:        0.1.1

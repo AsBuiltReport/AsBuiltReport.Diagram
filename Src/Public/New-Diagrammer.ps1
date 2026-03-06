@@ -150,7 +150,7 @@ function New-Diagrammer {
                         Prateek Singh (@PrateekKumarSingh) - AzViz module
 
     .LINK
-        https://github.com/rebelinux/
+        https://github.com/AsBuiltReport/
         https://github.com/KevinMarquette/PSGraph
         https://github.com/PrateekKumarSingh/AzViz
     #>

@@ -1,6 +1,6 @@
 #     ** This time we will connect the nodes to show relationships.
 <#
-    Simple example of how to create a 3 tier web application diagram using the Diagrammer module. Without using any object icons.
+    Simple example of how to create a 3 tier web application diagram using the AsBuiltReport.Diagram module. Without using any object icons.
 #>
 
 [CmdletBinding()]
@@ -15,7 +15,7 @@ param (
     here to avoid any ambiguity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     As the output of the diagram is a file, we need to specify the output folder path. In this example, $OutputFolderPath
@@ -43,8 +43,8 @@ $example2 = & {
 
     <#
         This section creates connections between the nodes in a herarchical layout.
-        The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
-        https://github.com/rebelinux/Diagrammer.Core
+        The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
 
                         |      Main Logo      |
                         |    MainGraphLabel   |
@@ -71,7 +71,7 @@ $example2 = & {
 
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (Part of Diagrammer.Core).
+    This command generates the diagram using the New-Diagrammer cmdlet (Part of AsBuiltReport.Diagram).
     The -InputObject parameter accepts the custom object created above.
     The -OutputFolderPath parameter specifies where to save the generated diagram.
     The -Format parameter specifies the output format (png, jpg, svg, etc.).

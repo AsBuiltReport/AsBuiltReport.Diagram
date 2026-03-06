@@ -1,7 +1,7 @@
-#    ** This time, we'll demonstrate the use of the Add-DiaHTMLNodeTable MultiIcon feature (Part of Diagrammer.Core module). **
+#    ** This time, we'll demonstrate the use of the Add-DiaHTMLNodeTable MultiIcon feature (Part of AsBuiltReport.Diagram module). **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]
@@ -16,7 +16,7 @@ param (
     It is included here for clarity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     The diagram output is a file, so we need to specify the output folder path. In this example, $OutputFolderPath is used.
@@ -174,8 +174,8 @@ $example9 = & {
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
-            https://github.com/rebelinux/Diagrammer.Core
+            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+            https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
         Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
@@ -190,7 +190,7 @@ $example9 = & {
 }
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of Diagrammer.Core).
+    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
 #>
 
 New-Diagrammer -InputObject $example9 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example9 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

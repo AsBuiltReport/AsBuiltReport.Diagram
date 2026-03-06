@@ -16,7 +16,7 @@ body:
     id: additional-context
     attributes:
       label: Additional Context
-      description: This field is optional. You may provide additional context for the idea you wish to propose. You may wish to include links to any related [issues](https://github.com/rebelinux/Diagrammer.Core/issues) or other relevant information.
+      description: This field is optional. You may provide additional context for the idea you wish to propose. You may wish to include links to any related [issues](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues) or other relevant information.
   - type: checkboxes
     id: checklist
     attributes:
@@ -26,10 +26,9 @@ body:
         If you are unsure of what a specific requirement means, please follow the links to learn about it and understand why it is necessary before submitting.
       options:
         - label: >-
-            I have read [the documentation](https://github.com/rebelinux/Diagrammer.Core/blob/dev/README.md),
-            and referred to the [known issues](https://github.com/rebelinux/Diagrammer.Core/?tab=readme-ov-file#x-known-issues) before submitting this change request.
+            I have read [the documentation](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/blob/dev/README.md),
+            and referred to the [known issues](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/?tab=readme-ov-file#x-known-issues) before submitting this change request.
           required: true
         - label: >-
-            I have checked for previously opened & closed [issues](https://github.com/rebelinux/Diagrammer.Core/issues) before submitting this change request.
+            I have checked for previously opened & closed [issues](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/issues) before submitting this change request.
           required: true
-

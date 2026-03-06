@@ -1,7 +1,7 @@
-#    ** This example demonstrates how to use the Add-DiaNodeSpacer cmdlet to add spacer nodes that assist with diagram alignment. (part of Diagrammer.Core) **
+#    ** This example demonstrates how to use the Add-DiaNodeSpacer cmdlet to add spacer nodes that assist with diagram alignment. (part of AsBuiltReport.Diagram) **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]
@@ -16,7 +16,7 @@ param (
     It is included here for clarity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     The diagram output is a file, so we need to specify the output folder path. In this example, $OutputFolderPath is used.
@@ -84,7 +84,7 @@ $example15 = & {
         <#
             The Add-DiaHtmlSignatureTable cmdlet creates a signature table to be used as a footer in the diagram.
             It can include images, author name, company name, and other details.
-            (Part of Diagrammer.Core module)
+            (Part of AsBuiltReport.Diagram module)
         #>
 
         $Signature = Add-DiaHtmlSignatureTable -ImagesObj $Images -Rows 'Author: Bugs Bunny', 'Company: ACME Inc.' -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -DraftMode:$DraftMode -FontBold
@@ -156,8 +156,8 @@ $example15 = & {
 
             <#
                 This section creates connections between the nodes in a hierarchical layout.
-                The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
-                https://github.com/rebelinux/Diagrammer.Core
+                The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+                https://github.com/AsBuiltReport/AsBuiltReport.Diagram
             #>
 
             Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeColor 'Black' -EdgeThickness 3 -EdgeStyle 'dashed'
@@ -183,7 +183,7 @@ $example15 = & {
             Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeColor 'Black' -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
-                This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of Diagrammer.Core module).
+                This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of AsBuiltReport.Diagram module).
 
                 -Name parameter sets the name of the node (WAN in this case).
                 -ImageSizePercent parameter sets the size of the image as a percentage (30% in this case).
@@ -211,7 +211,7 @@ $example15 = & {
             Rank 'Core-Router', 'RouterNetworkInfo'
 
             <#
-                The Add-DiaNodeShape cmdlet is used to create a node with a specific shape and various customizable attributes (Part of Diagrammer.Core module). Supported Shapes: https://graphviz.org/doc/info/shapes.html
+                The Add-DiaNodeShape cmdlet is used to create a node with a specific shape and various customizable attributes (Part of AsBuiltReport.Diagram module). Supported Shapes: https://graphviz.org/doc/info/shapes.html
 
                 ** In this example, we create a rectangle to simulate a firewall presence in the network. **
             #>
@@ -223,7 +223,7 @@ $example15 = & {
 
 
             <#
-                The Add-DiaNodeSpacer cmdlet is used to create invisible spacer nodes that help with diagram alignment (Part of Diagrammer.Core module).
+                The Add-DiaNodeSpacer cmdlet is used to create invisible spacer nodes that help with diagram alignment (Part of AsBuiltReport.Diagram module).
 
                 In this diagram there is a alignment issue with the Web01 node, as it is not centered with the App01 and DB01 nodes below it. To fix this,
                 we create two spacer nodes (FillerRight and FillerLeft) on either side of the Web01 node.
@@ -254,7 +254,7 @@ $example15 = & {
     }
 }
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of Diagrammer.Core).
+    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
 #>
 
 New-Diagrammer -InputObject $example15 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example15 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

@@ -1,7 +1,7 @@
 function Split-Array {
     <#
     .SYNOPSIS
-        Used by Diagrammer to split a object to a group of array.
+        Used by AsBuiltReport.Diagram to split a object to a group of array.
     .DESCRIPTION
     .NOTES
         Version:        0.1.1

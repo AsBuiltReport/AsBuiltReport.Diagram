@@ -67,10 +67,10 @@ function Add-DiaInvertedTShapeLine {
     .NOTES
         Author: Jonathan Colon
         Version: 0.2.31
-        GitHub: https://github.com/rebelinux/Diagrammer.Core
+        GitHub: https://github.com/AsBuiltReport/AsBuiltReport.Diagram
 
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
     #>
 
     # Todo: Add support for creating more than 1 line and able to join them with Rank parameter.

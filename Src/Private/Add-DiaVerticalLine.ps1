@@ -68,7 +68,7 @@ function Add-DiaVerticalLine {
         GitHub:         rebelinux
 
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
     #>
 
     [CmdletBinding()]

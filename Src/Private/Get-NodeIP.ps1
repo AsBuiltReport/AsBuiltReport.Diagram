@@ -1,7 +1,7 @@
 function Get-NodeIP {
     <#
     .SYNOPSIS
-        Used by Diagrammer to translate node name to an network ip address type object.
+        Used by AsBuiltReport.Diagram to translate node name to an network ip address type object.
     .DESCRIPTION
     .NOTES
         Version:        0.2.27

@@ -1,7 +1,7 @@
 #    ** This time we will add icons and additional information to Node objects.**
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the Diagrammer module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]
@@ -16,7 +16,7 @@ param (
     It is included here for clarity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     The diagram output is a file, so we need to specify the output folder path. In this example, $OutputFolderPath is used.
@@ -86,7 +86,7 @@ $example5 = & {
         <#
             This time, we enhance the diagram by adding images to the Node objects and embedding information to describe server properties.
             Graphviz supports HTML tables to extend object labels, allowing images, text, and tables within Node, Edge, and Subgraph @{Label=} script blocks attributes.
-            Add-DiaNodeIcon extends PSGraph to improve the appearance of the generated Node objects (Add-DiaNodeIcon is part of Diagrammer.Core).
+            Add-DiaNodeIcon extends PSGraph to improve the appearance of the generated Node objects (Add-DiaNodeIcon is part of AsBuiltReport.Diagram).
             ** The $Images object and IconType "Server" must be defined earlier in the script **
 
             -AditionalInfo parameter accepts a custom object with properties to display in the node label.
@@ -105,8 +105,8 @@ $example5 = & {
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of Diagrammer.Core module)
-            https://github.com/rebelinux/Diagrammer.Core
+            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+            https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
         Add-DiaNodeEdge -From Web01 -To App01 -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
@@ -115,7 +115,7 @@ $example5 = & {
 }
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of Diagrammer.Core).
+    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
     -InputObject accepts the custom object created above.
     -OutputFolderPath specifies where to save the generated diagram.
     -Format sets the output format (png, jpg, svg, etc.).
@@ -128,7 +128,7 @@ $example5 = & {
         - The layout is set to top-to-bottom using the Graph attribute.
     -DraftMode, when set to $true, generates a draft version of the diagram for troubleshooting.
 
-    -IconPath and -ImagesObj allow Diagrammer.Core to locate the png icon files.
+    -IconPath and -ImagesObj allow AsBuiltReport.Diagram to locate the png icon files.
 #>
 
 New-Diagrammer -InputObject $example5 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example5 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

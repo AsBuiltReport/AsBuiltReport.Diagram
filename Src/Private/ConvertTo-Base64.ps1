@@ -10,7 +10,7 @@ function ConvertTo-Base64 {
         Bluesky:        @jcolonfpr.bsky.social
         Github:         rebelinux
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
     #>
     [CmdletBinding()]
     [OutputType([string])]

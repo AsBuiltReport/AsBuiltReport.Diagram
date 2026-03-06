@@ -66,10 +66,10 @@ function Add-DiaRightTShapeLine {
     .NOTES
         Author: Jonathan Colon
         Version: 0.2.31
-        GitHub: https://github.com/rebelinux/Diagrammer.Core
+        GitHub: https://github.com/AsBuiltReport/AsBuiltReport.Diagram
 
     .LINK
-        https://github.com/rebelinux/Diagrammer.Core
+        https://github.com/AsBuiltReport/AsBuiltReport.Diagram
     #>
 
     [CmdletBinding()]
