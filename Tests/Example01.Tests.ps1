@@ -21,7 +21,7 @@ Describe Example01 {
             Format = @('dot')
         }
 
-        $RunFile = & $ProjectRoot\Examples\Example01.ps1 @PassParamsDot
+        $RunFile = & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example01.ps1 @PassParamsDot
     }
 
     Context 'Format Parameter Tests' {
@@ -29,10 +29,10 @@ Describe Example01 {
             ($RunFile).FullName | Should -Exist
         }
         It 'Should exist Example1.png' {
-            (& $ProjectRoot\Examples\Example01.ps1 @PassParamsPng).FullName | Should -Exist
+            (& $ProjectRoot\AsBuiltReport.Diagram\Examples\Example01.ps1 @PassParamsPng).FullName | Should -Exist
         }
         It 'Should return error about unsupported Format' {
-            { & $ProjectRoot\Examples\Example01.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
+            { & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example01.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
         }
     }
     Context 'Graphviz Dot source Tests' {
