@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Management.Automation;
 
-namespace Diagrammer.PowerShell
+namespace AsBuiltReportDiagram.PowerShell
 {
-    [Cmdlet(VerbsCommon.New, "ConvertPngToPdf")]
+    [Cmdlet(VerbsData.ConvertTo, "PngToPdf")]
     public class ConvertPngToPdfCommand : PSCmdlet
     {
         // Declare the parameters for the cmdlet.

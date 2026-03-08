@@ -38,8 +38,8 @@ Describe ConvertTo-Svg {
     }
 
     It 'Should include watermark text in svg output' {
-        if (-not (Get-Command -Name New-WatermarkToSvg -ErrorAction SilentlyContinue)) {
-            Set-ItResult -Skipped -Because 'New-WatermarkToSvg cmdlet is not available in the loaded AsBuiltReport.Diagram assembly.'
+        if (-not (Get-Command -Name Add-WatermarkToSvg -ErrorAction SilentlyContinue)) {
+            Set-ItResult -Skipped -Because 'Add-WatermarkToSvg cmdlet is not available in the loaded AsBuiltReport.Diagram assembly.'
         }
         $result = ConvertTo-Svg @PassParamsWatermark
         $result.FullName | Should -Exist

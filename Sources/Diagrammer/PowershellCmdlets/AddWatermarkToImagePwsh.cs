@@ -3,9 +3,9 @@ using System.IO;
 using System.Management.Automation;
 using iText.Layout.Element;
 
-namespace Diagrammer.PowerShell
+namespace AsBuiltReportDiagram.PowerShell
 {
-    [Cmdlet(VerbsCommon.New, "WatermarkToImage")]
+    [Cmdlet(VerbsCommon.Add, "WatermarkToImage")]
     public class AddWatermarkToImageCommand : PSCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Path to the source image file.")]

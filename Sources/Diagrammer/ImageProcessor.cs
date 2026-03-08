@@ -7,7 +7,7 @@ using System;
 using System.Globalization;
 using System.Xml.Linq;
 
-namespace Diagrammer
+namespace AsBuiltReportDiagram
 {
     internal class ImageProcessor
     {

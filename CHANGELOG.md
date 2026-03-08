@@ -14,9 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :arrows_clockwise: Changed
 
-- Update Release.yml to remove Sources directory during cleanup
 - Update module version to v1.0.0
 - Migrated source code to new repository structure
   - Moved source code to AsBuiltReport.Diagram directory
   - Updated module manifest to reflect new structure
 - Update Graphviz binary to version 14.1.3
+- Migrate namespace from Diagrammer/DiaConvertImageToPDF to AsBuiltReportDiagram in all source files
+- Change cmdlet name from New-WatermarkToImage to Add-WatermarkToImage in all source files
+- Change cmdlet name from New-WatermarkToSvg to Add-WatermarkToSvg in all source files

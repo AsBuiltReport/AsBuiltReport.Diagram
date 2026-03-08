@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Management.Automation;
 
-namespace Diagrammer.PowerShell
+namespace AsBuiltReportDiagram.PowerShell
 {
-    [Cmdlet(VerbsCommon.New, "WatermarkToSvg")]
+    [Cmdlet(VerbsCommon.Add, "WatermarkToSvg")]
     public class AddWatermarkToSvgCommand : PSCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Path to the source SVG file.")]

@@ -111,7 +111,7 @@ Describe Export-Diagrammer {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVG
         ($GraphvizOutput).FullName | Should -Exist
     }
-    It 'Should include watermark text in SVG output' -Skip:(-not (Get-Command -Name New-WatermarkToSvg -ErrorAction SilentlyContinue)) {
+    It 'Should include watermark text in SVG output' -Skip:(-not (Get-Command -Name Add-WatermarkToSvg -ErrorAction SilentlyContinue)) {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVGWithWatermark
         ($GraphvizOutput).FullName | Should -Exist
         (Get-Content -Path $GraphvizOutput.FullName -Raw) | Should -Match 'Confidential'
