@@ -58,7 +58,7 @@ function New-Diagrammer {
         Path used to resolve icon/image names referenced in $ImagesObj. Default: Tools\Icons relative to the module.
 
     .PARAMETER ImagesObj
-        Hashtable mapping image identifiers to filenames (IconName -> FileName). Defaults include Diagrammer.png and Diagrammer_footer.png.
+        Hashtable mapping image identifiers to filenames (IconName -> FileName). Defaults include AsBuiltReport.png and Diagrammer_footer.png.
 
     .PARAMETER Direction
         Layout direction for the graph. Valid values: 'left-to-right', 'top-to-bottom'. Default: 'top-to-bottom'.
@@ -295,7 +295,7 @@ function New-Diagrammer {
         )]
         [ValidateNotNullOrEmpty()]
         [Hashtable] $ImagesObj = @{
-            'Main_Logo' = 'Diagrammer.png'
+            'Main_Logo' = 'AsBuiltReport.png'
             'Logo_Footer' = 'Diagrammer_footer.png'
         },
 
@@ -536,7 +536,7 @@ function New-Diagrammer {
         } elseif ($LogoName) {
             $CustomLogo = $LogoName
         } else {
-            $CustomLogo = 'Diagrammer.png'
+            $CustomLogo = 'AsBuiltReport.png'
         }
         # Validate Custom Signature Logo
         if ($SignatureLogo -and (-not $SignatureLogoName )) {
@@ -544,7 +544,7 @@ function New-Diagrammer {
         } elseif ($SignatureLogoName) {
             $CustomSignatureLogo = $SignatureLogoName
         } else {
-            $CustomSignatureLogo = 'Diagrammer.png'
+            $CustomSignatureLogo = 'AsBuiltReport.png'
         }
 
         $MainGraphAttributes = @{
@@ -622,7 +622,7 @@ function New-Diagrammer {
                 if ($DisableMainDiagramLogo) {
                     $FormatedMainLogo = ''
                 } else {
-                    $FormatedMainLogo = (Add-DiaHtmlLabel -ImagesObj $ImagesObj -Label $MainDiagramLabel -IconType $CustomLogo -IconDebug $IconDebug -ImageSizePercent $MainGraphLogoSizePercent -Fontsize $MainDiagramLabelFontsize -FontColor $MainDiagramLabelFontColor -FontName $MainDiagramLabelFontname -FontBold:$MainDiagramLabelFontBold -FontItalic:$MainDiagramLabelFontItalic -FontUnderline:$MainDiagramLabelFontUnderline -FontOverline:$MainDiagramLabelFontOverline -FontSubscript:$MainDiagramLabelFontSubscript -FontSuperscript:$MainDiagramLabelFontSuperscript -FontStrikeThrough:$MainDiagramLabelFontStrikeThrough -IconPath $IconPath)
+                    $FormatedMainLogo = (Add-DiaHtmlLabel -ImagesObj $ImagesObj -Label $MainDiagramLabel -IconType $CustomLogo -IconDebug $IconDebug -ImageSizePercent $MainGraphLogoSizePercent -Fontsize $MainDiagramLabelFontsize -FontColor $MainDiagramLabelFontColor -FontName $MainDiagramLabelFontname -FontBold:$MainDiagramLabelFontBold -FontItalic:$MainDiagramLabelFontItalic -FontUnderline:$MainDiagramLabelFontUnderline -FontOverline:$MainDiagramLabelFontOverline -FontSubscript:$MainDiagramLabelFontSubscript -FontSuperscript:$MainDiagramLabelFontSuperscript -FontStrikeThrough:$MainDiagramLabelFontStrikeThrough -CellSpacing 0 -IconPath $IconPath)
                 }
 
                 SubGraph MainGraph -Attributes @{Label = $FormatedMainLogo; fontsize = 24; penwidth = 0; labelloc = 't'; labeljust = 'c' } {

@@ -104,7 +104,7 @@
             ProjectUri = 'https://github.com/AsBuiltReport/AsBuiltReport.Diagram'
 
             # A URL to an icon representing this module.
-            IconUri = 'https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/main/Icons/Diagrammer.png'
+            IconUri = 'https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/main/Icons/AsBuiltReport.png'
 
             # ReleaseNotes of this module
             ReleaseNotes = 'https://github.com/AsBuiltReport/AsBuiltReport.Diagram/blob/master/CHANGELOG.md'
