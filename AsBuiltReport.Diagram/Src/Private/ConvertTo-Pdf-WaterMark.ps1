@@ -59,7 +59,7 @@ function ConvertTo-Pdf-WaterMark {
                 }
                 default {
                     Write-Verbose -Message 'Successfully loaded the .Net 4.8 assembly for PDF conversion.'
-                    # Net 4.8 assembly call (Fucking shit)
+                    # Net 4.8 assembly call
                     ConvertTo-PngToPdf -SourcePngFile $ImageInput.FullName -OutputFileNamePath $DestinationPath
                 }
             }

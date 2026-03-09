@@ -31,7 +31,7 @@ function Resize-Image {
             Written By:
             Christopher Walker
     #>
-    [CmdLetBinding(
+    [CmdletBinding(
         SupportsShouldProcess = $true,
         PositionalBinding = $false,
         ConfirmImpact = 'Medium',

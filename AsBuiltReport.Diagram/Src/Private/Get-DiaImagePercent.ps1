@@ -8,6 +8,9 @@ function Get-DiaImagePercent {
         Version:        0.2.39
         Author:         Jonathan Colon
     .EXAMPLE
+        Get-DiaImagePercent -ImageInput "C:\Images\diagram.png" -Percent 50
+
+        Returns a hashtable with Width and Height values scaled to 50% of the original image dimensions.
     .LINK
     #>
     [CmdletBinding()]
