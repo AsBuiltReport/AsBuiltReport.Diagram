@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Management.Automation;
 
-namespace Diagrammer.PowerShell
+namespace AsBuiltReportDiagram.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "ImageHeightFromFile")]
     public class GetImageHeightFromFileCommand : PSCmdlet

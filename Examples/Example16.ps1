@@ -37,7 +37,7 @@ $RootPath = $PSScriptRoot
 #>
 
 $script:Images = @{
-    'Main_Logo' = 'Diagrammer.png'
+    'Main_Logo' = 'AsBuiltReport.png'
     'Server' = 'Server.png'
     'ServerRedhat' = 'Linux_Server_RedHat.png'
     'ServerUbuntu' = 'Linux_Server_Ubuntu.png'

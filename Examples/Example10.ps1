@@ -1,7 +1,7 @@
 #    ** This time, we'll demonstrate the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of AsBuiltReport.Diagram module). **
 
 <#
-    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram module.
+    This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
 #>
 
 [CmdletBinding()]
@@ -38,7 +38,7 @@ $RootPath = $PSScriptRoot
 #>
 
 $script:Images = @{
-    'Main_Logo' = 'Diagrammer.png'
+    'Main_Logo' = 'AsBuiltReport.png'
     'Server' = 'Server.png'
     'ServerRedhat' = 'Linux_Server_RedHat.png'
     'ServerUbuntu' = 'Linux_Server_Ubuntu.png'

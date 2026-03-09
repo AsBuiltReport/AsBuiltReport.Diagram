@@ -3,7 +3,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.IO.Image;
 
-namespace Diagrammer
+namespace AsBuiltReportDiagram
 {
     internal class ConvertImageToPDF
     {

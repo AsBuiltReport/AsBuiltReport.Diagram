@@ -19,7 +19,7 @@ updates:
 
   # Monitor PowerShell modules (via manifest)
   - package-ecosystem: "nuget"
-    directory: "/"
+    directory: "/Source"
     schedule:
       interval: "weekly"
       day: "monday"
