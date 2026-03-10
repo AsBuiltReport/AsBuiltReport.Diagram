@@ -94,16 +94,8 @@ function ConvertTo-Svg {
                 }
             }
 
-            if ($DeleteImage) {
-                if ($Document) {
-                    Remove-Item -Path $Document
-                }
-            } else {
-                if ($Document) {
-                    Write-Verbose -Message "Successfully converted Graphviz object to SVG format. Saved Path: $DestinationPath."
-                    Get-ChildItem -Path $Document
-                }
-            }
+            Write-Verbose -Message "Successfully converted Graphviz object to SVG format. Saved Path: $DestinationPath."
+            Get-ChildItem -Path $Document
         }
     }
     end {}

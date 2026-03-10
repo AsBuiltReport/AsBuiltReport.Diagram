@@ -5,7 +5,7 @@ function Test-Logo {
     .DESCRIPTION
     .NOTES
         Version:        0.1.1
-        Author:         Joanthan Colon
+        Author:         Jonathan Colon
     .EXAMPLE
         Test-Logo -LogoPath (Get-ChildItem -Path $Logo).FullName -IconPath $IconPath -ImagesObj $Images
     .LINK

@@ -30,10 +30,6 @@ function ConvertTo-Dot {
         [string] $DestinationPath
     )
     process {
-        if ($WaterMarkText) {
-            Write-Verbose -Message 'WaterMark option is not supported with the dot format.'
-        }
-
         try {
             Write-Verbose -Message "Trying to convert Graphviz object to DOT format. Destination Path: $DestinationPath."
             $Document = Export-PSGraph -Source $GraphObj -DestinationPath $DestinationPath -OutputFormat 'dot' -GraphVizPath $GraphvizPath
