@@ -12,7 +12,7 @@
 
 ## Medium Priority
 
-- [ ] Integrate PSGraph cmdlets to the module (Project without active maintenance)
+- [x] Integrate PSGraph cmdlets to the module (Project without active maintenance)
 
 ## Low Priority
 

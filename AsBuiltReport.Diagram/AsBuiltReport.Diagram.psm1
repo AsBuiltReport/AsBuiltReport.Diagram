@@ -21,7 +21,7 @@ switch ($PSVersionTable.PSEdition) {
 
 # Get public and private function definition files and dot source them
 $Public = @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Public{0}*.ps1" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue)
-$Private = @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Private{0}*.ps1" -f [System.IO.Path]::DirectorySeparatorChar) -ErrorAction SilentlyContinue)
+$Private = @(Get-ChildItem -Path ("$PSScriptRoot{0}Src{0}Private" -f [System.IO.Path]::DirectorySeparatorChar) -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue)
 
 foreach ($Module in @($Public + $Private)) {
     try {
@@ -33,3 +33,4 @@ foreach ($Module in @($Public + $Private)) {
 
 Export-ModuleMember -Function $Public.BaseName
 Export-ModuleMember -Function $Private.BaseName
+Export-ModuleMember -Alias 'digraph'

@@ -52,9 +52,6 @@ jobs:
         run: Copy-Item -Path ./Sources/DiaConvertImageToPDF/bin/Release/net48/publish/* -Destination ./AsBuiltReport.Diagram/Src/Bin/Assemblies/net48 -Recurse
         if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
-      - name: Install PSGraph
-        run: Install-Module -Name PSGraph -Force -Scope CurrentUser
-
       - name: Install Graphviz
         uses: tlylt/install-graphviz@v1
         if: runner.os != 'Windows'
@@ -64,8 +61,6 @@ jobs:
         id: action-test
         with:
           Path: "./Tests"
-          Prescript: |
-            Import-Module PSGraph
 
       - name: Process test results
         if: always()
