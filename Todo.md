@@ -12,6 +12,8 @@
 
 ## Medium Priority
 
+- [ ] Integrate PSGraph cmdlets to the module (Project without active maintenance)
+
 ## Low Priority
 
 - [ ] Add option to set icon size by percent
