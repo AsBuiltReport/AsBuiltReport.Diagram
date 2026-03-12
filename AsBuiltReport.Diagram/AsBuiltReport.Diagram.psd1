@@ -51,7 +51,6 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    # PSGraph cmdlets are now integrated directly into this module
     # RequiredModules = @()
 
     # Assemblies that must be loaded prior to importing this module
@@ -70,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'Add-DiaLeftLShapeLine', 'Add-DiaRightLShapeLine', 'Add-DiaInvertedLShapeLine', 'Add-DiaLShapeLine', 'Add-DiaLeftTShapeLine', 'Add-DiaRightTShapeLine', 'Add-DiaCrossShapeLine', 'Add-DiaInvertedTShapeLine', 'Add-DiaTShapeLine', 'Add-DiaVerticalLine', 'Add-DiaHorizontalLine', 'Add-DiaHtmlSignatureTable', 'Group-Node', 'Add-DiaHTMLSubGraph', 'Convert-DiaTableToHTML', 'Add-DiaHtmlLabel', 'Add-DiaHtmlNodeTable', 'Add-DiaHtmlTable', 'Get-NodeIP', 'Add-DiaNodeIcon', 'Export-Diagrammer', 'Remove-SpecialChar', 'Split-Array', 'Test-Image', 'Test-Logo', 'Write-ColorOutput', 'Get-DiaImagePercent', 'New-Diagrammer', 'Add-DiaNodeSpacer', 'Write-PSObject', 'Get-RandomColorHex', 'Get-RandomPastelColorHex', 'Add-DiaNodeImage', 'Add-DiaNodeShape', 'Add-DiaNodeText', 'Get-DiaBestImageAspectRatio', 'Add-DiaNodeEdge', 'Edge', 'Entity', 'Export-PSGraph', 'Graph', 'Inline', 'Install-GraphViz', 'Node', 'Rank', 'Record', 'Row', 'Set-NodeFormatScript', 'Show-PSGraph', 'SubGraph'
+    FunctionsToExport = 'Add-DiaLeftLShapeLine', 'Add-DiaRightLShapeLine', 'Add-DiaInvertedLShapeLine', 'Add-DiaLShapeLine', 'Add-DiaLeftTShapeLine', 'Add-DiaRightTShapeLine', 'Add-DiaCrossShapeLine', 'Add-DiaInvertedTShapeLine', 'Add-DiaTShapeLine', 'Add-DiaVerticalLine', 'Add-DiaHorizontalLine', 'Add-DiaHtmlSignatureTable', 'Group-Node', 'Add-DiaHTMLSubGraph', 'Convert-DiaTableToHTML', 'Add-DiaHtmlLabel', 'Add-DiaHtmlNodeTable', 'Add-DiaHtmlTable', 'Get-NodeIP', 'Add-DiaNodeIcon', 'Export-Diagrammer', 'Remove-SpecialChar', 'Split-Array', 'Test-Image', 'Test-Logo', 'Write-ColorOutput', 'Get-DiaImagePercent', 'New-Diagrammer', 'Add-DiaNodeSpacer', 'Write-PSObject', 'Get-RandomColorHex', 'Get-RandomPastelColorHex', 'Add-DiaNodeImage', 'Add-DiaNodeShape', 'Add-DiaNodeText', 'Get-DiaBestImageAspectRatio', 'Add-DiaNodeEdge'
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()
@@ -79,7 +78,7 @@
     # VariablesToExport = '*'
 
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    AliasesToExport = @('digraph')
+    AliasesToExport = @()
 
     # DSC resources to export from this module
     # DscResourcesToExport = @()
@@ -121,5 +120,6 @@
     # DefaultCommandPrefix = ''
 
 }
+
 
 
