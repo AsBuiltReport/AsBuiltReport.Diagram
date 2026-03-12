@@ -28,6 +28,7 @@ function Node
         If you have subgraphs, it works best to define the node inside the subgraph before giving it an edge
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidDefaultValueForMandatoryParameter", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidOverwritingBuiltInCmdlets", "")]
     [cmdletbinding()]
     param(
         # The name of the node

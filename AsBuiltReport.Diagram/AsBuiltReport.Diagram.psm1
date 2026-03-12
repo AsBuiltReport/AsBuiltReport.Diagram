@@ -34,4 +34,5 @@ foreach ($Module in @($Public + $Private)) {
 Set-Alias digraph Graph -Scope Local
 Export-ModuleMember -Function $Public.BaseName
 Export-ModuleMember -Function $Private.BaseName
+Set-Alias digraph Graph -Scope Local
 Export-ModuleMember -Alias 'digraph'

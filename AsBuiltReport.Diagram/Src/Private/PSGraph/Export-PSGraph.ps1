@@ -30,7 +30,6 @@ function Export-PSGraph
         It checks the piped data for file paths. If it cannot find a file, it assumes it is graph data.
         This may give unexpected errors when the file does not exist.
     #>
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingInvokeExpression", "")]
     [cmdletbinding()]
     param(
         # The GraphViz file to process or contents of the graph in Dot notation
@@ -171,7 +170,7 @@ function Export-PSGraph
                 {
                     Write-Verbose '  Creating temporary path to save graph'
 
-                    if ( $standardInput[0] -match 'graph\s+(?<filename>.+)\s+{' )
+                    if ( $standardInput.ToString() -match 'graph\s+(?<filename>.+)\s+{' )
                     {
                         $file = $Matches.filename
                     }
@@ -193,9 +192,18 @@ function Export-PSGraph
 
                 if ( $ShowGraph )
                 {
-                    # Launches image with default viewer as decided by explorer
-                    Write-Verbose "Launching $($PSBoundParameters["DestinationPath"])"
-                    Invoke-Expression $PSBoundParameters["DestinationPath"]
+                    # Launches image with default viewer
+                    $destinationPath = $PSBoundParameters["DestinationPath"]
+                    Write-Verbose "Launching $destinationPath"
+                    $resolvedPath = Resolve-Path -LiteralPath $destinationPath -ErrorAction SilentlyContinue
+                    if ($resolvedPath)
+                    {
+                        Start-Process -FilePath $resolvedPath
+                    }
+                    else
+                    {
+                        Write-Warning "DestinationPath '$destinationPath' does not exist and cannot be launched."
+                    }
                 }
 
                 Get-ChildItem $PSBoundParameters["DestinationPath"]

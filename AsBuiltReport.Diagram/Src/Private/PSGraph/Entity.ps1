@@ -1,8 +1,11 @@
-Enum EntityType
+if (-not ('EntityType' -as [type]))
 {
-    Name
-    Value
-    TypeName
+    Enum EntityType
+    {
+        Name
+        Value
+        TypeName
+    }
 }
 
 Function Entity
@@ -45,6 +48,7 @@ Function Entity
     General notes
     #>
     [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseProcessBlockForPipelineCommand", "")]
     param (
         [parameter(
             ValueFromPipeline,
@@ -82,8 +86,8 @@ Function Entity
         {
             if ($null -ne $Property)
             {
-                $matches = $property | Where-Object {$propertyName -like $_}
-                if ($null -eq $matches)
+                $propertyMatches = $property | Where-Object {$propertyName -like $_}
+                if ($null -eq $propertyMatches)
                 {
                     continue
                 }
