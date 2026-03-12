@@ -72,7 +72,7 @@ function Node
                 !$PSBoundParameters.ContainsKey( 'NodeScript' )
             )
             {
-                # detected attept to set default values in this form 'node @{key=value}', the hashtable ends up in $name[0]
+                # detected attempt to set default values in this form 'node @{key=value}', the hashtable ends up in $name[0]
                 $GraphVizAttribute = ConvertTo-GraphVizAttribute -Attributes $Name[0]
                 '{0}node {1}' -f (Get-Indent), $GraphVizAttribute
             }
