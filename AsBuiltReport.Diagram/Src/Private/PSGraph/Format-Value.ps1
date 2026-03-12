@@ -21,7 +21,7 @@ function Format-Value
     {
         # edges can point to record cells
         if ($Edge -and
-            # is not surounded by explicit quotes
+            # is not surrounded by explicit quotes
             $value -notmatch '^".*"$' -and
             # has record notation with a word as a target
             $value -match '^(?<node>.+):(?<Record>(\w+))$'
