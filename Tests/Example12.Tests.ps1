@@ -2,7 +2,7 @@ BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
 }
 
-Describe Example14 {
+Describe Example12 {
     BeforeAll {
         $PassParamsDot = @{
             Path = $TestDrive
@@ -20,7 +20,7 @@ Describe Example14 {
             Path = 'C:\logo.png'
             Format = @('dot')
         }
-        $RunFile = & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example14.ps1 @PassParamsDot
+        $RunFile = & $ProjectRoot\Examples\Example12.ps1 @PassParamsDot
     }
 
     Context 'Format Parameter Tests' {
@@ -28,10 +28,10 @@ Describe Example14 {
             ($RunFile).FullName | Should -Exist
         }
         It 'Should exist Example1.png' {
-            (& $ProjectRoot\AsBuiltReport.Diagram\Examples\Example14.ps1 @PassParamsPng).FullName | Should -Exist
+            (& $ProjectRoot\Examples\Example12.ps1 @PassParamsPng).FullName | Should -Exist
         }
         It 'Should return error about unsupported Format' {
-            { & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example14.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
+            { & $ProjectRoot\Examples\Example12.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
         }
     }
     Context 'Graphviz Dot Node Tests' {
@@ -88,13 +88,6 @@ Describe Example14 {
 
                 $DotContent | Should -Match $ExpectedText
             }
-            It 'Should match Firewall node' {
-                $DotFile = ($RunFile).FullName
-                $DotContent = Get-Content -Path $DotFile -Raw
-                $ExpectedText = 'Firewall'
-
-                $DotContent | Should -Match $ExpectedText
-            }
         }
 
         Context 'Graphviz Dot Node Icon (Label) Tests' {
@@ -120,12 +113,12 @@ Describe Example14 {
                 $DotContent | Should -Match 'Build: 10.1'
                 $DotContent | Should -Match 'Edition: Enterprise'
             }
-            It 'Should match HTML label DB01 node with embedded image' {
+            It 'Should match HTML label DB-Server-01 node with embedded image' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
 
                 $DotContent | Should -Match 'img src="Server.png"'
-                $DotContent | Should -Match 'Db-Server-01'
+                $DotContent | Should -Match 'DB-Server-01'
                 $DotContent | Should -Match 'OS: Oracle Server'
                 $DotContent | Should -Match 'Version: 8'
                 $DotContent | Should -Match 'Build: 8.2'
@@ -135,7 +128,7 @@ Describe Example14 {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
                 $DotContent | Should -Match 'img src="Router.png"'
-                $DotContent | Should -Match '>Core-Router<'
+                $DotContent | Should -Match 'Core-Router'
                 $DotContent | Should -Match 'Version: 15.2'
             }
             It 'Should match HTML label Wan node with embedded image' {
@@ -187,11 +180,11 @@ Describe Example14 {
             $DotContent | Should -Match $ExpectedText
             $DotContent | Should -Match $ExpectedEdgeLabel
         }
-        It 'Should match WAN -> Firewall edge' {
+        It 'Should match WAN -> Core-Router edge' {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'WAN -> Firewall'
-            $ExpectedEdgeLabel = 'port1'
+            $ExpectedText = 'WAN -> "Core-Router"'
+            $ExpectedEdgeLabel = 'Serial0/0'
 
             $DotContent | Should -Match $ExpectedText
             $DotContent | Should -Match $ExpectedEdgeLabel
@@ -203,15 +196,6 @@ Describe Example14 {
 
             $DotContent | Should -Match $ExpectedText
         }
-        It 'Should match Firewall -> Core-Router edge' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'Firewall -> "Core-Router"'
-            $ExpectedEdgeLabel = 'Serial0/0'
-
-            $DotContent | Should -Match $ExpectedText
-            $DotContent | Should -Match $ExpectedEdgeLabel
-        }
     }
     Context 'Graphviz Dot Rank Tests' {
         It 'Should match Router01 -> RouterNetworkInfo rank=same' {
@@ -219,50 +203,6 @@ Describe Example14 {
             $DotContent = Get-Content -Path $DotFile -Raw
             $ExpectedText = 'rank=same'
             ([regex]::Matches($DotContent, $ExpectedText)).count | Should -Be 2
-        }
-    }
-    Context 'Signature Tests' {
-        It 'Should match subgraph clusterSignatureLabel' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'label=<<TABLE STYLE="rounded,dashed" border="2" cellborder="0" cellpadding="5"><TR><TD fixedsize="true" width="80" height="80" ALIGN="left" colspan="1" rowspan="4"><img src="Signature_Logo.png"/></TD></TR><TR><TD valign="top" align="left" colspan="2"><B><FONT POINT-SIZE="14">Author: Bugs Bunny</FONT></B></TD></TR><TR><TD valign="top" align="left" colspan="2"><B><FONT POINT-SIZE="14">Company: ACME Inc.</FONT></B></TD></TR></TABLE>>,'
-
-            $DotContent | Should -Match 'img src="Signature_Logo.png"'
-            $DotContent | Should -Match '>Author: Bugs Bunny<'
-            $DotContent | Should -Match '>Company: ACME Inc.<'
-
-        }
-        It 'Should match Graphviz attribute labeljust' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'labeljust=right'
-            $DotContent | Should -Match $ExpectedText
-        }
-        It 'Should match Graphviz attribute labelloc' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'labelloc=b'
-            $DotContent | Should -Match $ExpectedText
-        }
-    }
-    Context 'Graphviz Attributes Tests' {
-        It 'Should match Graphviz attribute shape' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'shape=rectangle'
-            $DotContent | Should -Match $ExpectedText
-        }
-        It 'Should match Graphviz attribute headlabel' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'headlabel="Serial0/0"'
-            $DotContent | Should -Match $ExpectedText
-        }
-        It 'Should match Graphviz attribute taillabel' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'taillabel=port2'
-            $DotContent | Should -Match $ExpectedText
         }
     }
 }

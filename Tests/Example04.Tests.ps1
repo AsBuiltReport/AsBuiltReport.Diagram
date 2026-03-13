@@ -2,7 +2,7 @@ BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
 }
 
-Describe Example03 {
+Describe Example04 {
     BeforeAll {
         $PassParamsDot = @{
             Path = $TestDrive
@@ -20,7 +20,8 @@ Describe Example03 {
             Path = 'C:\logo.png'
             Format = @('dot')
         }
-        $RunFile = & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example03.ps1 @PassParamsDot
+
+        $RunFile = & $ProjectRoot\Examples\Example04.ps1 @PassParamsDot
     }
 
     Context 'Format Parameter Tests' {
@@ -28,10 +29,10 @@ Describe Example03 {
             ($RunFile).FullName | Should -Exist
         }
         It 'Should exist Example1.png' {
-            (& $ProjectRoot\AsBuiltReport.Diagram\Examples\Example03.ps1 @PassParamsPng).FullName | Should -Exist
+            (& $ProjectRoot\Examples\Example04.ps1 @PassParamsPng).FullName | Should -Exist
         }
         It 'Should return error about unsupported Format' {
-            { & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example03.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
+            { & $ProjectRoot\Examples\Example04.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
         }
     }
     Context 'Graphviz Dot Node Tests' {
@@ -63,6 +64,16 @@ Describe Example03 {
 
             $DotContent | Should -Match $ExpectedText
         }
+        It 'Should match 3tier node' {
+            $DotFile = ($RunFile).FullName
+            $DotContent = Get-Content -Path $DotFile -Raw
+            $ExpectedText = '3tier'
+
+            $DotContent | Should -Match $ExpectedText
+        }
+
+    }
+    Context 'Graphviz Dot Edge Tests' {
         It 'Should match Web-Server-01 -> App-Server-01 edge' {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
@@ -77,12 +88,19 @@ Describe Example03 {
 
             $DotContent | Should -Match $ExpectedText
         }
-    }
-    Context 'Graphviz Dot Edge Tests' {
         It 'Should match minlen=3 edge attribute' {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
             $ExpectedText = 'minlen=3'
+
+            $DotContent | Should -Match $ExpectedText
+        }
+    }
+    Context 'Graphviz Dot SubGraph Tests' {
+        It 'Should match subgraph cluster3tier cluster attribute' {
+            $DotFile = ($RunFile).FullName
+            $DotContent = Get-Content -Path $DotFile -Raw
+            $ExpectedText = 'subgraph cluster3tier {'
 
             $DotContent | Should -Match $ExpectedText
         }

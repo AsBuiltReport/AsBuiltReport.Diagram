@@ -2,7 +2,7 @@ BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
 }
 
-Describe Example02 {
+Describe Example01 {
     BeforeAll {
         $PassParamsDot = @{
             Path = $TestDrive
@@ -21,7 +21,7 @@ Describe Example02 {
             Format = @('dot')
         }
 
-        $RunFile = & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example02.ps1 @PassParamsDot
+        $RunFile = & $ProjectRoot\Examples\Example01.ps1 @PassParamsDot
     }
 
     Context 'Format Parameter Tests' {
@@ -29,20 +29,19 @@ Describe Example02 {
             ($RunFile).FullName | Should -Exist
         }
         It 'Should exist Example1.png' {
-            (& $ProjectRoot\AsBuiltReport.Diagram\Examples\Example02.ps1 @PassParamsPng).FullName | Should -Exist
+            (& $ProjectRoot\Examples\Example01.ps1 @PassParamsPng).FullName | Should -Exist
         }
         It 'Should return error about unsupported Format' {
-            { & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example02.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
+            { & $ProjectRoot\Examples\Example01.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
         }
     }
     Context 'Graphviz Dot source Tests' {
         It 'Should match HTML label with embedded image' {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
+            $ExpectedText = 'label=<<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="10" BGCOLOR="#FFFFFF" COLOR="black"><TR><TD ALIGN="Center" BGCOLOR="#FFFFFF" COLSPAN="1"><img SRC="AsBuiltReport.png"/></TD></TR><TR><TD ALIGN="Center"><FONT FACE="Segoe Ui" POINT-SIZE="24" COLOR="#000000">3tier Web Application Diagram</FONT></TD></TR></TABLE>>,'
 
-            $DotContent | Should -Match 'img src="AsBuiltReport.png"'
-            $DotContent | Should -Match '>Web Application Diagram<'
-
+            $DotContent | Should -Match $ExpectedText
         }
         It 'Should match Web-Server-01 node' {
             $DotFile = ($RunFile).FullName
@@ -62,20 +61,6 @@ Describe Example02 {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
             $ExpectedText = 'DB-Server-01'
-
-            $DotContent | Should -Match $ExpectedText
-        }
-        It 'Should match Web-Server-01 -> App-Server-01 edge' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = '"Web-Server-01" -> "App-Server-01"'
-
-            $DotContent | Should -Match $ExpectedText
-        }
-        It 'Should match App-Server-01 -> DB-Server-01 edge' {
-            $DotFile = ($RunFile).FullName
-            $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = '"App-Server-01" -> "DB-Server-01"'
 
             $DotContent | Should -Match $ExpectedText
         }

@@ -2,7 +2,7 @@ BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
 }
 
-Describe Example05 {
+Describe Example09 {
     BeforeAll {
         $PassParamsDot = @{
             Path = $TestDrive
@@ -20,7 +20,7 @@ Describe Example05 {
             Path = 'C:\logo.png'
             Format = @('dot')
         }
-        $RunFile = & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example05.ps1 @PassParamsDot
+        $RunFile = & $ProjectRoot\Examples\Example09.ps1 @PassParamsDot
     }
 
     Context 'Format Parameter Tests' {
@@ -28,10 +28,10 @@ Describe Example05 {
             ($RunFile).FullName | Should -Exist
         }
         It 'Should exist Example1.png' {
-            (& $ProjectRoot\AsBuiltReport.Diagram\Examples\Example05.ps1 @PassParamsPng).FullName | Should -Exist
+            (& $ProjectRoot\Examples\Example09.ps1 @PassParamsPng).FullName | Should -Exist
         }
         It 'Should return error about unsupported Format' {
-            { & $ProjectRoot\AsBuiltReport.Diagram\Examples\Example05.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
+            { & $ProjectRoot\Examples\Example09.ps1 @PassParamsTif } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Format'. The argument `"tif`" does not belong to the set `"pdf,svg,png,dot,base64,jpg`" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again."
         }
     }
     Context 'Graphviz Dot Node Tests' {
@@ -47,48 +47,47 @@ Describe Example05 {
 
         Context 'Graphviz Dot Node Icon Tests' {
 
-            It 'Should match Web01 node' {
+            It 'Should match Web-Server-Farm node' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
-                $ExpectedText = 'Web01'
+                $ExpectedText = 'Web-Server-Farm'
 
                 $DotContent | Should -Match $ExpectedText
             }
-            It 'Should match App01 node' {
+            It 'Should match App-Server-01 node' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
-                $ExpectedText = 'App01'
+                $ExpectedText = 'App-Server-01'
 
                 $DotContent | Should -Match $ExpectedText
             }
-            It 'Should match DB01 node' {
+            It 'Should match DB-Server-01 node' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
-                $ExpectedText = 'DB01'
+                $ExpectedText = 'DB-Server-01'
 
                 $DotContent | Should -Match $ExpectedText
             }
         }
 
         Context 'Graphviz Dot Node Icon (Label) Tests' {
-            It 'Should match HTML label Web01 node with embedded image' {
+            It 'Should match HTML label Web-Server-Farm node with embedded image' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
 
                 $DotContent | Should -Match 'img src="Server.png"'
-                $DotContent | Should -Match '>Web-Server-01<'
+                $DotContent | Should -Match 'Web-Server-Farm'
                 $DotContent | Should -Match 'OS: Redhat Linux'
                 $DotContent | Should -Match 'Version: 10'
                 $DotContent | Should -Match 'Build: 10.1'
                 $DotContent | Should -Match 'Edition: Enterprise'
-
             }
             It 'Should match HTML label App01 node with embedded image' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
 
                 $DotContent | Should -Match 'img src="Server.png"'
-                $DotContent | Should -Match '>App-Server-01<'
+                $DotContent | Should -Match 'Web-Server-02'
                 $DotContent | Should -Match 'OS: Redhat Linux'
                 $DotContent | Should -Match 'Version: 10'
                 $DotContent | Should -Match 'Build: 10.1'
@@ -99,7 +98,7 @@ Describe Example05 {
                 $DotContent = Get-Content -Path $DotFile -Raw
 
                 $DotContent | Should -Match 'img src="Server.png"'
-                $DotContent | Should -Match '>DB-Server-01<'
+                $DotContent | Should -Match 'Db-Server-01'
                 $DotContent | Should -Match 'OS: Oracle Server'
                 $DotContent | Should -Match 'Version: 8'
                 $DotContent | Should -Match 'Build: 8.2'
@@ -115,17 +114,17 @@ Describe Example05 {
 
             $DotContent | Should -Match $ExpectedText
         }
-        It 'Should match Web01 -> App01 edge' {
+        It 'Should match Web-Server-Farm -> App-Server-01 edge' {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'Web01 -> App01'
+            $ExpectedText = '"Web-Server-Farm" -> "App-Server-01"'
 
             $DotContent | Should -Match $ExpectedText
         }
-        It 'Should match App01 -> DB01 edge' {
+        It 'Should match App-Server-01 -> DB-Server-01 edge' {
             $DotFile = ($RunFile).FullName
             $DotContent = Get-Content -Path $DotFile -Raw
-            $ExpectedText = 'App01 -> DB01'
+            $ExpectedText = '"App-Server-01" -> "DB-Server-01"'
 
             $DotContent | Should -Match $ExpectedText
         }

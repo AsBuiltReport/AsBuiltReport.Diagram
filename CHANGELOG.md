@@ -22,3 +22,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrate namespace from Diagrammer/DiaConvertImageToPDF to AsBuiltReportDiagram in all source files
 - Change cmdlet name from New-WatermarkToImage to Add-WatermarkToImage in all source files
 - Change cmdlet name from New-WatermarkToSvg to Add-WatermarkToSvg in all source files
+- Change default Main_Logo image from Diagrammer.png to AsBuiltReport.png

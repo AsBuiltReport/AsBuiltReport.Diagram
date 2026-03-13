@@ -99,10 +99,6 @@ Describe Export-Diagrammer {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputPDF
         ($GraphvizOutput).FullName | Should -Exist
     }
-    It 'Should return Diagrammer.dot full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputPDF
-        ($GraphvizOutput).FullName | Should -Exist
-    }
     It 'Should return Base64 string' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputBase64
         $GraphvizOutput | Should -Be $base64Source
@@ -111,7 +107,7 @@ Describe Export-Diagrammer {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVG
         ($GraphvizOutput).FullName | Should -Exist
     }
-    It 'Should include watermark text in SVG output' -Skip:(-not (Get-Command -Name Add-WatermarkToSvg -ErrorAction SilentlyContinue)) {
+    It 'Should include watermark text in SVG output' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVGWithWatermark
         ($GraphvizOutput).FullName | Should -Exist
         (Get-Content -Path $GraphvizOutput.FullName -Raw) | Should -Match 'Confidential'
