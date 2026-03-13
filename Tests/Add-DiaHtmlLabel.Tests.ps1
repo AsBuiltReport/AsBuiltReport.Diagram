@@ -70,11 +70,11 @@ Describe Add-DiaHtmlLabel {
 
     Context 'Display Label with Icon with custom Width and Height calculated in Percent of original image size' {
         It 'Should return a HTML Table with an Icon at Top and a Label text at bottom (Vertical Alignment) with custom Icon size in Percent' {
-            $HTMLTableMainLabelSetImagePercent | Should -BeExactly '<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="20" CELLPADDING="10" BGCOLOR="#FFFFFF" COLOR="black"><TR><TD ALIGN="Center" BGCOLOR="#FFFFFF" COLSPAN="1" FIXEDSIZE="true" WIDTH="210" HEIGHT="143.5"><img SRC="AsBuiltReport.png"/></TD></TR><TR><TD ALIGN="Center"><FONT FACE="Segoe Ui" POINT-SIZE="14" COLOR="#000000">Active Directory Forest Diagram</FONT></TD></TR></TABLE>'
+            $HTMLTableMainLabelSetImagePercent | Should -BeExactly '<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="20" CELLPADDING="10" BGCOLOR="#FFFFFF" COLOR="black"><TR><TD ALIGN="Center" BGCOLOR="#FFFFFF" COLSPAN="1" FIXEDSIZE="true" WIDTH="2671.2" HEIGHT="1327.2"><img SRC="AsBuiltReport.png"/></TD></TR><TR><TD ALIGN="Center"><FONT FACE="Segoe Ui" POINT-SIZE="14" COLOR="#000000">Active Directory Forest Diagram</FONT></TD></TR></TABLE>'
         }
 
         It 'Should return a HTML Table with an Icon at left and a Label text at right (Horizontal Alignment) with custom Icon size in Percent' {
-            $HTMLTableSubgraphLabelSetImagePercent | Should -BeExactly '<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="5" CELLPADDING="5" BGCOLOR="#FFFFFF" COLOR="black"><TR><TD ALIGN="Center" BGCOLOR="#FFFFFF" COLSPAN="1" FIXEDSIZE="true" WIDTH="210" HEIGHT="143.5"><IMG SRC="AsBuiltReport.png"/></TD><TD ALIGN="Center"><FONT FACE="Segoe Ui" POINT-SIZE="14" COLOR="#000000">Active Directory Forest Diagram</FONT></TD></TR></TABLE>'
+            $HTMLTableSubgraphLabelSetImagePercent | Should -BeExactly '<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="5" CELLPADDING="5" BGCOLOR="#FFFFFF" COLOR="black"><TR><TD ALIGN="Center" BGCOLOR="#FFFFFF" COLSPAN="1" FIXEDSIZE="true" WIDTH="2671.2" HEIGHT="1327.2"><IMG SRC="AsBuiltReport.png"/></TD><TD ALIGN="Center"><FONT FACE="Segoe Ui" POINT-SIZE="14" COLOR="#000000">Active Directory Forest Diagram</FONT></TD></TR></TABLE>'
         }
     }
 

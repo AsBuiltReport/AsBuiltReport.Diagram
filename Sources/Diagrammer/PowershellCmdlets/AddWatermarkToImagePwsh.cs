@@ -5,8 +5,8 @@ using iText.Layout.Element;
 
 namespace AsBuiltReportDiagram.PowerShell
 {
-    [Cmdlet(VerbsCommon.Add, "WatermarkToImage")]
-    public class AddWatermarkToImageCommand : PSCmdlet
+    [Cmdlet(VerbsCommon.Add, "WatermarkToImages")]
+    public class AddWatermarkToImagesCommand : PSCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Path to the source image file.")]
         public string? SourceImagePath { get; set; }
