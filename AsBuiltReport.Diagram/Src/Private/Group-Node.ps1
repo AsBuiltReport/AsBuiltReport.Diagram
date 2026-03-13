@@ -3,7 +3,8 @@ function Group-Node {
     .SYNOPSIS
         Function to split node array
     .DESCRIPTION
-        Export a diagram in PDF/PNG/SVG formats using PSgraph.
+        Splits an array of nodes into groups and creates Graphviz edges connecting consecutive groups.
+        Used to produce chain-style node connections in diagram layouts.
     .NOTES
         Version:        0.1.8
         Author:         Jonathan Colon
@@ -25,25 +26,25 @@ function Group-Node {
         [Parameter(
             Position = 1,
             Mandatory = $true,
-            HelpMessage = 'Delete temporary image file'
+            HelpMessage = 'Number of nodes per group when splitting the input array'
         )]
         [int] $SplitinGroups,
         [Parameter(
             Position = 2,
             Mandatory = $true,
-            HelpMessage = 'Delete temporary image file'
+            HelpMessage = 'The style of the edges connecting the node groups (e.g. dashed, solid)'
         )]
         [string] $Style,
         [Parameter(
             Position = 3,
             Mandatory = $true,
-            HelpMessage = 'Delete temporary image file'
+            HelpMessage = 'The color of the edges connecting the node groups'
         )]
         [string] $Color,
         [Parameter(
             Position = 4,
             Mandatory = $false,
-            HelpMessage = 'Delete temporary image file'
+            HelpMessage = 'The minimum edge length between node groups'
         )]
         [string] $Minlen = 1
     )

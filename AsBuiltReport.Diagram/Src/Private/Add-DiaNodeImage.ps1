@@ -33,7 +33,7 @@ function Add-DiaNodeImage {
         Specifies the color of the table border using a hex color code. Default is "#000000" (black).
 
     .PARAMETER TableBackgroundColor
-        Specifies the color of the table bgcolor using a hex color code. Default is "#FFFFFF" (black).
+        Specifies the color of the table bgcolor using a hex color code. Default is "#FFFFFF" (white).
 
     .PARAMETER TableBorderStyle
         Defines the style of the table border. Accepted values are: ROUNDED, RADIAL, SOLID, INVISIBLE, INVIS, DOTTED, and DASHED.

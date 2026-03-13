@@ -1,34 +1,31 @@
 function Add-WatermarkToImage {
     <#
     .SYNOPSIS
-        Used to add a watermark text to Image
+        Used to add a watermark text to an image.
     .DESCRIPTION
-        Takes a string and add it as an 45 degree watermakr to the provided Image file.
-    .Example
-
-        Add-WatermarkToImage ImageInput "c:\Image.png" DestinationPath "c:\Image_Edited.png" -WaterMarkText "Zen PR Solutions" -FontName 'Arial' -FontSize 20 -FontColor 'Red'
+        Takes a string and adds it as a 45-degree watermark to the provided image file.
+    .EXAMPLE
+        Add-WatermarkToImage -ImageInput "c:\Image.png" -DestinationPath "c:\Image_Edited.png" -WaterMarkText "Zen PR Solutions" -FontName 'Arial' -FontSize 20 -FontColor 'Red'
 
     .NOTES
         Version:        0.2.39
         Author:         Jonathan Colon
         Bluesky:        @jcolonfpr.bsky.social
         Github:         rebelinux
-    .PARAMETER ImageInputFile
-        The Image file Path (PNG, TIFF, JPEG, JPG)
-    .PARAMETER Base64Input
-        The image in base64 format
-    .PARAMETER ImageOutputFile
-        The path of the resulting edited image
+    .PARAMETER ImageInput
+        The image file path (PNG, TIFF, JPEG, JPG).
+    .PARAMETER DestinationPath
+        The path of the resulting edited image.
     .PARAMETER WaterMarkText
-        The text to be inserted to the image as a watermark
+        The text to be inserted into the image as a watermark.
     .PARAMETER FontName
-        The font name
+        The font name to use for the watermark text.
     .PARAMETER FontSize
-        The font size
+        The font size of the watermark text.
     .PARAMETER FontColor
-        The font color [System.Drawing.Color] type (Red, Blue, Yellow etc..)
+        The font color as a System.Drawing.Color value (e.g. Red, Blue, Yellow).
     .PARAMETER FontOpacity
-        The font color opacity level
+        The font color opacity level (0-100).
     #>
 
     [CmdletBinding()]

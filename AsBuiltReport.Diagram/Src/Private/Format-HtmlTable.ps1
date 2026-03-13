@@ -59,7 +59,7 @@ function Format-HtmlTable {
         [string]$TableBorderColor = 'black',
 
         [Parameter(
-            HelpMessage = 'Switch to underline the font.'
+            HelpMessage = 'The border size of the table cells. Default is 1.'
         )]
         [int]$CellBorder = 1,
 

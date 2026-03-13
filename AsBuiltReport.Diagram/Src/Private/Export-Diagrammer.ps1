@@ -112,28 +112,28 @@ function Export-Diagrammer {
         [System.IO.FileInfo] $IconPath,
 
         [Parameter(
-            Position = 7,
+            Position = 6,
             Mandatory = $false,
             HelpMessage = 'Allow to add a watermark to the output image (Not supported in dot format)'
         )]
         [string] $WaterMarkText,
 
         [Parameter(
-            Position = 8,
+            Position = 7,
             Mandatory = $false,
             HelpMessage = 'Allow to specified the color used for the watermark text'
         )]
         [string] $WaterMarkColor = 'Red',
 
         [Parameter(
-            Position = 9,
+            Position = 8,
             Mandatory = $false,
-            HelpMessage = 'Allow to specified the color used for the watermark text'
+            HelpMessage = 'Allow to specified the font opacity used for the watermark text'
         )]
         [int] $WaterMarkFontOpacity = 30,
 
         [Parameter(
-            Position = 10,
+            Position = 9,
             Mandatory = $false,
             HelpMessage = 'Allow to rotate the diagram output image. valid rotation degree (90, 180, 270)'
         )]

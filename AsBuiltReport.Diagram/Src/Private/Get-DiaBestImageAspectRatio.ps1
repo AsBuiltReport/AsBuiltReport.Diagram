@@ -40,13 +40,13 @@ function Get-DiaBestImageAspectRatio {
 
         [Parameter (
             Mandatory = $false,
-            HelpMessage = 'Set the image maximun Width value'
+            HelpMessage = 'Set the image maximum Width value'
         )]
         [int] $MaxWidth,
 
         [Parameter (
             Mandatory = $false,
-            HelpMessage = 'Set the image maximun Height value'
+            HelpMessage = 'Set the image maximum Height value'
         )]
         [int] $MaxHeight
 
