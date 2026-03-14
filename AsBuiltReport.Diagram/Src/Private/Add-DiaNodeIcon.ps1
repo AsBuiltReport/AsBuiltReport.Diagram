@@ -364,10 +364,9 @@ function Add-DiaNodeIcon {
         $ImageSize = Get-DiaImagePercent -ImageInput (Join-Path -Path $IconPath -Child $ICON) -Percent $ImageSizePercent
     }
 
-    $TRAditionalInfo = @()
-
     # Process additionalinfo if provided
     if ($AditionalInfo) {
+        $TRAditionalInfo = @()
         switch ($AditionalInfo.GetType().Name) {
             'Hashtable' {
                 foreach ($r in $AditionalInfo) {
