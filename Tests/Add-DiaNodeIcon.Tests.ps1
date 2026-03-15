@@ -9,7 +9,7 @@ BeforeAll {
 Describe Add-DiaNodeIcon {
     BeforeAll {
         $Images = @{
-            'Main_Logo' = 'Diagrammer.png'
+            'Main_Logo' = 'AsBuiltReport.png'
             'ForestRoot' = 'RootDomain.png'
         }
         $DC = 'Server-DC-01v'

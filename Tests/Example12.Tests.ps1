@@ -39,7 +39,7 @@ Describe Example12 {
             It 'Should match HTML label with embedded image' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
-                $DotContent | Should -Match 'img src="Diagrammer.png"'
+                $DotContent | Should -Match 'img src="AsBuiltReport.png"'
                 $DotContent | Should -Match '>Web Application Diagram<'
             }
         }

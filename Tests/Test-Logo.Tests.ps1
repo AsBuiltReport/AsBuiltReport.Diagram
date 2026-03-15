@@ -8,7 +8,7 @@ Describe Test-Logo {
     BeforeAll {
         $IconPath = $TestDrive
         $Images = @{
-            'Main_Logo' = 'Diagrammer.png'
+            'Main_Logo' = 'AsBuiltReport.png'
         }
         $Logo = Join-Path -Path "$TestsFolder\Icons" -ChildPath 'Logo_Test.png'
         $ImageName = Test-Logo -LogoPath $Logo -IconPath $IconPath -ImagesObj $Images

@@ -9,7 +9,7 @@ BeforeAll {
 Describe Add-DiaHtmlTable {
     BeforeAll {
         $Images = @{
-            'Main_Logo' = 'Diagrammer.png'
+            'Main_Logo' = 'AsBuiltReport.png'
             'ForestRoot' = 'RootDomain.png'
         }
         $SiteSubnets = @('192.68.5.0/24', '192.68.7.0/24', '10.0.0.0/24')

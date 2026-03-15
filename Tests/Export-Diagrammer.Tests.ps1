@@ -18,7 +18,7 @@ Describe Export-Diagrammer {
         }
 
         $GraphvizOutputPNG = @{
-            FileName = 'Diagrammer.png'
+            FileName = 'AsBuiltReport.png'
             Format = 'png'
             GraphObj = $dotSource
             OutputFolderPath = $TestDrive
@@ -41,6 +41,15 @@ Describe Export-Diagrammer {
             GraphObj = $dotSource
             OutputFolderPath = $TestDrive
         }
+        $GraphvizOutputSVGWithWatermark = @{
+            FileName = 'Diagrammer-Watermark.svg'
+            Format = 'svg'
+            GraphObj = $dotSource
+            OutputFolderPath = $TestDrive
+            WaterMarkText = 'Confidential'
+            WaterMarkColor = 'DarkGray'
+            WaterMarkFontOpacity = 40
+        }
         $GraphvizOutputDot = @{
             FileName = 'Diagrammer.dot'
             Format = 'dot'
@@ -57,20 +66,20 @@ Describe Export-Diagrammer {
             OutputFolderPath = $TestDrive
         }
         $GraphvizInvalidOutputFolderPath = @{
-            FileName = 'Diagrammer.png'
+            FileName = 'AsBuiltReport.png'
             GraphObj = $dotSource
             Format = 'png'
             OutputFolderPath = 'D:\InvalidPath'
         }
         $GraphvizInvalidIconsPath = @{
-            FileName = 'Diagrammer.png'
+            FileName = 'AsBuiltReport.png'
             GraphObj = $dotSource
             Format = 'png'
             OutputFolderPath = $TestDrive
             IconPath = 'D:\InvalidIconsPath'
         }
         $GraphvizInvalidRotate = @{
-            FileName = 'Diagrammer.png'
+            FileName = 'AsBuiltReport.png'
             GraphObj = $dotSource
             Format = 'png'
             OutputFolderPath = $TestDrive
@@ -78,7 +87,7 @@ Describe Export-Diagrammer {
         }
     }
 
-    It 'Should return Diagrammer.png full path' {
+    It 'Should return AsBuiltReport.png full path' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputPNG
         ($GraphvizOutput).FullName | Should -Exist
     }
@@ -90,10 +99,6 @@ Describe Export-Diagrammer {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputPDF
         ($GraphvizOutput).FullName | Should -Exist
     }
-    It 'Should return Diagrammer.dot full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputPDF
-        ($GraphvizOutput).FullName | Should -Exist
-    }
     It 'Should return Base64 string' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputBase64
         $GraphvizOutput | Should -Be $base64Source
@@ -101,6 +106,11 @@ Describe Export-Diagrammer {
     It 'Should return Diagrammer.svg full path' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVG
         ($GraphvizOutput).FullName | Should -Exist
+    }
+    It 'Should include watermark text in SVG output' {
+        $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVGWithWatermark
+        ($GraphvizOutput).FullName | Should -Exist
+        (Get-Content -Path $GraphvizOutput.FullName -Raw) | Should -Match 'Confidential'
     }
     It 'Should return Diagrammer.dot full path' {
         $GraphvizOutput = Export-Diagrammer @GraphvizOutputDot

@@ -3,7 +3,7 @@ using System.IO;
 using System.Management.Automation;
 using iText.Layout.Element;
 
-namespace Diagrammer.PowerShell
+namespace AsBuiltReportDiagram.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "ImageWidthFromFile")]
     public class GetImageWidthFromFileCommand : PSCmdlet

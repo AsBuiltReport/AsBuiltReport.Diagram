@@ -1,7 +1,7 @@
 <#
     This example demonstrates how to use the Add-DiaNodeEdge cmdlet to add customizable directed edges
     between nodes in a Graphviz diagram, including HTML label support for enhanced connectivity.
-    (Part of Diagrammer.Core module)
+    (Part of AsBuiltReport.Diagram module)
 #>
 
 [CmdletBinding()]
@@ -15,7 +15,7 @@ param (
     Starting with PowerShell v3, modules are auto-imported when needed. Importing the module here ensures clarity and avoids ambiguity.
 #>
 
-# Import-Module Diagrammer.Core -Force -Verbose:$false
+# Import-Module AsBuiltReport.Diagram -Force -Verbose:$false
 
 <#
     Since the diagram output is a file, specify the output folder path using $OutputFolderPath.
@@ -37,7 +37,7 @@ $RootPath = $PSScriptRoot
 #>
 
 $script:Images = @{
-    'Main_Logo' = 'Diagrammer.png'
+    'Main_Logo' = 'AsBuiltReport.png'
     'Server' = 'Server.png'
     'ServerRedhat' = 'Linux_Server_RedHat.png'
     'ServerUbuntu' = 'Linux_Server_Ubuntu.png'

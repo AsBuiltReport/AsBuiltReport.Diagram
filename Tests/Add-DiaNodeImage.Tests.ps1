@@ -10,7 +10,7 @@ BeforeAll {
 Describe Add-DiaNodeImage {
     BeforeAll {
         $Images = @{
-            'Main_Logo' = 'Diagrammer.png'
+            'Main_Logo' = 'AsBuiltReport.png'
         }
 
         $IconPath = Join-Path -Path $TestsFolder -ChildPath 'Icons'
@@ -25,11 +25,11 @@ Describe Add-DiaNodeImage {
 
     }
 
-    It 'Should return a HTML table with Diagrammer.png image' {
-        $HTMLOutPut | Should -BeExactly '<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="1" CELLPADDING="1" BGCOLOR="#FFFFFF" COLOR="#000000"><TR><TD STYLE="SOLID" ALIGN="Center" fixedsize="true" width="210" height="143.5" colspan="1"><img src="Diagrammer.png"/></TD></TR></TABLE>'
+    It 'Should return a HTML table with AsBuiltReport.png image' {
+        $HTMLOutPut | Should -BeExactly '<TABLE PORT="EdgeDot" STYLE="SOLID" BORDER="0" CELLBORDER="0" CELLSPACING="1" CELLPADDING="1" BGCOLOR="#FFFFFF" COLOR="#000000"><TR><TD STYLE="SOLID" ALIGN="Center" fixedsize="true" width="2671.2" height="1327.2" colspan="1"><img src="AsBuiltReport.png"/></TD></TR></TABLE>'
     }
     It 'Should return a HTML table with the IMG tag' {
-        $HTMLOutPut | Should -Match '<img src="Diagrammer.png"/>'
+        $HTMLOutPut | Should -Match '<img src="AsBuiltReport.png"/>'
     }
     It 'Should return a HTML table with red colored table' {
         $HTMLOutPutDebug | Should -Match 'COLOR="red"'
@@ -41,7 +41,7 @@ Describe Add-DiaNodeImage {
         $HTMLOutPutDebugNodeObj | Should -Match 'WAN'
     }
     It 'Should return a HTML table without the IMG tag' {
-        $HTMLOutPutDebug | Should -Not -Match "<img src='Diagrammer.png'/>"
+        $HTMLOutPutDebug | Should -Not -Match "<img src='AsBuiltReport.png'/>"
     }
 
     It 'Should throw an error when IconPath is not provided and ImageSizePercent is less than 100' {

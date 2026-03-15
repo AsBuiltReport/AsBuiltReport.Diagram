@@ -1,57 +1,53 @@
 name: Publish PowerShell Module
 
 on:
-    release:
-        types: [published]
+  release:
+    types: [published]
 
 jobs:
-    publish-to-gallery:
-        runs-on: windows-latest
-        steps:
-            - uses: actions/checkout@v6
-            - name: Setup .NET
-              uses: actions/setup-dotnet@v5
-              with:
-                  dotnet-version: "8.0.x"
+  publish-to-gallery:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
 
-            - name: Restore dependencies Diagrammer
-              run: dotnet restore ./Sources/Diagrammer
-              shell: pwsh
-            - name: Restore dependencies DiaConvertImageToPDF
-              run: dotnet restore ./Sources/DiaConvertImageToPDF
-              shell: powershell
+      - name: Restore dependencies Diagrammer
+        run: dotnet restore ./Sources/Diagrammer
+        shell: pwsh
+      - name: Restore dependencies DiaConvertImageToPDF
+        run: dotnet restore ./Sources/DiaConvertImageToPDF
+        shell: powershell
 
-            - name: Build the library PWSH
-              run: dotnet publish ./Sources/Diagrammer -c Release
-              shell: pwsh
-            - name: Copy the library PWSH
-              run: Copy-Item -Path ./Sources/Diagrammer/bin/Release/net8.0/publish/* -Destination ./Src/Bin/Assemblies/net80 -Recurse
-              shell: pwsh
+      - name: Build the library PWSH
+        run: dotnet publish ./Sources/Diagrammer -c Release
+        shell: pwsh
+      - name: Copy the library PWSH
+        run: Copy-Item -Path ./Sources/Diagrammer/bin/Release/net8.0/publish/* -Destination ./AsBuiltReport.Diagram/Src/Bin/Assemblies/net80 -Recurse
+        shell: pwsh
 
-            - name: Build the library for Windows PowerShell
-              run: dotnet publish ./Sources/DiaConvertImageToPDF -c Release
-              shell: powershell
-            - name: Copy the library for Windows PowerShell
-              run: Copy-Item -Path ./Sources/DiaConvertImageToPDF/bin/Release/net48/publish/* -Destination ./Src/Bin/Assemblies/net48 -Recurse
-              shell: powershell
+      - name: Build the library for Windows PowerShell
+        run: dotnet publish ./Sources/DiaConvertImageToPDF -c Release
+        shell: powershell
+      - name: Copy the library for Windows PowerShell
+        run: Copy-Item -Path ./Sources/DiaConvertImageToPDF/bin/Release/net48/publish/* -Destination ./AsBuiltReport.Diagram/Src/Bin/Assemblies/net48 -Recurse
+        shell: powershell
 
-            - name: Set PSRepository to Trusted for PowerShell Gallery
-              shell: pwsh
-              run: |
-                  Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-            - name: Install PSGraph module
-              shell: pwsh
-              run: |
-                  Install-Module -Name PSGraph -Repository PSGallery -Force
-            - name: Remove Misc files
-              shell: pwsh
-              run: |
-                  Remove-Item -Path .\Docs, .\Tests, .\Todo.md, .\mkdocs.yml -Recurse -Force
-            - name: Test Module Manifest
-              shell: pwsh
-              run: |
-                  Test-ModuleManifest .\Diagrammer.Core.psd1
-            - name: Publish module to PowerShell Gallery
-              shell: pwsh
-              run: |
-                  Publish-Module -Path ./ -NuGetApiKey ${{ secrets.PSGALLERY_API_KEY }} -Verbose
+      - name: Set PSRepository to Trusted for PowerShell Gallery
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+      - name: Install PSGraph module
+        shell: pwsh
+        run: |
+          Install-Module -Name PSGraph -Repository PSGallery -Force
+      - name: Test Module Manifest
+        shell: pwsh
+        run: |
+          Test-ModuleManifest .\AsBuiltReport.Diagram\AsBuiltReport.Diagram.psd1
+      - name: Publish module to PowerShell Gallery
+        shell: pwsh
+        run: |
+          Publish-Module -Path ./AsBuiltReport.Diagram -NuGetApiKey ${{ secrets.PSGALLERY_API_KEY }} -Verbose

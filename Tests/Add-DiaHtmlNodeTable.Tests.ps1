@@ -9,7 +9,7 @@ BeforeAll {
 Describe Add-DiaHtmlNodeTable {
     BeforeAll {
         $Images = @{
-            'Main_Logo' = 'Diagrammer.png'
+            'Main_Logo' = 'AsBuiltReport.png'
             'DomainController' = 'AD_DC.png'
             'Subnets' = 'AD_Subnets.png'
         }
