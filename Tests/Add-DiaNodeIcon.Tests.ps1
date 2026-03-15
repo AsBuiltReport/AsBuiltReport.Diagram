@@ -1,12 +1,12 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeIcon.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-NodeIcon.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-NodeObject.ps1')
 }
 
-Describe Add-DiaNodeIcon {
+Describe Add-NodeIcon {
     BeforeAll {
         $Images = @{
             'Main_Logo' = 'AsBuiltReport.png'
@@ -16,13 +16,13 @@ Describe Add-DiaNodeIcon {
         $DCRows = [ordered]@{
             Memory = '4GB'
         }
-        $HTMLOutPut = Add-DiaNodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images
-        $HTMLOutPutDebug = Add-DiaNodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -IconDebug $true
+        $HTMLOutPut = Add-NodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images
+        $HTMLOutPutDebug = Add-NodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -IconDebug $true
 
-        $HTMLOutPutTableStyle = Add-DiaNodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -TableStyle 'rounded,dashed' -TableBorder 1
-        $HTMLOutPutTableStyleDebug = Add-DiaNodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -IconDebug $true -TableStyle 'rounded,dashed' -TableBorder 1
+        $HTMLOutPutTableStyle = Add-NodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -TableStyle 'rounded,dashed' -TableBorder 1
+        $HTMLOutPutTableStyleDebug = Add-NodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -IconDebug $true -TableStyle 'rounded,dashed' -TableBorder 1
 
-        $HTMLOutPutTableStyle = Add-DiaNodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -TableStyle 'rounded,dashed' -TableBorder 1 -TableBackgroundColor 'red' -CellBackgroundColor 'darkgray'
+        $HTMLOutPutTableStyle = Add-NodeIcon -Name $DC -IconType 'ForestRoot' -Align 'Center' -Rows $DCRows -ImagesObj $Images -TableStyle 'rounded,dashed' -TableBorder 1 -TableBackgroundColor 'red' -CellBackgroundColor 'darkgray'
     }
 
     It 'Should return a HTML table' {

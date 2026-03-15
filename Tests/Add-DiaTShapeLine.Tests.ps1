@@ -1,15 +1,15 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaTShapeLine.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-TShapeLine.ps1')
 }
 
-Describe Add-DiaTShapeLine {
+Describe Add-TShapeLine {
     BeforeAll {
-        [string]$DotOutPut = Add-DiaTShapeLine
-        [string]$DotOutPutDebug = Add-DiaTShapeLine -DraftMode $true
-        [string]$DotOutPutWithParams = Add-DiaTShapeLine -TShapeLeft 'Left' -TShapeRight 'Right' -TShapeMiddleUp 'MiddleUp' -TShapeMiddleDown 'MiddleDown'
-        [string]$DotOutPutWithParamsArrowsTest = Add-DiaTShapeLine -Arrowtail box -Arrowhead diamond
-        [string]$DotOutPutWithParamsLineTest = Add-DiaTShapeLine -LineStyle solid -LineWidth 3 -LineColor red
+        [string]$DotOutPut = Add-TShapeLine
+        [string]$DotOutPutDebug = Add-TShapeLine -DraftMode $true
+        [string]$DotOutPutWithParams = Add-TShapeLine -TShapeLeft 'Left' -TShapeRight 'Right' -TShapeMiddleUp 'MiddleUp' -TShapeMiddleDown 'MiddleDown'
+        [string]$DotOutPutWithParamsArrowsTest = Add-TShapeLine -Arrowtail box -Arrowhead diamond
+        [string]$DotOutPutWithParamsLineTest = Add-TShapeLine -LineStyle solid -LineWidth 3 -LineColor red
         $DotOutPutWithParamsLineTestError = @{
             LineStyle = 'solid'
             LineWidth = 'baba'
@@ -20,9 +20,9 @@ Describe Add-DiaTShapeLine {
             Arrowhead   = 'diamond'
             ErrorAction = 'Stop'
         }
-        [string]$DotOutPutWithParamsLineLengthTest = Add-DiaTShapeLine -TShapeLeftLineLength 3 -TShapeRightLineLength 3 -TShapeMiddleDownLineLength 3
-        [string]$DotOutPutWithAllParamsTest = Add-DiaTShapeLine -TShapeLeft 'Left' -TShapeRight 'Right' -TShapeMiddleUp 'MiddleUp' -TShapeMiddleDown 'MiddleDown' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -TShapeLeftLineLength 3 -TShapeRightLineLength 3 -TShapeMiddleDownLineLength 3
-        [string]$DotOutPutWithAllParamsDebugTest = Add-DiaTShapeLine -TShapeLeft 'Left' -TShapeRight 'Right' -TShapeMiddleUp 'MiddleUp' -TShapeMiddleDown 'MiddleDown' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -TShapeLeftLineLength 3 -TShapeRightLineLength 3 -TShapeMiddleDownLineLength 3 -DraftMode $true
+        [string]$DotOutPutWithParamsLineLengthTest = Add-TShapeLine -TShapeLeftLineLength 3 -TShapeRightLineLength 3 -TShapeMiddleDownLineLength 3
+        [string]$DotOutPutWithAllParamsTest = Add-TShapeLine -TShapeLeft 'Left' -TShapeRight 'Right' -TShapeMiddleUp 'MiddleUp' -TShapeMiddleDown 'MiddleDown' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -TShapeLeftLineLength 3 -TShapeRightLineLength 3 -TShapeMiddleDownLineLength 3
+        [string]$DotOutPutWithAllParamsDebugTest = Add-TShapeLine -TShapeLeft 'Left' -TShapeRight 'Right' -TShapeMiddleUp 'MiddleUp' -TShapeMiddleDown 'MiddleDown' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -TShapeLeftLineLength 3 -TShapeRightLineLength 3 -TShapeMiddleDownLineLength 3 -DraftMode $true
     }
 
     It 'Should return a Graphviz dot source with nodes forming a T-shape line' {
@@ -51,7 +51,7 @@ Describe Add-DiaTShapeLine {
         $DotOutPutWithParamsArrowsTest | Should -Match 'arrowtail="box"'
     }
     It "Should return a error: Cannot validate argument on parameter 'Arrowtail'" {
-        $scriptBlock = { Add-DiaTShapeLine @DotOutPutWithParamsArrowsTestError }
+        $scriptBlock = { Add-TShapeLine @DotOutPutWithParamsArrowsTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with custom LineStyle, LineWidth and LineColor' {
@@ -60,7 +60,7 @@ Describe Add-DiaTShapeLine {
         $DotOutPutWithParamsLineTest | Should -Match 'color="red"'
     }
     It "Should return a error: Cannot validate argument on parameter 'LineWidth'" {
-        $scriptBlock = { Add-DiaTShapeLine @DotOutPutWithParamsLineTestError }
+        $scriptBlock = { Add-TShapeLine @DotOutPutWithParamsLineTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with custom line lengths' {

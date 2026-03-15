@@ -1,15 +1,15 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaRightLShapeLine.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-RightLShapeLine.ps1')
 }
 
-Describe Add-DiaRightLShapeLine {
+Describe Add-RightLShapeLine {
     BeforeAll {
-        [string]$DotOutPut = Add-DiaRightLShapeLine
-        [string]$DotOutPutDebug = Add-DiaRightLShapeLine -DraftMode $true
-        [string]$DotOutPutWithParams = Add-DiaRightLShapeLine -RightLShapeUp 'Up' -RightLShapeDown 'Down' -RightLShapeRight 'Right'
-        [string]$DotOutPutWithParamsArrowsTest = Add-DiaRightLShapeLine -Arrowtail box -Arrowhead diamond
-        [string]$DotOutPutWithParamsLineTest = Add-DiaRightLShapeLine -LineStyle solid -LineWidth 3 -LineColor red
+        [string]$DotOutPut = Add-RightLShapeLine
+        [string]$DotOutPutDebug = Add-RightLShapeLine -DraftMode $true
+        [string]$DotOutPutWithParams = Add-RightLShapeLine -RightLShapeUp 'Up' -RightLShapeDown 'Down' -RightLShapeRight 'Right'
+        [string]$DotOutPutWithParamsArrowsTest = Add-RightLShapeLine -Arrowtail box -Arrowhead diamond
+        [string]$DotOutPutWithParamsLineTest = Add-RightLShapeLine -LineStyle solid -LineWidth 3 -LineColor red
         $DotOutPutWithParamsLineTestError = @{
             LineStyle = 'solid'
             LineWidth = 'baba'
@@ -20,9 +20,9 @@ Describe Add-DiaRightLShapeLine {
             Arrowhead   = 'diamond'
             ErrorAction = 'Stop'
         }
-        [string]$DotOutPutWithParamsLineLengthTest = Add-DiaRightLShapeLine -RightLShapeUpLineLength 3
-        [string]$DotOutPutWithAllParamsTest = Add-DiaRightLShapeLine -RightLShapeUp 'Up' -RightLShapeDown 'Down' -RightLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -RightLShapeUpLineLength 3
-        [string]$DotOutPutWithAllParamsDebugTest = Add-DiaRightLShapeLine -RightLShapeUp 'Up' -RightLShapeDown 'Down' -RightLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -RightLShapeUpLineLength 3 -DraftMode $true
+        [string]$DotOutPutWithParamsLineLengthTest = Add-RightLShapeLine -RightLShapeUpLineLength 3
+        [string]$DotOutPutWithAllParamsTest = Add-RightLShapeLine -RightLShapeUp 'Up' -RightLShapeDown 'Down' -RightLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -RightLShapeUpLineLength 3
+        [string]$DotOutPutWithAllParamsDebugTest = Add-RightLShapeLine -RightLShapeUp 'Up' -RightLShapeDown 'Down' -RightLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -RightLShapeUpLineLength 3 -DraftMode $true
     }
 
     It 'Should return a Graphviz dot source with nodes forming a right L-shape line' {
@@ -47,7 +47,7 @@ Describe Add-DiaRightLShapeLine {
         $DotOutPutWithParamsArrowsTest | Should -Match 'arrowtail="box"'
     }
     It "Should return a error: Cannot validate argument on parameter 'Arrowtail'" {
-        $scriptBlock = { Add-DiaRightLShapeLine @DotOutPutWithParamsArrowsTestError }
+        $scriptBlock = { Add-RightLShapeLine @DotOutPutWithParamsArrowsTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with custom LineStyle, LineWidth and LineColor' {
@@ -56,7 +56,7 @@ Describe Add-DiaRightLShapeLine {
         $DotOutPutWithParamsLineTest | Should -Match 'color="red"'
     }
     It "Should return a error: Cannot validate argument on parameter 'LineWidth'" {
-        $scriptBlock = { Add-DiaRightLShapeLine @DotOutPutWithParamsLineTestError }
+        $scriptBlock = { Add-RightLShapeLine @DotOutPutWithParamsLineTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with custom RightLShapeUpLineLength' {

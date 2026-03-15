@@ -1,10 +1,10 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Remove-SpecialChar.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Remove-SpecialCharacter.ps1')
 }
 
-Describe Remove-SpecialChar {
+Describe Remove-SpecialCharacter {
     It 'Should return string without SpecialChar' {
-        Remove-SpecialChar -String 'Problem&with()char' -SpecialChars '()[]{}&.' | Should -Be 'Problemwithchar'
+        Remove-SpecialCharacter -String 'Problem&with()char' -SpecialChars '()[]{}&.' | Should -Be 'Problemwithchar'
     }
 }

@@ -1,15 +1,15 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaVerticalLine.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-VerticalLine.ps1')
 }
 
-Describe Add-DiaVerticalLine {
+Describe Add-VerticalLine {
     BeforeAll {
-        [string]$DotOutPut = Add-DiaVerticalLine
-        [string]$DotOutPutDebug = Add-DiaVerticalLine -DraftMode $true
-        [string]$DotOutPutWithParams = Add-DiaVerticalLine -VStart 'First' -VEnd 'Last'
-        [string]$DotOutPutWithParamsArrowsTest = Add-DiaVerticalLine -Arrowtail box -Arrowhead diamond
-        [string]$DotOutPutWithParamsLineTest = Add-DiaVerticalLine -LineStyle solid -LineWidth 3 -LineColor red
+        [string]$DotOutPut = Add-VerticalLine
+        [string]$DotOutPutDebug = Add-VerticalLine -DraftMode $true
+        [string]$DotOutPutWithParams = Add-VerticalLine -VStart 'First' -VEnd 'Last'
+        [string]$DotOutPutWithParamsArrowsTest = Add-VerticalLine -Arrowtail box -Arrowhead diamond
+        [string]$DotOutPutWithParamsLineTest = Add-VerticalLine -LineStyle solid -LineWidth 3 -LineColor red
         $DotOutPutWithParamsLineTestError = @{
             LineStyle = 'solid'
             LineWidth = 'baba'
@@ -20,9 +20,9 @@ Describe Add-DiaVerticalLine {
             Arrowhead = 'diamond'
             ErrorAction = 'Stop'
         }
-        [string]$DotOutPutWithParamsLineLengthTest = Add-DiaVerticalLine -VStartLineLength 3
-        [string]$DotOutPutWithAllParamsTest = Add-DiaVerticalLine -VStart 'VStart' -VEnd 'VEnd' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -VStartLineLength 3
-        [string]$DotOutPutWithAllParamsDebugTest = Add-DiaVerticalLine -VStart 'VStart' -VEnd 'VEnd' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -VStartLineLength 3 -DraftMode $true
+        [string]$DotOutPutWithParamsLineLengthTest = Add-VerticalLine -VStartLineLength 3
+        [string]$DotOutPutWithAllParamsTest = Add-VerticalLine -VStart 'VStart' -VEnd 'VEnd' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -VStartLineLength 3
+        [string]$DotOutPutWithAllParamsDebugTest = Add-VerticalLine -VStart 'VStart' -VEnd 'VEnd' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -VStartLineLength 3 -DraftMode $true
 
     }
 
@@ -44,7 +44,7 @@ Describe Add-DiaVerticalLine {
         $DotOutPutWithParamsArrowsTest | Should -Match 'arrowtail="box"'
     }
     It "Should return a error: Cannot validate argument on parameter 'Arrowtail'" {
-        $scriptBlock = { Add-DiaVerticalLine @DotOutPutWithParamsArrowsTestError }
+        $scriptBlock = { Add-VerticalLine @DotOutPutWithParamsArrowsTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with 2 nodes forming a vertical line with custom LineStyle, LineWidth and LineColor' {
@@ -53,7 +53,7 @@ Describe Add-DiaVerticalLine {
         $DotOutPutWithParamsLineTest | Should -Match 'color="red"'
     }
     It "Should return a error: Cannot validate argument on parameter 'LineWidth'" {
-        $scriptBlock = { Add-DiaVerticalLine @DotOutPutWithParamsLineTestError }
+        $scriptBlock = { Add-VerticalLine @DotOutPutWithParamsLineTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with 2 nodes forming a vertical line with custom VStartLineLength' {

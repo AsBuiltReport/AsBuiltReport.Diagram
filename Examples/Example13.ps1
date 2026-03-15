@@ -1,4 +1,4 @@
-#    ** This time, we'll demonstrate the use of the Signature (Add-DiaHtmlSignatureTable) feature (Part of AsBuiltReport.Diagram module). **
+#    ** This time, we'll demonstrate the use of the Signature (Add-HtmlSignatureTable) feature (Part of AsBuiltReport.Diagram module). **
 
 <#
     This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
@@ -82,12 +82,12 @@ $example13 = & {
     SubGraph 3tier -Attributes @{Label = '3 Tier Concept'; fontsize = 22; penwidth = 1.5; labelloc = 't'; style = 'dashed,rounded'; color = 'darkgray' } {
 
         <#
-            The Add-DiaHtmlSignatureTable cmdlet creates a signature table to be used as a footer in the diagram.
+            The Add-HtmlSignatureTable cmdlet creates a signature table to be used as a footer in the diagram.
             It can include images, author name, company name, and other details.
             (Part of AsBuiltReport.Diagram module)
         #>
 
-        $Signature = Add-DiaHtmlSignatureTable -ImagesObj $Images -Rows 'Author: Bugs Bunny', 'Company: ACME Inc.' -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -DraftMode:$DraftMode -FontBold
+        $Signature = Add-HtmlSignatureTable -ImagesObj $Images -Rows 'Author: Bugs Bunny', 'Company: ACME Inc.' -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -DraftMode:$DraftMode -FontBold
 
         <#
             The Signature SubGraph contains the $Signature table created above.
@@ -141,9 +141,9 @@ $example13 = & {
             )
 
             <#
-                This time, we will simulate a Web Server Farm with multiple web server node. While the Add-DiaNodeIcon cmdlet is typically used to add icons/properties to nodes, it lack the ability to create multiple nodes with distinct properties.
+                This time, we will simulate a Web Server Farm with multiple web server node. While the Add-NodeIcon cmdlet is typically used to add icons/properties to nodes, it lack the ability to create multiple nodes with distinct properties.
 
-                Add-DiaHTMLNodeTable has the capability to create a table layout for the nodes simulting a web server farm. It also allows the addition of icons and properties to each node in the table.
+                Add-HtmlNodeTable has the capability to create a table layout for the nodes simulting a web server farm. It also allows the addition of icons and properties to each node in the table.
 
                 ** The $Images object and IconType "Server" must be defined earlier in the script **
 
@@ -152,20 +152,20 @@ $example13 = & {
                 (must match a key in the $Images hashtable).
             #>
 
-            Add-DiaHtmlNodeTable -Name 'Web-Server-Farm' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType $WebServerFarm.IconType -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -Subgraph -SubgraphLabel 'Web Server Farm' -SubgraphLabelPos 'top' -SubgraphTableStyle 'dashed,rounded' -TableBorderColor 'gray' -TableBorder '1' -SubgraphLabelFontSize 20 -FontSize 18 -DraftMode:$DraftMode -FontBold -SubgraphFontBold -NodeObject -MultiIcon
+            Add-HtmlNodeTable -Name 'Web-Server-Farm' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType $WebServerFarm.IconType -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -Subgraph -SubgraphLabel 'Web Server Farm' -SubgraphLabelPos 'top' -SubgraphTableStyle 'dashed,rounded' -TableBorderColor 'gray' -TableBorder '1' -SubgraphLabelFontSize 20 -FontSize 18 -DraftMode:$DraftMode -FontBold -SubgraphFontBold -NodeObject -MultiIcon
 
 
-            Add-DiaNodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
-            Add-DiaNodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+            Add-NodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+            Add-NodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
             <#
                 This section creates connections between the nodes in a hierarchical layout.
-                The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+                The Add-NodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
                 https://github.com/AsBuiltReport/AsBuiltReport.Diagram
             #>
 
-            Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
-            Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-NodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
                 The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -182,23 +182,23 @@ $example13 = & {
                 'Version' = '15.2'
             }
 
-            Add-DiaNodeIcon -Name 'Core-Router' -AdditionalInfo $RouterInfo -ImagesObj $Images -IconType 'Router' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+            Add-NodeIcon -Name 'Core-Router' -AdditionalInfo $RouterInfo -ImagesObj $Images -IconType 'Router' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
-            Add-DiaNodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-NodeEdge -From 'Core-Router' -To 'Web-Server-Farm' -EdgeLabel 'GE0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
-                This section demonstrates the use of the Add-DiaNodeImage to add a custom image to the diagram (Part of AsBuiltReport.Diagram module).
+                This section demonstrates the use of the Add-NodeImage to add a custom image to the diagram (Part of AsBuiltReport.Diagram module).
 
                 -Name parameter sets the name of the node (WAN in this case).
                 -ImageSizePercent parameter sets the size of the image as a percentage (30% in this case).
             #>
 
-            Add-DiaNodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Cloud' -IconPath $IconPath -ImageSizePercent 30 -NodeObject -DraftMode:$DraftMode
+            Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Cloud' -IconPath $IconPath -ImageSizePercent 30 -NodeObject -DraftMode:$DraftMode
 
-            Add-DiaNodeEdge -From 'WAN' -To 'Core-Router' -EdgeLabel 'Serial0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
+            Add-NodeEdge -From 'WAN' -To 'Core-Router' -EdgeLabel 'Serial0/0' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 2 -EdgeThickness 3 -EdgeStyle 'dashed'
 
             <#
-                The Add-DiaHtmlTable cmdlet is used to create a list table to display additional information about a object.
+                The Add-HtmlTable cmdlet is used to create a list table to display additional information about a object.
 
                 In this example, we create a table to display the router's network interface information.
             #>
@@ -210,9 +210,9 @@ $example13 = & {
                 '192.168.5.10/24'
             )
 
-            Add-DiaHtmlTable -Name 'RouterNetworkInfo' -Rows $RouterNetworkInfo -NodeObject -ColumnSize 2 -TableBorder 1 -TableBorderColor 'black' -FontSize 14 -Subgraph -SubgraphLabel 'Interfaces Table' -SubgraphLabelPos 'top' -SubgraphTableStyle 'solid,rounded' -SubgraphLabelFontsize 20 -SubgraphFontUnderline -SubgraphFontBold -DraftMode:$DraftMode -TableBackgroundColor 'lightblue'
+            Add-HtmlTable -Name 'RouterNetworkInfo' -Rows $RouterNetworkInfo -NodeObject -ColumnSize 2 -TableBorder 1 -TableBorderColor 'black' -FontSize 14 -Subgraph -SubgraphLabel 'Interfaces Table' -SubgraphLabelPos 'top' -SubgraphTableStyle 'solid,rounded' -SubgraphLabelFontsize 20 -SubgraphFontUnderline -SubgraphFontBold -DraftMode:$DraftMode -TableBackgroundColor 'lightblue'
 
-            Add-DiaNodeEdge -From 'Core-Router' -To 'RouterNetworkInfo' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 1 -Arrowhead 'none' -Arrowtail 'none' -GraphvizAttributes @{style = 'filled'}
+            Add-NodeEdge -From 'Core-Router' -To 'RouterNetworkInfo' -EdgeColor 'black' -EdgeLabelFontSize 18 -EdgeLabelFontColor 'black' -EdgeLength 1 -Arrowhead 'none' -Arrowtail 'none' -GraphvizAttributes @{style = 'filled'}
 
             Rank 'Core-Router', 'RouterNetworkInfo'
         }
@@ -220,7 +220,7 @@ $example13 = & {
 }
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
 
     ** The WaterMark feature is demonstrated here, which adds a watermark text to the diagram. **
 
@@ -228,4 +228,4 @@ $example13 = & {
     -WaterMarkColor parameter sets the color of the watermark text.
 #>
 
-New-Diagrammer -InputObject $example13 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example13 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example13 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example13 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
