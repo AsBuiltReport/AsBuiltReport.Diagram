@@ -51,7 +51,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    # RequiredModules = @()
+    RequiredModules = @(@{ModuleName = 'PSGraph'; ModuleVersion = '2.1.38.27'; })
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @('Src\Bin\Assemblies\Diagrammer.dll', 'Src\Bin\Assemblies\SixLabors.ImageSharp.Drawing.dll', 'Src\Bin\Assemblies\SixLabors.Fonts.dll')
