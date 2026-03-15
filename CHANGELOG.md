@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change cmdlet name from New-WatermarkToSvg to Add-WatermarkToSvg in all source files
 - Change default Main_Logo image from Diagrammer.png to AsBuiltReport.png
 - Integrate PSGraph cmdlets to the module (Project without active maintenance)
+- Update assembly references and add new project files for AbrDiagrammer and AbrDiaConvertImageToPDF
 
 ### :wrench: Fixed
 
