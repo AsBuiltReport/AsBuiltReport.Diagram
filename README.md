@@ -137,37 +137,6 @@ brew install graphviz
 
 The documentation for the `AsBuiltReport.Diagram` module can be found in the [Docs](https://diagrammer.techmyth.blog/).
 
-### :blue_book: Cmdlets Index
-
-All commands in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
-
-| Name                                                                                                          | Description                                 | Version |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- |
-| [Add-CrossShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-CrossShapeLine/)                 | Adds a line between two cross shapes        | 0.2.31  |
-| [Add-NodeIcon](https://diagrammer.techmyth.blog/dev-guide/commands/Add-NodeIcon/)                             | Adds an icon to a node                      | 0.2.31  |
-| [Add-NodeEdge](https://diagrammer.techmyth.blog/dev-guide/commands/Add-NodeEdge/)                             | Adds an edge between two nodes              | 0.2.39  |
-| [Add-HtmlLabel](https://diagrammer.techmyth.blog/dev-guide/commands/Add-HtmlLabel/)                           | Adds an HTML label to the diagram           | 0.2.31  |
-| [Add-HtmlNodeTable](https://diagrammer.techmyth.blog/dev-guide/commands/Add-HtmlNodeTable/)                   | Adds an HTML node table to the diagram      | 0.2.31  |
-| [Add-HtmlSignatureTable](https://diagrammer.techmyth.blog/dev-guide/commands/Add-HtmlSignatureTable/)         | Adds an HTML signature table to the diagram | 0.2.31  |
-| [Add-HtmlSubGraph](https://diagrammer.techmyth.blog/dev-guide/commands/Add-HtmlSubGraph/)                     | Adds an HTML subgraph to the diagram        | 0.2.31  |
-| [Add-HtmlTable](https://diagrammer.techmyth.blog/dev-guide/commands/Add-HtmlTable/)                           | Adds an HTML table to the diagram           | 0.2.31  |
-| [Add-InvertedLShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-InvertedLShapeLine/)         | Adds a line between two inverted L shapes   | 0.2.31  |
-| [Add-InvertedTShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-InvertedTShapeLine/)         | Adds a line between two inverted T shapes   | 0.2.31  |
-| [Add-LeftLShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-LeftLShapeLine/)                 | Adds a line between two left L shapes       | 0.2.31  |
-| [Add-LeftTShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-LeftTShapeLine/)                 | Adds a line between two left T shapes       | 0.2.31  |
-| [Add-LShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-LShapeLine/)                         | Adds a line between two L shapes            | 0.2.31  |
-| [Add-NodeImage](https://diagrammer.techmyth.blog/dev-guide/commands/Add-NodeImage/)                           | Adds an image to a node                     | 0.2.31  |
-| [Add-NodeShape](https://diagrammer.techmyth.blog/dev-guide/commands/Add-NodeShape/)                           | Adds a shape to a node                      | 0.2.31  |
-| [Add-NodeSpacer](https://diagrammer.techmyth.blog/dev-guide/commands/Add-NodeSpacer/)                         | Adds a spacer to a node                     | 0.2.31  |
-| [Add-RightLShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-RightLShapeLine/)               | Adds a line between two right L shapes      | 0.2.31  |
-| [Add-RightTShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-RightTShapeLine/)               | Adds a line between two right T shapes      | 0.2.31  |
-| [Add-TShapeLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-TShapeLine/)                         | Adds a line between two T shapes            | 0.2.31  |
-| [Add-VerticalLine](https://diagrammer.techmyth.blog/dev-guide/commands/Add-VerticalLine/)                     | Adds a vertical line between two nodes      | 0.2.31  |
-| [Export-AbrDiagram](https://diagrammer.techmyth.blog/dev-guide/commands/Export-AbrDiagram/)                   | Exports the diagram to a file               | 0.2.31  |
-| [Get-RandomColorInHex](https://diagrammer.techmyth.blog/dev-guide/commands/Get-RandomColorInHex/)             | Gets a random color in hex format           | 0.2.31  |
-| [Get-RandomPastelColorInHex](https://diagrammer.techmyth.blog/dev-guide/commands/Get-RandomPastelColorInHex/) | Gets a random pastel color in hex format    | 0.2.31  |
-| [New-AbrDiagram](https://diagrammer.techmyth.blog/dev-guide/commands/New-AbrDiagram/)                         | Creates a new diagram from an input object  | 0.2.31  |
-
 ### :blue_book: Example Index
 
 All examples in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
