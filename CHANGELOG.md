@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add PSGraph to the module dependencies in the module manifest
 
-### :fontawesome-solid-trash: Removed
+### :x: Removed
 
 - Remove PSgraph cmdlets from the module
 
