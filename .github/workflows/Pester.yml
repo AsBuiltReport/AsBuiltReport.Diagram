@@ -16,20 +16,20 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
         shell: [pwsh, powershell]
         exclude:
-            - os: ubuntu-latest
-              shell: powershell
-            - os: macos-latest
-              shell: powershell
+          - os: ubuntu-latest
+            shell: powershell
+          - os: macos-latest
+            shell: powershell
     defaults:
-        run:
-            shell: ${{ matrix.shell }}
+      run:
+        shell: ${{ matrix.shell }}
     name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
     steps:
       - uses: actions/checkout@v6
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-            dotnet-version: "8.0.x"
+          dotnet-version: "8.0.x"
       - name: Restore dependencies Diagrammer
         run: dotnet restore ./Sources/Diagrammer
         if: matrix.shell == 'pwsh'
@@ -55,6 +55,11 @@ jobs:
       - name: Install Graphviz
         uses: tlylt/install-graphviz@v1
         if: runner.os != 'Windows'
+
+      - name: Install PSGraph module
+        shell: pwsh
+        run: |
+          Install-Module -Name PSGraph -Repository PSGallery -Force
 
       - name: Run Pester tests - PWSH
         uses: PSModule/Invoke-Pester@v4

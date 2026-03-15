@@ -12,7 +12,7 @@
     RootModule = 'AsBuiltReport.Diagram.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.0.0'
+    ModuleVersion = '1.0.1'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -51,7 +51,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    # RequiredModules = @()
+    RequiredModules = @(@{ModuleName = 'PSGraph'; ModuleVersion = '2.1.38.27'; })
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @('Src\Bin\Assemblies\Diagrammer.dll', 'Src\Bin\Assemblies\SixLabors.ImageSharp.Drawing.dll', 'Src\Bin\Assemblies\SixLabors.Fonts.dll')
@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'Add-DiaLeftLShapeLine', 'Add-DiaRightLShapeLine', 'Add-DiaInvertedLShapeLine', 'Add-DiaLShapeLine', 'Add-DiaLeftTShapeLine', 'Add-DiaRightTShapeLine', 'Add-DiaCrossShapeLine', 'Add-DiaInvertedTShapeLine', 'Add-DiaTShapeLine', 'Add-DiaVerticalLine', 'Add-DiaHorizontalLine', 'Add-DiaHtmlSignatureTable', 'Group-Node', 'Add-DiaHTMLSubGraph', 'Convert-DiaTableToHTML', 'Add-DiaHtmlLabel', 'Add-DiaHtmlNodeTable', 'Add-DiaHtmlTable', 'Get-NodeIP', 'Add-DiaNodeIcon', 'Export-Diagrammer', 'Remove-SpecialChar', 'Split-Array', 'Test-Image', 'Test-Logo', 'Write-ColorOutput', 'Get-DiaImagePercent', 'New-Diagrammer', 'Add-DiaNodeSpacer', 'Write-PSObject', 'Get-RandomColorHex', 'Get-RandomPastelColorHex', 'Add-DiaNodeImage', 'Add-DiaNodeShape', 'Add-DiaNodeText', 'Get-DiaBestImageAspectRatio', 'Add-DiaNodeEdge', 'Edge', 'Entity', 'Export-PSGraph', 'Graph', 'Inline', 'Node', 'Rank', 'Record', 'Row', 'Set-NodeFormatScript', 'Show-PSGraph', 'SubGraph'
+    FunctionsToExport = 'Add-DiaLeftLShapeLine', 'Add-DiaRightLShapeLine', 'Add-DiaInvertedLShapeLine', 'Add-DiaLShapeLine', 'Add-DiaLeftTShapeLine', 'Add-DiaRightTShapeLine', 'Add-DiaCrossShapeLine', 'Add-DiaInvertedTShapeLine', 'Add-DiaTShapeLine', 'Add-DiaVerticalLine', 'Add-DiaHorizontalLine', 'Add-DiaHtmlSignatureTable', 'Group-Node', 'Add-DiaHTMLSubGraph', 'Convert-DiaTableToHTML', 'Add-DiaHtmlLabel', 'Add-DiaHtmlNodeTable', 'Add-DiaHtmlTable', 'Get-NodeIP', 'Add-DiaNodeIcon', 'Export-Diagrammer', 'Remove-SpecialChar', 'Split-Array', 'Test-Image', 'Test-Logo', 'Write-ColorOutput', 'Get-DiaImagePercent', 'New-Diagrammer', 'Add-DiaNodeSpacer', 'Write-PSObject', 'Get-RandomColorHex', 'Get-RandomPastelColorHex', 'Add-DiaNodeImage', 'Add-DiaNodeShape', 'Add-DiaNodeText', 'Get-DiaBestImageAspectRatio', 'Add-DiaNodeEdge'
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()
@@ -78,7 +78,7 @@
     # VariablesToExport = '*'
 
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    AliasesToExport = @('digraph')
+    # AliasesToExport = @()
 
     # DSC resources to export from this module
     # DscResourcesToExport = @()
@@ -95,7 +95,7 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags = 'Diagrammer', 'Graphviz', 'Documentation', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows'
+            Tags = 'AsBuiltReport', 'Diagram', 'Graphviz', 'Documentation', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows'
 
             # A URL to the license for this module.
             LicenseUri = 'https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/master/LICENSE'
