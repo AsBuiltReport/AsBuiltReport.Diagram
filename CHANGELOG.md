@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add PSGraph to the module dependencies in the module manifest
 
+### :arrows_clockwise: Changed
+
+- Update module version to v1.0.1
+
 ### :x: Removed
 
 - Remove PSgraph cmdlets from the module

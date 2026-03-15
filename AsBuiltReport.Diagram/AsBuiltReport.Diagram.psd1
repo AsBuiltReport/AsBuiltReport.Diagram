@@ -12,7 +12,7 @@
     RootModule = 'AsBuiltReport.Diagram.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.0.0'
+    ModuleVersion = '1.0.1'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -95,7 +95,7 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags = 'Diagrammer', 'Graphviz', 'Documentation', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows'
+            Tags = 'AsBuiltReport', 'Diagram', 'Graphviz', 'Documentation', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows'
 
             # A URL to the license for this module.
             LicenseUri = 'https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/master/LICENSE'
