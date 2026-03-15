@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update module version to v1.0.1
 
+### :wrench: Fixed
+
+- Add missing PSGraph dependency to the Pester tests
+
 ### :x: Removed
 
 - Remove PSgraph cmdlets from the module
