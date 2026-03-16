@@ -1,4 +1,4 @@
-function Test-Image {
+function Test-AbrImage {
     <#
     .SYNOPSIS
         Used by AsBuiltReport.Diagram to validate supported logo image extension.
@@ -7,9 +7,9 @@ function Test-Image {
         Version:        0.1.1
         Author:         Doctor Scripto
     .EXAMPLE
-        Test-Image -Path "C:\Users\jocolon\logo.png"
+        Test-AbrImage -Path "C:\Users\jocolon\logo.png"
     .LINK
-        https://devblogs.microsoft.com/scripting/psimaging-part-1-test-image/
+        https://devblogs.microsoft.com/scripting/psimaging-part-1-Test-AbrImage/
     #>
 
     [CmdletBinding()]
