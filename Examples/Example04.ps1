@@ -49,18 +49,18 @@ $example4 = & {
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            Add-DiaNodeEdge cmdlet creates connections between nodes. (Part of AsBuiltReport.Diagram module)
+            Add-NodeEdge cmdlet creates connections between nodes. (Part of AsBuiltReport.Diagram module)
             https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
-        Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
-        Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
     }
 }
 
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
     -InputObject accepts the custom object created above.
     -OutputFolderPath specifies where to save the generated diagram.
     -Format sets the output format (png, jpg, svg, etc.).
@@ -73,4 +73,4 @@ $example4 = & {
         - The layout is set to top-to-bottom using the Graphviz attribute (TB).
     -DraftMode, when set to $true, generates a draft version of the diagram for troubleshooting.
 #>
-New-Diagrammer -InputObject $example4 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example4 -LogoName 'Main_Logo' -Direction top-to-bottom -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example4 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example4 -LogoName 'Main_Logo' -Direction top-to-bottom -DraftMode:$DraftMode

@@ -1,4 +1,4 @@
-# ** This example demonstrates how to use the Add-DiaHTMLSubGraph cmdlet to simulate Graphviz SubGraphs. (part of AsBuiltReport.Diagram) **
+# ** This example demonstrates how to use the Add-HtmlSubGraph cmdlet to simulate Graphviz SubGraphs. (part of AsBuiltReport.Diagram) **
 
 <#
     This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram module.
@@ -81,7 +81,7 @@ $advancedexample01 = & {
                     'Build' = '10.1'
                 }
 
-                Add-DiaNodeIcon -Name "Web-Server-0$index" -AdditionalInfo $AdditionalInfo -ImagesObj $Images -IconType 'ServerRedhat' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject -TableBackgroundColor '#c1cfe5ff' -CellBackgroundColor '#c1cfe5ff'
+                Add-NodeIcon -Name "Web-Server-0$index" -AdditionalInfo $AdditionalInfo -ImagesObj $Images -IconType 'ServerRedhat' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject -TableBackgroundColor '#c1cfe5ff' -CellBackgroundColor '#c1cfe5ff'
 
                 $index++
             }
@@ -96,7 +96,7 @@ $advancedexample01 = & {
         #>
 
         <#
-            Here I create a web server farm with 6 web servers using Add-DiaHTMLNodeTable. Each server will have an icon and additional information displayed in a table format.
+            Here I create a web server farm with 6 web servers using Add-HtmlNodeTable. Each server will have an icon and additional information displayed in a table format.
             The servers will be arranged in a table with **3 columns** (This can't be done with Graphviz Native SubGraph).
         #>
 
@@ -157,27 +157,27 @@ $advancedexample01 = & {
         )
 
         <#
-            The Add-DiaHTMLNodeTable cmdlet creates a HTML-like table with icons and additional information for each web server.
+            The Add-HtmlNodeTable cmdlet creates a HTML-like table with icons and additional information for each web server.
             The -columnSize parameter is set to 3, which arranges the servers in a table with 3 columns.
             The -MultiIcon switch allows multiple icons to be displayed in the table.
             The resulting HTML-like table is then used as the label for a Node representing the web server farm.
         #>
 
-        $WebLabel = Add-DiaHtmlNodeTable -Name 'WebLabel' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType $WebServerFarm.IconType -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -MultiIcon -DraftMode:$DraftMode -FontSize 18 -TableBackgroundColor '#a8c3b8ff' -CellBackgroundColor '#a8c3b8ff'
+        $WebLabel = Add-HtmlNodeTable -Name 'WebLabel' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType $WebServerFarm.IconType -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -MultiIcon -DraftMode:$DraftMode -FontSize 18 -TableBackgroundColor '#a8c3b8ff' -CellBackgroundColor '#a8c3b8ff'
 
         <#
-            The Add-DiaHTMLSubGraph cmdlet creates a HTML-like table that simulates a SubGraph with enhanced layout and connectivity options.
+            The Add-HtmlSubGraph cmdlet creates a HTML-like table that simulates a SubGraph with enhanced layout and connectivity options.
             The -columnSize parameter is set to 1, which arranges the web servers in a table with 1 column.
             The resulting HTML-like table is then used as the label for a Node representing the web server farm.
             The -NodeObject switch is used to create a Node with the HTML-like table as its label.
         #>
 
-        Add-DiaHtmlSubGraph -Name 'USA-WebServers' -ImagesObj $Images -TableArray $WebLabel -Align 'Center' -Label 'AsBuiltReport.Diagram SubGraph' -LabelPos 'top' -TableStyle 'dashed,rounded' -TableBorderColor 'darkgray' -TableBorder '1' -ColumnSize 1 -FontSize 22 -DraftMode:$DraftMode -TableBackgroundColor '#a8c3b8ff' -IconType 'Server' -NodeObject
+        Add-HtmlSubGraph -Name 'USA-WebServers' -ImagesObj $Images -TableArray $WebLabel -Align 'Center' -Label 'AsBuiltReport.Diagram SubGraph' -LabelPos 'top' -TableStyle 'dashed,rounded' -TableBorderColor 'darkgray' -TableBorder '1' -ColumnSize 1 -FontSize 22 -DraftMode:$DraftMode -TableBackgroundColor '#a8c3b8ff' -IconType 'Server' -NodeObject
 
     }
 }
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
 #>
 
-New-Diagrammer -InputObject $advancedexample01 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename AdvancedExample01 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $advancedexample01 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename AdvancedExample01 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

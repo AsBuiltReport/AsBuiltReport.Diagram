@@ -86,7 +86,7 @@ $example6 = & {
         <#
             This time, we enhance the diagram by adding images to the Node objects and embedding information to describe server properties.
             Graphviz supports HTML tables to extend object labels, allowing images, text, and tables within Node, Edge, and Subgraph attribute script blocks.
-            Add-DiaNodeIcon extends PSGraph to improve the appearance of the generated diagram (Add-DiaNodeIcon is part of AsBuiltReport.Diagram).
+            Add-NodeIcon extends PSGraph to improve the appearance of the generated diagram (Add-NodeIcon is part of AsBuiltReport.Diagram).
             ** The $Images object and IconType "Server" must be defined earlier in the script **
 
             -AdditionalInfo parameter accepts a custom object with properties to display in the node label.
@@ -98,26 +98,26 @@ $example6 = & {
         #>
 
         # In this ocation, i demonstrate the -NodeObject switch which returns a Node object for use in the PSGraph context.
-        # In esense, this allows you to create the Node object with Add-DiaNodeIcon and use it directly without the use of the Node cmdlet.
+        # In esense, this allows you to create the Node object with Add-NodeIcon and use it directly without the use of the Node cmdlet.
 
-        Add-DiaNodeIcon -Name 'Web-Server-01' -AditionalInfo $WebServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
-        Add-DiaNodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
-        Add-DiaNodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'Web-Server-01' -AditionalInfo $WebServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+            The Add-NodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
             https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
-        Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
-        Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
     }
 }
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
     -DraftMode $true enables DraftMode, which adds borders around nodes to help with positioning and layout adjustments.
 #>
 
-New-Diagrammer -InputObject $example6 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example6 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example6 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example6 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

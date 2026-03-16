@@ -1,4 +1,4 @@
-#    ** This time, we'll demonstrate the use of the Add-DiaHTMLNodeTable cmdlet (Part of AsBuiltReport.Diagram module). **
+#    ** This time, we'll demonstrate the use of the Add-HtmlNodeTable cmdlet (Part of AsBuiltReport.Diagram module). **
 
 <#
     This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram.
@@ -144,20 +144,20 @@ $example8 = & {
             -NodeObject parameter outputs the node object for further manipulation if needed.
         #>
 
-        Add-DiaHtmlNodeTable -Name 'Web-Server-Farm' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType 'Server' -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -Subgraph -SubgraphLabel 'Web Server Farm' -SubgraphLabelPos 'top' -SubgraphTableStyle 'dashed,rounded' -TableBorderColor 'gray' -TableBorder '1' -SubgraphLabelFontSize 20 -FontSize 18 -DraftMode:$DraftMode -FontBold -SubgraphFontBold -NodeObject
+        Add-HtmlNodeTable -Name 'Web-Server-Farm' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType 'Server' -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -Subgraph -SubgraphLabel 'Web Server Farm' -SubgraphLabelPos 'top' -SubgraphTableStyle 'dashed,rounded' -TableBorderColor 'gray' -TableBorder '1' -SubgraphLabelFontSize 20 -FontSize 18 -DraftMode:$DraftMode -FontBold -SubgraphFontBold -NodeObject
 
 
-        Add-DiaNodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
-        Add-DiaNodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+            The Add-NodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
             https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
-        Add-DiaNodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
-        Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'Web-Server-Farm' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
         <#
             The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -168,8 +168,8 @@ $example8 = & {
 }
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
 #>
 
-New-Diagrammer -InputObject $example8 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example8 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example8 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example8 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
 

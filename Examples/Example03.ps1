@@ -1,4 +1,4 @@
-#     ** This time we will extend the edges size using the Add-DiaNodeEdge EdgeLength attribute. **
+#     ** This time we will extend the edges size using the Add-NodeEdge EdgeLength attribute. **
 <#
     Simple example of how to create a 3 tier web application diagram using the AsBuiltReport.Diagram. Without using any object icons.
 #>
@@ -43,19 +43,19 @@ $example3 = & {
 
     <#
         This section creates connections between the nodes in a herarchical layout.
-        The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+        The Add-NodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
         https://github.com/AsBuiltReport/AsBuiltReport.Diagram
 
         ** The EdgeLength attribute is used to increase the minimum length of the edge lines. **
     #>
 
-    Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
-    Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
+    Add-NodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
+    Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 12 -EdgeLabelFontColor 'black' -EdgeLength 3
 }
 
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (Part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (Part of AsBuiltReport.Diagram).
     The -InputObject parameter accepts the custom object created above.
     The -OutputFolderPath parameter specifies where to save the generated diagram.
     The -Format parameter specifies the output format (png, jpg, svg, etc.).
@@ -68,4 +68,4 @@ $example3 = & {
     The layout is set to top-to-bottom (Top to Bottom) using the Graph attribute.
     The -DraftMode parameter, when set to $true, generates a draft version of the diagram for troubleshooting.
 #>
-New-Diagrammer -InputObject $example3 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example3 -LogoName 'Main_Logo' -Direction top-to-bottom -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example3 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example3 -LogoName 'Main_Logo' -Direction top-to-bottom -DraftMode:$DraftMode

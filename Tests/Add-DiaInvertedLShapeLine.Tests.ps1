@@ -1,15 +1,15 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaInvertedLShapeLine.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-InvertedLShapeLine.ps1')
 }
 
-Describe Add-DiaInvertedLShapeLine {
+Describe Add-InvertedLShapeLine {
     BeforeAll {
-        [string]$DotOutPut = Add-DiaInvertedLShapeLine
-        [string]$DotOutPutDebug = Add-DiaInvertedLShapeLine -DraftMode $true
-        [string]$DotOutPutWithParams = Add-DiaInvertedLShapeLine -InvertedLShapeUp 'Up' -InvertedLShapeDown 'Down' -InvertedLShapeRight 'Right'
-        [string]$DotOutPutWithParamsArrowsTest = Add-DiaInvertedLShapeLine -Arrowtail box -Arrowhead diamond
-        [string]$DotOutPutWithParamsLineTest = Add-DiaInvertedLShapeLine -LineStyle solid -LineWidth 3 -LineColor red
+        [string]$DotOutPut = Add-InvertedLShapeLine
+        [string]$DotOutPutDebug = Add-InvertedLShapeLine -DraftMode $true
+        [string]$DotOutPutWithParams = Add-InvertedLShapeLine -InvertedLShapeUp 'Up' -InvertedLShapeDown 'Down' -InvertedLShapeRight 'Right'
+        [string]$DotOutPutWithParamsArrowsTest = Add-InvertedLShapeLine -Arrowtail box -Arrowhead diamond
+        [string]$DotOutPutWithParamsLineTest = Add-InvertedLShapeLine -LineStyle solid -LineWidth 3 -LineColor red
         $DotOutPutWithParamsLineTestError = @{
             LineStyle = 'solid'
             LineWidth = 'baba'
@@ -20,9 +20,9 @@ Describe Add-DiaInvertedLShapeLine {
             Arrowhead   = 'diamond'
             ErrorAction = 'Stop'
         }
-        [string]$DotOutPutWithParamsLineLengthTest = Add-DiaInvertedLShapeLine -InvertedLShapeUpLineLength 3 -InvertedLShapeRightLineLength 3
-        [string]$DotOutPutWithAllParamsTest = Add-DiaInvertedLShapeLine -InvertedLShapeUp 'Up' -InvertedLShapeDown 'Down' -InvertedLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -InvertedLShapeUpLineLength 3 -InvertedLShapeRightLineLength 3
-        [string]$DotOutPutWithAllParamsDebugTest = Add-DiaInvertedLShapeLine -InvertedLShapeUp 'Up' -InvertedLShapeDown 'Down' -InvertedLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -InvertedLShapeUpLineLength 3 -InvertedLShapeRightLineLength 3 -DraftMode $true
+        [string]$DotOutPutWithParamsLineLengthTest = Add-InvertedLShapeLine -InvertedLShapeUpLineLength 3 -InvertedLShapeRightLineLength 3
+        [string]$DotOutPutWithAllParamsTest = Add-InvertedLShapeLine -InvertedLShapeUp 'Up' -InvertedLShapeDown 'Down' -InvertedLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -InvertedLShapeUpLineLength 3 -InvertedLShapeRightLineLength 3
+        [string]$DotOutPutWithAllParamsDebugTest = Add-InvertedLShapeLine -InvertedLShapeUp 'Up' -InvertedLShapeDown 'Down' -InvertedLShapeRight 'Right' -Arrowtail box -Arrowhead diamond -LineStyle solid -LineWidth 3 -LineColor red -InvertedLShapeUpLineLength 3 -InvertedLShapeRightLineLength 3 -DraftMode $true
     }
 
     It 'Should return a Graphviz dot source with nodes forming an inverted L-shape line' {
@@ -47,7 +47,7 @@ Describe Add-DiaInvertedLShapeLine {
         $DotOutPutWithParamsArrowsTest | Should -Match 'arrowtail="box"'
     }
     It "Should return a error: Cannot validate argument on parameter 'Arrowtail'" {
-        $scriptBlock = { Add-DiaInvertedLShapeLine @DotOutPutWithParamsArrowsTestError }
+        $scriptBlock = { Add-InvertedLShapeLine @DotOutPutWithParamsArrowsTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with custom LineStyle, LineWidth and LineColor' {
@@ -56,7 +56,7 @@ Describe Add-DiaInvertedLShapeLine {
         $DotOutPutWithParamsLineTest | Should -Match 'color="red"'
     }
     It "Should return a error: Cannot validate argument on parameter 'LineWidth'" {
-        $scriptBlock = { Add-DiaInvertedLShapeLine @DotOutPutWithParamsLineTestError }
+        $scriptBlock = { Add-InvertedLShapeLine @DotOutPutWithParamsLineTestError }
         $scriptBlock | Should -Throw
     }
     It 'Should return a Graphviz dot source with custom line lengths' {

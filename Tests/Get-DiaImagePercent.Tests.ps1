@@ -1,17 +1,17 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Get-DiaImagePercent.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Get-ImagePercent.ps1')
 }
 
-Describe Get-DiaImagePercent {
+Describe Get-ImagePercent {
     BeforeAll {
         $Logo = Join-Path -Path "$($TestsFolder)\Icons" -ChildPath 'Logo.png'
         $ImageFile = [System.IO.File]::ReadAllBytes($Logo)
         $Base64 = [convert]::ToBase64String($ImageFile)
-        $FromBase64 = Get-DiaImagePercent -GraphObj $Base64
-        $FromImg = Get-DiaImagePercent -ImageInput $Logo
-        $ImageSizeByPercent = Get-DiaImagePercent -ImageInput $Logo -Percent 75
-        $ImageSizeByPercent100 = Get-DiaImagePercent -ImageInput $Logo -Percent 100
+        $FromBase64 = Get-ImagePercent -GraphObj $Base64
+        $FromImg = Get-ImagePercent -ImageInput $Logo
+        $ImageSizeByPercent = Get-ImagePercent -ImageInput $Logo -Percent 75
+        $ImageSizeByPercent100 = Get-ImagePercent -ImageInput $Logo -Percent 100
     }
 
     It 'Should return Height from image file' {
@@ -36,12 +36,12 @@ Describe Get-DiaImagePercent {
         $ImageSizeByPercent100.Height | Should -BeLike 205
     }
     It 'Should return error if percent is less than 1' {
-        { Get-DiaImagePercent -ImageInput $Logo -Percent 0 } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Percent'. The 0 argument is less than the minimum allowed range of 10. Supply an argument that is greater than or equal to 10 and then try the command again."
+        { Get-ImagePercent -ImageInput $Logo -Percent 0 } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Percent'. The 0 argument is less than the minimum allowed range of 10. Supply an argument that is greater than or equal to 10 and then try the command again."
     }
     It 'Should return error if percent is more than 100' {
-        { Get-DiaImagePercent -ImageInput $Logo -Percent 1000 } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Percent'. The 1000 argument is greater than the maximum allowed range of 100. Supply an argument that is less than or equal to 100 and then try the command again."
+        { Get-ImagePercent -ImageInput $Logo -Percent 1000 } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Percent'. The 1000 argument is greater than the maximum allowed range of 100. Supply an argument that is less than or equal to 100 and then try the command again."
     }
     It 'Should return throw' {
-        { Get-DiaImagePercent } | Should -Throw -ExpectedMessage 'Error: Please provide a image path or a graphviz string to process.'
+        { Get-ImagePercent } | Should -Throw -ExpectedMessage 'Error: Please provide a image path or a graphviz string to process.'
     }
 }

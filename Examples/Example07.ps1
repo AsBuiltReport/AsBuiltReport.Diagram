@@ -86,7 +86,7 @@ $example7 = & {
         <#
             This time, we enhance the diagram by adding images to the Node objects and embedding information to describe server properties.
             Graphviz supports HTML tables to extend object labels, allowing images, text, and tables within Node, Edge, and Subgraph attribute script blocks.
-            Add-DiaNodeIcon extends PSGraph to improve the appearance of the generated diagram (Add-DiaNodeIcon is part of AsBuiltReport.Diagram).
+            Add-NodeIcon extends PSGraph to improve the appearance of the generated diagram (Add-NodeIcon is part of AsBuiltReport.Diagram).
             ** The $Images object and IconType "Server" must be defined earlier in the script **
 
             -AdditionalInfo parameter accepts a custom object with properties to display in the node label.
@@ -97,18 +97,18 @@ $example7 = & {
             -DraftMode $true enables DraftMode, which adds a border around the node to help with positioning and layout adjustments.
         #>
 
-        Add-DiaNodeIcon -Name 'Web-Server-01' -AditionalInfo $WebServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
-        Add-DiaNodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
-        Add-DiaNodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'Web-Server-01' -AditionalInfo $WebServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'App-Server-01' -AditionalInfo $AppServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
+        Add-NodeIcon -Name 'Db-Server-01' -AditionalInfo $DBServerInfo -ImagesObj $Images -IconType 'Server' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject
 
         <#
             This section creates connections between the nodes in a hierarchical layout.
-            The Add-DiaNodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
+            The Add-NodeEdge cmdlet creates connections between the nodes. (Part of AsBuiltReport.Diagram module)
             https://github.com/AsBuiltReport/AsBuiltReport.Diagram
         #>
 
-        Add-DiaNodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
-        Add-DiaNodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'Web-Server-01' -To 'App-Server-01' -EdgeLabel 'gRPC' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
+        Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
         <#
             The Rank cmdlet is used to place nodes at the same hierarchical level.
@@ -120,8 +120,8 @@ $example7 = & {
 }
 
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
 #>
 
-New-Diagrammer -InputObject $example7 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example7 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example7 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example7 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
 

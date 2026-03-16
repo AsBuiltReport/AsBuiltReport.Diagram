@@ -1,6 +1,6 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Export-Diagrammer.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Export-AbrDiagram.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'ConvertTo-Png.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'ConvertTo-Jpg.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'ConvertTo-Pdf.ps1')
@@ -9,7 +9,7 @@ BeforeAll {
     . (Join-Path -Path $PrivateFolder -ChildPath 'ConvertTo-Base64.ps1')
 }
 
-Describe Export-Diagrammer {
+Describe Export-AbrDiagram {
     BeforeAll {
         $dotSource = Get-Content -Path (Join-Path $TestsFolder GraphvizSource.dot)
         $base64Source = switch ($PSVersionTable.Platform) {
@@ -88,64 +88,64 @@ Describe Export-Diagrammer {
     }
 
     It 'Should return AsBuiltReport.png full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputPNG
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputPNG
         ($GraphvizOutput).FullName | Should -Exist
     }
     It 'Should return Diagrammer.jpg full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputJPG
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputJPG
         ($GraphvizOutput).FullName | Should -Exist
     }
     It 'Should return Diagrammer.pdf full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputPDF
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputPDF
         ($GraphvizOutput).FullName | Should -Exist
     }
     It 'Should return Base64 string' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputBase64
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputBase64
         $GraphvizOutput | Should -Be $base64Source
     }
     It 'Should return Diagrammer.svg full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVG
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputSVG
         ($GraphvizOutput).FullName | Should -Exist
     }
     It 'Should include watermark text in SVG output' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputSVGWithWatermark
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputSVGWithWatermark
         ($GraphvizOutput).FullName | Should -Exist
         (Get-Content -Path $GraphvizOutput.FullName -Raw) | Should -Match 'Confidential'
     }
     It 'Should return Diagrammer.dot full path' {
-        $GraphvizOutput = Export-Diagrammer @GraphvizOutputDot
+        $GraphvizOutput = Export-AbrDiagram @GraphvizOutputDot
         ($GraphvizOutput).FullName | Should -Exist
     }
     It 'Should create Output.png file image' {
-        $OutPutPath = Export-Diagrammer @GraphvizOutputNoFileName -Format 'png'
+        $OutPutPath = Export-AbrDiagram @GraphvizOutputNoFileName -Format 'png'
         $OutPutPath | Should -Exist
     }
     It 'Should create Output.jpg file image' {
-        $OutPutPath = Export-Diagrammer @GraphvizOutputNoFileName -Format 'jpg'
+        $OutPutPath = Export-AbrDiagram @GraphvizOutputNoFileName -Format 'jpg'
         $OutPutPath | Should -Exist
     }
     It 'Should create Output.pdf file image' {
-        $OutPutPath = Export-Diagrammer @GraphvizOutputNoFileName -Format 'pdf'
+        $OutPutPath = Export-AbrDiagram @GraphvizOutputNoFileName -Format 'pdf'
         $OutPutPath | Should -Exist
     }
     It 'Should create Output.svg file image' {
-        $OutPutPath = Export-Diagrammer @GraphvizOutputNoFileName -Format 'svg'
+        $OutPutPath = Export-AbrDiagram @GraphvizOutputNoFileName -Format 'svg'
         $OutPutPath | Should -Exist
     }
     It 'Should create Output.dot file image' {
-        $OutPutPath = Export-Diagrammer @GraphvizOutputNoFileName -Format 'dot'
+        $OutPutPath = Export-AbrDiagram @GraphvizOutputNoFileName -Format 'dot'
         $OutPutPath | Should -Exist
     }
     It 'Should throw error when invalid OutputFolderPath is provided' {
-        $GraphvizOutput = { Export-Diagrammer @GraphvizInvalidOutputFolderPath -ErrorAction Stop }
+        $GraphvizOutput = { Export-AbrDiagram @GraphvizInvalidOutputFolderPath -ErrorAction Stop }
         $GraphvizOutput | Should -Throw -ExpectedMessage 'Cannot validate argument on parameter ''OutputFolderPath''. Folder does not exist'
     }
     It 'Should throw error when invalid IconPath is provided' {
-        $GraphvizOutput = { Export-Diagrammer @GraphvizInvalidIconsPath -ErrorAction Stop }
+        $GraphvizOutput = { Export-AbrDiagram @GraphvizInvalidIconsPath -ErrorAction Stop }
         $GraphvizOutput | Should -Throw -ExpectedMessage 'Cannot validate argument on parameter ''IconPath''. Folder does not exist'
     }
     It 'Should throw error when invalid Rotate value is provided' {
-        $GraphvizOutput = { Export-Diagrammer @GraphvizInvalidRotate -ErrorAction Stop }
+        $GraphvizOutput = { Export-AbrDiagram @GraphvizInvalidRotate -ErrorAction Stop }
         $GraphvizOutput | Should -Throw -ExpectedMessage 'Cannot validate argument on parameter ''Rotate''. The argument "80" does not belong to the set "0,90,180,270" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again.'
     }
 }

@@ -1,35 +1,35 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeEdge.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-NodeEdge.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Join-Hashtable.ps1')
 }
 
-Describe Add-DiaNodeEdge {
+Describe Add-NodeEdge {
     BeforeAll {
-        [string]$DotOutPut = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB'
-        [string]$DotOutPutStyle = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dashed'
-        [string]$DotOutPutColor = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeColor '#FF0000'
-        [string]$DotOutPutThickness = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 5
-        [string]$DotOutPutArrowhead = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'vee'
-        [string]$DotOutPutArrowtail = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'diamond'
-        [string]$DotOutPutLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabel 'MyLabel'
-        [string]$DotOutPutLabelFontSize = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabel 'MyLabel' -EdgeLabelFontSize 20
-        [string]$DotOutPutLabelFontColor = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabel 'MyLabel' -EdgeLabelFontColor 'blue'
-        [string]$DotOutPutTailPort = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -TailPort 'e'
-        [string]$DotOutPutHeadPort = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadPort 'w'
-        [string]$DotOutPutAllParams = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dashed' -EdgeColor '#FF0000' -EdgeThickness 3 -Arrowhead 'vee' -Arrowtail 'diamond' -EdgeLabel 'Link' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'blue' -TailPort 'e' -HeadPort 'w'
+        [string]$DotOutPut = Add-NodeEdge -From 'NodeA' -To 'NodeB'
+        [string]$DotOutPutStyle = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dashed'
+        [string]$DotOutPutColor = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeColor '#FF0000'
+        [string]$DotOutPutThickness = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 5
+        [string]$DotOutPutArrowhead = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'vee'
+        [string]$DotOutPutArrowtail = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'diamond'
+        [string]$DotOutPutLabel = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabel 'MyLabel'
+        [string]$DotOutPutLabelFontSize = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabel 'MyLabel' -EdgeLabelFontSize 20
+        [string]$DotOutPutLabelFontColor = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabel 'MyLabel' -EdgeLabelFontColor 'blue'
+        [string]$DotOutPutTailPort = Add-NodeEdge -From 'NodeA' -To 'NodeB' -TailPort 'e'
+        [string]$DotOutPutHeadPort = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadPort 'w'
+        [string]$DotOutPutAllParams = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dashed' -EdgeColor '#FF0000' -EdgeThickness 3 -Arrowhead 'vee' -Arrowtail 'diamond' -EdgeLabel 'Link' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'blue' -TailPort 'e' -HeadPort 'w'
 
         # HTML edge label
         $HtmlLabel = '<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD>Protocol: HTTPS</TD></TR><TR><TD>Port: 443</TD></TR></TABLE>'
-        [string]$DotOutPutHtmlLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HtmlEdgeLabel $HtmlLabel
-        [string]$DotOutPutHtmlLabelPrecedence = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HtmlEdgeLabel $HtmlLabel -EdgeLabel 'Ignored'
+        [string]$DotOutPutHtmlLabel = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HtmlEdgeLabel $HtmlLabel
+        [string]$DotOutPutHtmlLabelPrecedence = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HtmlEdgeLabel $HtmlLabel -EdgeLabel 'Ignored'
 
         # HeadLabel and TailLabel
-        [string]$DotOutPutHeadLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0'
-        [string]$DotOutPutTailLabel = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -TailLabel 'eth1'
-        [string]$DotOutPutBothLabels = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -TailLabel 'eth1'
-        [string]$DotOutPutLabelDistance = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance 3
-        [string]$DotOutPutLabelAngle = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle 45
+        [string]$DotOutPutHeadLabel = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0'
+        [string]$DotOutPutTailLabel = Add-NodeEdge -From 'NodeA' -To 'NodeB' -TailLabel 'eth1'
+        [string]$DotOutPutBothLabels = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -TailLabel 'eth1'
+        [string]$DotOutPutLabelDistance = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance 3
+        [string]$DotOutPutLabelAngle = Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle 45
     }
 
     It 'Should return a Graphviz edge from NodeA to NodeB with default attributes' {
@@ -68,17 +68,17 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should return a dotted edge style' {
-        [string]$DotOutPutDotted = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dotted'
+        [string]$DotOutPutDotted = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'dotted'
         $DotOutPutDotted | Should -Match 'style="dotted"'
     }
 
     It 'Should return a bold edge style' {
-        [string]$DotOutPutBold = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'bold'
+        [string]$DotOutPutBold = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'bold'
         $DotOutPutBold | Should -Match 'style="bold"'
     }
 
     It 'Should throw on invalid edge style' {
-        $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'invalid' }
+        $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeStyle 'invalid' }
         $scriptBlock | Should -Throw
     }
 
@@ -91,16 +91,16 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should return a Graphviz edge with custom edge thickness range validation' {
-        [string]$DotOutPutMinThickness = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 1
-        [string]$DotOutPutMaxThickness = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 10
+        [string]$DotOutPutMinThickness = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 1
+        [string]$DotOutPutMaxThickness = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 10
         $DotOutPutMinThickness | Should -Match 'penwidth="1"'
         $DotOutPutMaxThickness | Should -Match 'penwidth="10"'
     }
 
     It 'Should throw when EdgeThickness is out of range' {
-        $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 0 }
+        $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 0 }
         $scriptBlock | Should -Throw
-        $scriptBlock2 = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 11 }
+        $scriptBlock2 = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeThickness 11 }
         $scriptBlock2 | Should -Throw
     }
 
@@ -113,10 +113,10 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should accept multiple arrowhead types' {
-        [string]$DotNone = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'none'
-        [string]$DotNormal = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'normal'
-        [string]$DotVee = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'vee'
-        [string]$DotDiamond = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'diamond'
+        [string]$DotNone = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'none'
+        [string]$DotNormal = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'normal'
+        [string]$DotVee = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'vee'
+        [string]$DotDiamond = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'diamond'
         $DotNone | Should -Match 'arrowhead="none"'
         $DotNormal | Should -Match 'arrowhead="normal"'
         $DotVee | Should -Match 'arrowhead="vee"'
@@ -124,10 +124,10 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should accept multiple arrowtail types' {
-        [string]$DotNone = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'none'
-        [string]$DotNormal = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'normal'
-        [string]$DotVee = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'vee'
-        [string]$DotDiamond = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'diamond'
+        [string]$DotNone = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'none'
+        [string]$DotNormal = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'normal'
+        [string]$DotVee = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'vee'
+        [string]$DotDiamond = Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'diamond'
         $DotNone | Should -Match 'arrowtail="none"'
         $DotNormal | Should -Match 'arrowtail="normal"'
         $DotVee | Should -Match 'arrowtail="vee"'
@@ -135,12 +135,12 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should throw on invalid arrowhead type' {
-        $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'invalid' }
+        $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowhead 'invalid' }
         $scriptBlock | Should -Throw
     }
 
     It 'Should throw on invalid arrowtail type' {
-        $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'invalid' }
+        $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -Arrowtail 'invalid' }
         $scriptBlock | Should -Throw
     }
 
@@ -153,16 +153,16 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should return a Graphviz edge with custom label font size range validation' {
-        [string]$DotOutPutMinFontSize = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 8
-        [string]$DotOutPutMaxFontSize = Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 72
+        [string]$DotOutPutMinFontSize = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 8
+        [string]$DotOutPutMaxFontSize = Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 72
         $DotOutPutMinFontSize | Should -Match 'fontsize="8"'
         $DotOutPutMaxFontSize | Should -Match 'fontsize="72"'
     }
 
     It 'Should throw when EdgeLabelFontSize is out of range' {
-        $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 7 }
+        $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 7 }
         $scriptBlock | Should -Throw
-        $scriptBlock2 = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 73 }
+        $scriptBlock2 = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -EdgeLabelFontSize 73 }
         $scriptBlock2 | Should -Throw
     }
 
@@ -193,12 +193,12 @@ Describe Add-DiaNodeEdge {
     }
 
     It 'Should throw when From parameter is missing' {
-        $scriptBlock = { Add-DiaNodeEdge -To 'NodeB' }
+        $scriptBlock = { Add-NodeEdge -To 'NodeB' }
         $scriptBlock | Should -Throw
     }
 
     It 'Should throw when To parameter is missing' {
-        $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' }
+        $scriptBlock = { Add-NodeEdge -From 'NodeA' }
         $scriptBlock | Should -Throw
     }
 
@@ -257,16 +257,16 @@ Describe Add-DiaNodeEdge {
         }
 
         It 'Should throw when LabelDistance is out of range' {
-            $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance -1 }
+            $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance -1 }
             $scriptBlock | Should -Throw
-            $scriptBlock2 = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance 11 }
+            $scriptBlock2 = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelDistance 11 }
             $scriptBlock2 | Should -Throw
         }
 
         It 'Should throw when LabelAngle is out of range' {
-            $scriptBlock = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle -181 }
+            $scriptBlock = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle -181 }
             $scriptBlock | Should -Throw
-            $scriptBlock2 = { Add-DiaNodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle 181 }
+            $scriptBlock2 = { Add-NodeEdge -From 'NodeA' -To 'NodeB' -HeadLabel 'eth0' -LabelAngle 181 }
             $scriptBlock2 | Should -Throw
         }
 

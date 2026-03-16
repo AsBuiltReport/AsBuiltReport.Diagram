@@ -1,11 +1,11 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaHtmlLabel.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-HtmlLabel.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
 }
 
-Describe Add-DiaHtmlLabel {
+Describe Add-HtmlLabel {
     BeforeAll {
         $MainGraphLabel = @{
             'Forest' = 'Active Directory Forest Diagram'
@@ -20,22 +20,22 @@ Describe Add-DiaHtmlLabel {
 
         $IconPath = Join-Path -Path $TestsFolder -ChildPath 'Icons'
 
-        $HTMLTableMainLabel = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images
-        $HTMLTableMainLabelDraftmode = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconDebug $true -ImagesObj $Images
+        $HTMLTableMainLabel = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images
+        $HTMLTableMainLabelDraftmode = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconDebug $true -ImagesObj $Images
 
-        $HTMLTableSubgraphLabel = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images -SubgraphLabel
-        $HTMLTableSubgraphLabelDraftmode = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconDebug $true -ImagesObj $Images -SubgraphLabel
+        $HTMLTableSubgraphLabel = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images -SubgraphLabel
+        $HTMLTableSubgraphLabelDraftmode = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconDebug $true -ImagesObj $Images -SubgraphLabel
 
-        $HTMLTableMainLabelSetImageWxH = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images -IconWidth 300 -IconHeight 300
+        $HTMLTableMainLabelSetImageWxH = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images -IconWidth 300 -IconHeight 300
 
-        $HTMLTableSubgraphLabelSetImageWxH = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images -IconWidth 300 -IconHeight 300 -SubgraphLabel
+        $HTMLTableSubgraphLabelSetImageWxH = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -ImagesObj $Images -IconWidth 300 -IconHeight 300 -SubgraphLabel
 
-        $HTMLTableMainLabelSetImagePercent = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconPath $IconPath -ImagesObj $Images -ImageSizePercent 70
+        $HTMLTableMainLabelSetImagePercent = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconPath $IconPath -ImagesObj $Images -ImageSizePercent 70
 
-        $HTMLTableSubgraphLabelSetImagePercent = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconPath $IconPath -ImagesObj $Images -ImageSizePercent 70 -SubgraphLabel
+        $HTMLTableSubgraphLabelSetImagePercent = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'Main_Logo' -IconPath $IconPath -ImagesObj $Images -ImageSizePercent 70 -SubgraphLabel
 
-        $HTMLTableMainLabelNoIcon = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'NoIcon' -ImagesObj $Images
-        $HTMLTableSubgraphLabelNoIcon = Add-DiaHtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'NoIcon' -ImagesObj $Images -SubgraphLabel
+        $HTMLTableMainLabelNoIcon = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'NoIcon' -ImagesObj $Images
+        $HTMLTableSubgraphLabelNoIcon = Add-HtmlLabel -Label $MainGraphLabel['Forest'] -IconType 'NoIcon' -ImagesObj $Images -SubgraphLabel
 
 
 

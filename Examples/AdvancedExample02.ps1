@@ -1,4 +1,4 @@
-# ** This example demonstrates how to use the Add-DiaNodeText cmdlet to create a text box node in a diagram. (part of AsBuiltReport.Diagram) **
+# ** This example demonstrates how to use the Add-NodeText cmdlet to create a text box node in a diagram. (part of AsBuiltReport.Diagram) **
 
 <#
     This example demonstrates how to create a 3-tier web application diagram using the AsBuiltReport.Diagram module.
@@ -81,7 +81,7 @@ $advancedexample02 = & {
                     'Build' = '10.1'
                 }
 
-                Add-DiaNodeIcon -Name "Web-Server-0$index" -AdditionalInfo $AdditionalInfo -ImagesObj $Images -IconType 'ServerRedhat' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject -TableBackgroundColor '#c1cfe5ff' -CellBackgroundColor '#c1cfe5ff'
+                Add-NodeIcon -Name "Web-Server-0$index" -AdditionalInfo $AdditionalInfo -ImagesObj $Images -IconType 'ServerRedhat' -Align 'Center' -FontSize 18 -DraftMode:$DraftMode -NodeObject -TableBackgroundColor '#c1cfe5ff' -CellBackgroundColor '#c1cfe5ff'
 
                 $index++
             }
@@ -96,7 +96,7 @@ $advancedexample02 = & {
         #>
 
         <#
-            Here I create a web server farm with 6 web servers using Add-DiaHTMLNodeTable. Each server will have an icon and additional information displayed in a table format.
+            Here I create a web server farm with 6 web servers using Add-HtmlNodeTable. Each server will have an icon and additional information displayed in a table format.
             The servers will be arranged in a table with **3 columns** (This can't be done with Graphviz Native SubGraph).
         #>
 
@@ -157,42 +157,42 @@ $advancedexample02 = & {
         )
 
         <#
-            The Add-DiaHTMLNodeTable cmdlet creates a HTML-like table with icons and additional information for each web server.
+            The Add-HtmlNodeTable cmdlet creates a HTML-like table with icons and additional information for each web server.
             The -columnSize parameter is set to 3, which arranges the servers in a table with 3 columns.
             The -MultiIcon switch allows multiple icons to be displayed in the table.
             The resulting HTML-like table is then used as the label for a Node representing the web server farm.
         #>
 
-        $WebLabel = Add-DiaHtmlNodeTable -Name 'WebLabel' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType $WebServerFarm.IconType -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -MultiIcon -DraftMode:$DraftMode -FontSize 18 -TableBackgroundColor '#a8c3b8ff' -CellBackgroundColor '#a8c3b8ff'
+        $WebLabel = Add-HtmlNodeTable -Name 'WebLabel' -ImagesObj $Images -inputObject $WebServerFarm.Name -iconType $WebServerFarm.IconType -ColumnSize 3 -AditionalInfo $WebServerFarm.AdditionalInfo -MultiIcon -DraftMode:$DraftMode -FontSize 18 -TableBackgroundColor '#a8c3b8ff' -CellBackgroundColor '#a8c3b8ff'
 
         <#
-            The Add-DiaHTMLSubGraph cmdlet creates a HTML-like table that simulates a SubGraph with enhanced layout and connectivity options.
+            The Add-HtmlSubGraph cmdlet creates a HTML-like table that simulates a SubGraph with enhanced layout and connectivity options.
             The -columnSize parameter is set to 1, which arranges the web servers in a table with 1 column.
             The resulting HTML-like table is then used as the label for a Node representing the web server farm.
         #>
 
-        Add-DiaHtmlSubGraph -Name 'USA-WebServers' -ImagesObj $Images -TableArray $WebLabel -Align 'Center' -Label 'AsBuiltReport.Diagram SubGraph' -LabelPos 'top' -TableStyle 'dashed,rounded' -TableBorderColor 'darkgray' -TableBorder '1' -ColumnSize 1 -FontSize 22 -DraftMode:$DraftMode -TableBackgroundColor '#a8c3b8ff' -IconType 'Server' -NodeObject
+        Add-HtmlSubGraph -Name 'USA-WebServers' -ImagesObj $Images -TableArray $WebLabel -Align 'Center' -Label 'AsBuiltReport.Diagram SubGraph' -LabelPos 'top' -TableStyle 'dashed,rounded' -TableBorderColor 'darkgray' -TableBorder '1' -ColumnSize 1 -FontSize 22 -DraftMode:$DraftMode -TableBackgroundColor '#a8c3b8ff' -IconType 'Server' -NodeObject
 
         <#
-            Now, let's add a text box node using the Add-DiaNodeText cmdlet.
+            Now, let's add a text box node using the Add-NodeText cmdlet.
             This text box can provide additional information about the web server farm.
-            The Add-DiaNodeText cmdlet allows you to create a text box node with customizable properties.
+            The Add-NodeText cmdlet allows you to create a text box node with customizable properties.
             You can specify the text, font size, color, background color, and more.
             The resulting text box can be connected to other nodes in the diagram.
             The \n character is used to create line breaks in the text. Simulating a multi-line text box.
         #>
-        Add-DiaNodeText -Name 'Info-Box' -TableBorder 2 -DraftMode:$DraftMode -TableBorderColor '#FF0000' -TableBorderStyle 'SOLID' -Text 'This is a test text box.\nIt supports multiple lines of text.\nYou can customize the font, size, color, and background.' -FontColor '#0000FF' -FontSize 30 -FontBold -TableBackgroundColor '#FFFF00' -TextAlign 'Left' -NodeObject
+        Add-NodeText -Name 'Info-Box' -TableBorder 2 -DraftMode:$DraftMode -TableBorderColor '#FF0000' -TableBorderStyle 'SOLID' -Text 'This is a test text box.\nIt supports multiple lines of text.\nYou can customize the font, size, color, and background.' -FontColor '#0000FF' -FontSize 30 -FontBold -TableBackgroundColor '#FFFF00' -TextAlign 'Left' -NodeObject
 
-        # Now, let's add another text box node. This one will explain the advantages of using Add-DiaHTMLSubGraph over native Graphviz SubGraphs.
-        $Message = 'Add-DiaHTMLSubGraph permit the use of edges to connect nodes inside and outside the SubGraph.\n
+        # Now, let's add another text box node. This one will explain the advantages of using Add-HtmlSubGraph over native Graphviz SubGraphs.
+        $Message = 'Add-HtmlSubGraph permit the use of edges to connect nodes inside and outside the SubGraph.\n
         This is not possible with native Graphviz SubGraphs.\n'
-        Add-DiaNodeText -Name 'Info-Box2' -DraftMode:$DraftMode -Text $Message -FontColor '#0000FF' -FontSize 20 -FontBold -TextAlign 'Left' -TableBorder 0 -NodeObject
+        Add-NodeText -Name 'Info-Box2' -DraftMode:$DraftMode -Text $Message -FontColor '#0000FF' -FontSize 20 -FontBold -TextAlign 'Left' -TableBorder 0 -NodeObject
 
-        Add-DiaNodeEdge -From 'USA-WebServers' -To 'Info-Box2' -EdgeLength 2 -EdgeColor 'black' -EdgeStyle 'dashed' -GraphvizAttributes @{penwidth = 1.5}
+        Add-NodeEdge -From 'USA-WebServers' -To 'Info-Box2' -EdgeLength 2 -EdgeColor 'black' -EdgeStyle 'dashed' -GraphvizAttributes @{penwidth = 1.5 }
     }
 }
 <#
-    This command generates the diagram using the New-Diagrammer cmdlet (part of AsBuiltReport.Diagram).
+    This command generates the diagram using the New-AbrDiagram cmdlet (part of AsBuiltReport.Diagram).
 #>
 
-New-Diagrammer -InputObject $advancedexample02 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename AdvancedExample02 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $advancedexample02 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename AdvancedExample02 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
