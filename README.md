@@ -85,6 +85,20 @@ $env:PSModulePath -Split ';'
 
 Copy the downloaded `AsBuiltReport.Diagram` module folder to a folder specified in the `$env:PSModulePath` output.
 
+### **GitHub**
+If you are unable to use the PowerShell Gallery, you can still install the `AsBuiltReport.Diagram` module manually. Ensure you repeat the following steps for the [system requirements](https://github.com/AsBuiltReport/AsBuiltReport.Diagram#wrench-system-requirements) also.
+
+1. Download the [latest release](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/releases/latest) zip from GitHub
+2. Extract the zip file
+3. Copy the folder `AsBuiltReport.Diagram` to a path that is set in `$env:PSModulePath`.
+4. For Windows users only, open a PowerShell terminal window and unblock the downloaded files with
+    ```powershell
+    $path = (Get-Module -Name AsBuiltReport.Diagram -ListAvailable).ModuleBase; Unblock-File -Path $path\*.psd1; Unblock-File -Path $path\Src\Public\*.ps1; Unblock-File -Path $path\Src\Private\*.ps1
+    ```
+5. Close and reopen the PowerShell terminal window.
+
+_Note: You are not limited to installing the module to those example paths, you can add a new entry to the environment variable PSModulePath if you want to use another path._
+
 #### Graphviz Linux/MacOS Installation
 
 Linux & MacOs require the installation of Graphviz to be able to generate the diagram:
@@ -127,25 +141,25 @@ The documentation for the `AsBuiltReport.Diagram` module can be found in the [Do
 
 All examples in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
 
-| Name                                                                                      | Description                         | Module                |
-| ----------------------------------------------------------------------------------------- | ----------------------------------- | --------------------- |
-| [Example1](https://diagrammer.techmyth.blog/dev-guide/examples/example1/)                 | Node cmdlet                         | PSGraph               |
-| [Example2](https://diagrammer.techmyth.blog/dev-guide/examples/example2/)                 | Edge cmdlet                         | PSGraph               |
-| [Example3](https://diagrammer.techmyth.blog/dev-guide/examples/example3/)                 | Edge minlen attribute               | PSGraph               |
-| [Example4](https://diagrammer.techmyth.blog/dev-guide/examples/example4/)                 | SubGraph cmdlet                     | PSGraph               |
-| [Example5](https://diagrammer.techmyth.blog/dev-guide/examples/example5/)                 | Add-NodeIcon cmdlet                 | AsBuiltReport.Diagram |
-| [Example6](https://diagrammer.techmyth.blog/dev-guide/examples/example6/)                 | DraftMode feature                   | AsBuiltReport.Diagram |
-| [Example7](https://diagrammer.techmyth.blog/dev-guide/examples/example7/)                 | Rank cmdlet                         | PSGraph               |
-| [Example8](https://diagrammer.techmyth.blog/dev-guide/examples/example8/)                 | Add-HtmlNodeTable cmdlet            | AsBuiltReport.Diagram |
-| [Example9](https://diagrammer.techmyth.blog/dev-guide/examples/example9/)                 | Add-HtmlNodeTable MultiIcon feature | AsBuiltReport.Diagram |
-| [Example10](https://diagrammer.techmyth.blog/dev-guide/examples/example10/)               | Add-NodeImage cmdlet                | AsBuiltReport.Diagram |
-| [Example11](https://diagrammer.techmyth.blog/dev-guide/examples/example11/)               | Add-HtmlTable cmdlet                | AsBuiltReport.Diagram |
-| [Example12](https://diagrammer.techmyth.blog/dev-guide/examples/example12/)               | WaterMark feature                   | AsBuiltReport.Diagram |
-| [Example13](https://diagrammer.techmyth.blog/dev-guide/examples/example13/)               | Signature feature                   | AsBuiltReport.Diagram |
-| [Example14](https://diagrammer.techmyth.blog/dev-guide/examples/example14/)               | Add-NodeShape cmdlet                | AsBuiltReport.Diagram |
-| [Example15](https://diagrammer.techmyth.blog/dev-guide/examples/example15/)               | Add-NodeSpacer cmdlet               | AsBuiltReport.Diagram |
-| [AdvancedExample1](https://diagrammer.techmyth.blog/dev-guide/examples/advancedexample1/) | Add-HtmlSubGraph cmdlet             | AsBuiltReport.Diagram |
-| [AdvancedExample2](https://diagrammer.techmyth.blog/dev-guide/examples/advancedexample2/) | Add-NodeText cmdlet                 | AsBuiltReport.Diagram |
+| Name                                                 | Description                         | Module                |
+| ---------------------------------------------------- | ----------------------------------- | --------------------- |
+| [Example1](./Examples/Example01.ps1)                 | Node cmdlet                         | PSGraph               |
+| [Example2](./Examples/Example02.ps1)                 | Edge cmdlet                         | PSGraph               |
+| [Example3](./Examples/Example03.ps1)                 | Edge minlen attribute               | PSGraph               |
+| [Example4](./Examples/Example04.ps1)                 | SubGraph cmdlet                     | PSGraph               |
+| [Example5](./Examples/Example05.ps1)                 | Add-NodeIcon cmdlet                 | AsBuiltReport.Diagram |
+| [Example6](./Examples/Example06.ps1)                 | DraftMode feature                   | AsBuiltReport.Diagram |
+| [Example7](./Examples/Example07.ps1)                 | Rank cmdlet                         | PSGraph               |
+| [Example8](./Examples/Example08.ps1)                 | Add-HtmlNodeTable cmdlet            | AsBuiltReport.Diagram |
+| [Example9](./Examples/Example09.ps1)                 | Add-HtmlNodeTable MultiIcon feature | AsBuiltReport.Diagram |
+| [Example10](./Examples/Example10.ps1)                | Add-NodeImage cmdlet                | AsBuiltReport.Diagram |
+| [Example11](./Examples/Example11.ps1)                | Add-HtmlTable cmdlet                | AsBuiltReport.Diagram |
+| [Example12](./Examples/Example12.ps1)                | WaterMark feature                   | AsBuiltReport.Diagram |
+| [Example13](./Examples/Example13.ps1)                | Signature feature                   | AsBuiltReport.Diagram |
+| [Example14](./Examples/Example14.ps1)                | Add-NodeShape cmdlet                | AsBuiltReport.Diagram |
+| [Example15](./Examples/Example15.ps1)                | Add-NodeSpacer cmdlet               | AsBuiltReport.Diagram |
+| [AdvancedExample1](./Examples/AdvancedExample01.ps1) | Add-HtmlSubGraph cmdlet             | AsBuiltReport.Diagram |
+| [AdvancedExample2](./Examples/AdvancedExample02.ps1) | Add-NodeText cmdlet                 | AsBuiltReport.Diagram |
 
 
 ## :x: Known Issues
