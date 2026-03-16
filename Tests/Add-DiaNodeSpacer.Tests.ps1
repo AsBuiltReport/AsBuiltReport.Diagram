@@ -1,12 +1,12 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeSpacer.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-NodeSpacer.ps1')
 }
 
-Describe Add-DiaNodeSpacer {
+Describe Add-NodeSpacer {
     BeforeAll {
-        $HTMLOutPut = Add-DiaNodeSpacer -Name 'Spacer' -ShapeWidth 1 -ShapeHeight 1 -DraftMode $false
-        $HTMLOutPutDebug = Add-DiaNodeSpacer -Name 'Spacer' -ShapeWidth 1 -ShapeHeight 1 -DraftMode $true
+        $HTMLOutPut = Add-NodeSpacer -Name 'Spacer' -ShapeWidth 1 -ShapeHeight 1 -DraftMode $false
+        $HTMLOutPutDebug = Add-NodeSpacer -Name 'Spacer' -ShapeWidth 1 -ShapeHeight 1 -DraftMode $true
     }
 
     It 'Should return a dummy node with rectangle shape' {

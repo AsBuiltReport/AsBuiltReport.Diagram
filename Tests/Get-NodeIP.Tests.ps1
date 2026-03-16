@@ -1,13 +1,13 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Get-NodeIP.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Get-AbrNodeIP.ps1')
 }
 
-Describe Get-NodeIP {
+Describe Get-AbrNodeIP {
     It 'Should return Host IP Address' {
-        Get-NodeIP -Hostname localhost | Should -Be '127.0.0.1'
+        Get-AbrNodeIP -Hostname localhost | Should -Be '127.0.0.1'
     }
     It 'Should return Unknown' {
-        Get-NodeIP -Hostname 'invalid-hostname' | Should -Be 'Unknown'
+        Get-AbrNodeIP -Hostname 'invalid-hostname' | Should -Be 'Unknown'
     }
 }

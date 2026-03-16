@@ -211,7 +211,7 @@ Describe AdvancedExample02 {
                 $DotContent = Get-Content -Path $DotFile -Raw
 
                 $DotContent | Should -Match 'Info-Box2'
-                $DotContent | Should -Match '<B>Add-DiaHTMLSubGraph permit the use of edges to connect nodes inside and outside the SubGraph.<BR/>'
+                $DotContent | Should -Match '<B>Add-HtmlSubGraph permit the use of edges to connect nodes inside and outside the SubGraph.<BR/>'
                 $DotContent | Should -Match 'POINT-SIZE="20"'
                 $DotContent | Should -Match 'COLOR="#0000FF"'
             }

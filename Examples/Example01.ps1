@@ -38,7 +38,7 @@ $example1 = & {
 }
 
 <#
-    The New-Diagrammer cmdlet generates the diagram.
+    The New-AbrDiagram cmdlet generates the diagram.
     -InputObject: Accepts the custom object defined above.
     -OutputFolderPath: Specifies where to save the generated diagram.
     -Format: Sets the output format (png, jpg, svg, etc.).
@@ -49,4 +49,4 @@ $example1 = & {
     -DraftMode: If set to $true, generates a draft version of the diagram for troubleshooting.
     If the specified logo image is not found, a default no_icon.png is used.
 #>
-New-Diagrammer -InputObject $example1 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example1 -LogoName 'Main_Logo' -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example1 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example1 -LogoName 'Main_Logo' -DraftMode:$DraftMode

@@ -66,7 +66,7 @@ $example17 = & {
     SubGraph LShapeGroup -Attributes @{Label = 'L-Shape Connectors'; fontsize = 20; penwidth = 2; labelloc = 't'; style = 'dashed,rounded'; color = 'darkgray' } {
 
         <#
-            -- Add-DiaLShapeLine
+            -- Add-LShapeLine
             Creates an L-shaped connector: a vertical line from top to a corner node,
             then a horizontal line from the corner to the right.
 
@@ -88,12 +88,12 @@ $example17 = & {
             - IconDebug:            Show junction nodes in red for troubleshooting.
         #>
 
-        SubGraph LShapeDemo -Attributes @{Label = 'Add-DiaLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'steelblue' } {
+        SubGraph LShapeDemo -Attributes @{Label = 'Add-LShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'steelblue' } {
 
-            Add-DiaNodeShape -Name 'L-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'steelblue' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'L-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'steelblue' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'L-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'steelblue' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'L-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'steelblue' -DraftMode:$DraftMode
 
-            Add-DiaLShapeLine -LShapeUp 'L-JunctionUp' -LShapeDown 'L-JunctionDown' -LShapeRight 'L-JunctionRight' -LineColor 'steelblue' -LineWidth 2 -LShapeUpLineLength 2 -LShapeRightLineLength 2 -DraftMode:$DraftMode
+            Add-LShapeLine -LShapeUp 'L-JunctionUp' -LShapeDown 'L-JunctionDown' -LShapeRight 'L-JunctionRight' -LineColor 'steelblue' -LineWidth 2 -LShapeUpLineLength 2 -LShapeRightLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'L-Server-Top' -To 'L-JunctionUp' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'steelblue'; penwidth = 2 }
             Edge -From 'L-JunctionRight' -To 'L-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'steelblue'; penwidth = 2 }
@@ -101,7 +101,7 @@ $example17 = & {
         }
 
         <#
-            -- Add-DiaLeftLShapeLine ---
+            -- Add-LeftLShapeLine ---
             Creates a left-oriented L-shaped connector: a horizontal line from the left to
             a corner node at the top, then a vertical line from the corner downward.
 
@@ -117,15 +117,15 @@ $example17 = & {
             - LeftLShapeLeft:           Name of the left endpoint of the horizontal segment.
             - LeftLShapeUpLineLength:   Minimum length of the vertical segment (1-10).
             - LeftLShapeLeftLineLength: Minimum length of the horizontal segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph LeftLShapeDemo -Attributes @{Label = 'Add-DiaLeftLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'darkorange' } {
+        SubGraph LeftLShapeDemo -Attributes @{Label = 'Add-LeftLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'darkorange' } {
 
-            Add-DiaNodeShape -Name 'LL-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkorange' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'LL-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkorange' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'LL-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkorange' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'LL-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkorange' -DraftMode:$DraftMode
 
-            Add-DiaLeftLShapeLine -LeftLShapeUp 'LL-JunctionUp' -LeftLShapeDown 'LL-JunctionDown' -LeftLShapeLeft 'LL-JunctionLeft' -LineColor 'darkorange' -LineWidth 2 -LeftLShapeUpLineLength 2 -LeftLShapeLeftLineLength 2 -DraftMode:$DraftMode
+            Add-LeftLShapeLine -LeftLShapeUp 'LL-JunctionUp' -LeftLShapeDown 'LL-JunctionDown' -LeftLShapeLeft 'LL-JunctionLeft' -LineColor 'darkorange' -LineWidth 2 -LeftLShapeUpLineLength 2 -LeftLShapeLeftLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'LL-Server-Left' -To 'LL-JunctionLeft' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkorange'; penwidth = 2 }
             Rank 'LL-Server-Left', 'LL-JunctionLeft'
@@ -133,7 +133,7 @@ $example17 = & {
         }
 
         <#
-            -- Add-DiaRightLShapeLine ---
+            -- Add-RightLShapeLine ---
             Creates a right-facing L-shaped connector: a horizontal line from the corner to
             the right, and a vertical line from the corner downward.
 
@@ -149,15 +149,15 @@ $example17 = & {
             - RightLShapeRight:           Name of the right endpoint of the horizontal segment.
             - RightLShapeUpLineLength:    Minimum length of the vertical segment (1-10).
             - RightLShapeRightLineLength: Minimum length of the horizontal segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph RightLShapeDemo -Attributes @{Label = 'Add-DiaRightLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'darkgreen' } {
+        SubGraph RightLShapeDemo -Attributes @{Label = 'Add-RightLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'darkgreen' } {
 
-            Add-DiaNodeShape -Name 'RL-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkgreen' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'RL-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkgreen' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'RL-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkgreen' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'RL-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkgreen' -DraftMode:$DraftMode
 
-            Add-DiaRightLShapeLine -RightLShapeUp 'RL-JunctionUp' -RightLShapeDown 'RL-JunctionDown' -RightLShapeRight 'RL-JunctionRight' -LineColor 'darkgreen' -LineWidth 2 -RightLShapeUpLineLength 2 -RightLShapeRightLineLength 2 -DraftMode:$DraftMode
+            Add-RightLShapeLine -RightLShapeUp 'RL-JunctionUp' -RightLShapeDown 'RL-JunctionDown' -RightLShapeRight 'RL-JunctionRight' -LineColor 'darkgreen' -LineWidth 2 -RightLShapeUpLineLength 2 -RightLShapeRightLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'RL-JunctionRight' -To 'RL-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkgreen'; penwidth = 2 }
             Edge -From 'RL-JunctionDown' -To 'RL-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkgreen'; penwidth = 2 }
@@ -169,7 +169,7 @@ $example17 = & {
     SubGraph InvertedLShapeGroup -Attributes @{Label = 'Inverted L-Shape Connector'; fontsize = 20; penwidth = 2; labelloc = 't'; style = 'dashed,rounded'; color = 'darkgray' } {
 
         <#
-            -- Add-DiaInvertedLShapeLine ---
+            -- Add-InvertedLShapeLine ---
             Creates an inverted L-shaped connector: a vertical line from a corner node
             upward, and a horizontal line from the corner to the right.
 
@@ -185,15 +185,15 @@ $example17 = & {
             - InvertedLShapeRight:          Name of the right endpoint of the horizontal segment.
             - InvertedLShapeUpLineLength:   Minimum length of the vertical segment (1-10).
             - InvertedLShapeRightLineLength:Minimum length of the horizontal segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph InvertedLShapeDemo -Attributes @{Label = 'Add-DiaInvertedLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'purple' } {
+        SubGraph InvertedLShapeDemo -Attributes @{Label = 'Add-InvertedLShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'purple' } {
 
-            Add-DiaNodeShape -Name 'IL-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'purple' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'IL-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'purple' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'IL-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'purple' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'IL-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'purple' -DraftMode:$DraftMode
 
-            Add-DiaInvertedLShapeLine -InvertedLShapeUp 'IL-JunctionUp' -InvertedLShapeDown 'IL-JunctionDown' -InvertedLShapeRight 'IL-JunctionRight' -LineColor 'purple' -LineWidth 2 -InvertedLShapeUpLineLength 2 -InvertedLShapeRightLineLength 2 -DraftMode:$DraftMode
+            Add-InvertedLShapeLine -InvertedLShapeUp 'IL-JunctionUp' -InvertedLShapeDown 'IL-JunctionDown' -InvertedLShapeRight 'IL-JunctionRight' -LineColor 'purple' -LineWidth 2 -InvertedLShapeUpLineLength 2 -InvertedLShapeRightLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'IL-JunctionRight' -To 'IL-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'purple'; penwidth = 2 }
             Edge -From 'IL-JunctionDown' -To 'IL-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'purple'; penwidth = 2 }
@@ -205,7 +205,7 @@ $example17 = & {
     SubGraph TShapeGroup -Attributes @{Label = 'T-Shape Connectors'; fontsize = 20; penwidth = 2; labelloc = 't'; style = 'dashed,rounded'; color = 'darkgray' } {
 
         <#
-            -- Add-DiaTShapeLine
+            -- Add-TShapeLine
             Creates a T-shaped connector: a horizontal line between a left node, a center
             (top) node, and a right node, with a vertical line extending downward from center.
 
@@ -224,16 +224,16 @@ $example17 = & {
             - TShapeLeftLineLength:     Minimum length of the left horizontal segment (1-10).
             - TShapeRightLineLength:    Minimum length of the right horizontal segment (1-10).
             - TShapeMiddleDownLineLength: Minimum length of the vertical segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph TShapeDemo -Attributes @{Label = 'Add-DiaTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'firebrick' } {
+        SubGraph TShapeDemo -Attributes @{Label = 'Add-TShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'firebrick' } {
 
-            Add-DiaNodeShape -Name 'T-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'firebrick' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'T-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'firebrick' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'T-Server-Down' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'firebrick' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'T-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'firebrick' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'T-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'firebrick' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'T-Server-Down' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'firebrick' -DraftMode:$DraftMode
 
-            Add-DiaTShapeLine -TShapeLeft 'T-JunctionLeft' -TShapeRight 'T-JunctionRight' -TShapeMiddleUp 'T-JunctionMiddleUp' -TShapeMiddleDown 'T-JunctionMiddleDown' -LineColor 'firebrick' -LineWidth 2 -TShapeLeftLineLength 2 -TShapeRightLineLength 2 -TShapeMiddleDownLineLength 2 -DraftMode:$DraftMode
+            Add-TShapeLine -TShapeLeft 'T-JunctionLeft' -TShapeRight 'T-JunctionRight' -TShapeMiddleUp 'T-JunctionMiddleUp' -TShapeMiddleDown 'T-JunctionMiddleDown' -LineColor 'firebrick' -LineWidth 2 -TShapeLeftLineLength 2 -TShapeRightLineLength 2 -TShapeMiddleDownLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'T-Server-Left' -To 'T-JunctionLeft' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'firebrick'; penwidth = 2 }
             Edge -From 'T-JunctionRight' -To 'T-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'firebrick'; penwidth = 2 }
@@ -244,7 +244,7 @@ $example17 = & {
         }
 
         <#
-            -- Add-DiaInvertedTShapeLine ---
+            -- Add-InvertedTShapeLine ---
             Creates an inverted T-shaped connector: a horizontal line between a left node,
             a center node, and a right node, with a vertical line extending upward from center.
 
@@ -264,16 +264,16 @@ $example17 = & {
             - InvertedTStartLineLength: Minimum length of the left horizontal segment (1-10).
             - InvertedTEndLineLength:   Minimum length of the right horizontal segment (1-10).
             - InvertedTMiddleTopLength: Minimum length of the vertical segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph InvertedTShapeDemo -Attributes @{Label = 'Add-DiaInvertedTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'teal' } {
+        SubGraph InvertedTShapeDemo -Attributes @{Label = 'Add-InvertedTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'teal' } {
 
-            Add-DiaNodeShape -Name 'IT-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'teal' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'IT-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'teal' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'IT-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'teal' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'IT-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'teal' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'IT-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'teal' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'IT-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'teal' -DraftMode:$DraftMode
 
-            Add-DiaInvertedTShapeLine -InvertedTStart 'IT-JunctionStart' -InvertedTEnd 'IT-JunctionEnd' -InvertedTMiddleTop 'IT-JunctionMiddleTop' -InvertedTMiddleDown 'IT-JunctionMiddleDown' -LineColor 'teal' -LineWidth 2 -InvertedTStartLineLength 2 -InvertedTEndLineLength 2 -InvertedTMiddleTopLength 2 -DraftMode:$DraftMode
+            Add-InvertedTShapeLine -InvertedTStart 'IT-JunctionStart' -InvertedTEnd 'IT-JunctionEnd' -InvertedTMiddleTop 'IT-JunctionMiddleTop' -InvertedTMiddleDown 'IT-JunctionMiddleDown' -LineColor 'teal' -LineWidth 2 -InvertedTStartLineLength 2 -InvertedTEndLineLength 2 -InvertedTMiddleTopLength 2 -DraftMode:$DraftMode
 
             Edge -From 'IT-Server-Left' -To 'IT-JunctionStart' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'teal'; penwidth = 2 }
             Edge -From 'IT-JunctionEnd' -To 'IT-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'teal'; penwidth = 2 }
@@ -287,7 +287,7 @@ $example17 = & {
     SubGraph SideTShapeGroup -Attributes @{Label = 'Side T-Shape Connectors'; fontsize = 20; penwidth = 2; labelloc = 't'; style = 'dashed,rounded'; color = 'darkgray' } {
 
         <#
-            -- Add-DiaLeftTShapeLine ---
+            -- Add-LeftTShapeLine ---
             Creates a Left T-shaped connector: a vertical line through a center node (up and
             down), with a horizontal branch extending to the left from the center.
 
@@ -308,16 +308,16 @@ $example17 = & {
             - LeftTShapeUpLineLength:        Minimum length of the upper vertical segment (1-10).
             - LeftTShapeDownLineLength:      Minimum length of the lower vertical segment (1-10).
             - LeftTShapeMiddleLeftLineLength:Minimum length of the horizontal segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph LeftTShapeDemo -Attributes @{Label = 'Add-DiaLeftTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'indigo' } {
+        SubGraph LeftTShapeDemo -Attributes @{Label = 'Add-LeftTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'indigo' } {
 
-            Add-DiaNodeShape -Name 'LT-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'indigo' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'LT-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'indigo' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'LT-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'indigo' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'LT-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'indigo' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'LT-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'indigo' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'LT-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'indigo' -DraftMode:$DraftMode
 
-            Add-DiaLeftTShapeLine -LeftTShapeUp 'LT-JunctionUp' -LeftTShapeDown 'LT-JunctionDown' -LeftTShapeMiddleRight 'LT-JunctionMiddleRight' -LeftTShapeMiddleLeft 'LT-JunctionMiddleLeft' -LineColor 'indigo' -LineWidth 2 -LeftTShapeUpLineLength 2 -LeftTShapeDownLineLength 2 -LeftTShapeMiddleLeftLineLength 2 -DraftMode:$DraftMode
+            Add-LeftTShapeLine -LeftTShapeUp 'LT-JunctionUp' -LeftTShapeDown 'LT-JunctionDown' -LeftTShapeMiddleRight 'LT-JunctionMiddleRight' -LeftTShapeMiddleLeft 'LT-JunctionMiddleLeft' -LineColor 'indigo' -LineWidth 2 -LeftTShapeUpLineLength 2 -LeftTShapeDownLineLength 2 -LeftTShapeMiddleLeftLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'LT-Server-Top' -To 'LT-JunctionUp' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'indigo'; penwidth = 2 }
             Edge -From 'LT-JunctionDown' -To 'LT-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'indigo'; penwidth = 2 }
@@ -327,7 +327,7 @@ $example17 = & {
         }
 
         <#
-            -- Add-DiaRightTShapeLine ---
+            -- Add-RightTShapeLine ---
             Creates a Right T-shaped connector: a vertical line through a center node (up and
             down), with a horizontal branch extending to the right from the center.
 
@@ -348,16 +348,16 @@ $example17 = & {
             - RightTShapeUpLineLength:          Minimum length of the upper vertical segment (1-10).
             - RightTShapeDownLineLength:        Minimum length of the lower vertical segment (1-10).
             - RightTShapeMiddleRightLineLength: Minimum length of the horizontal segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph RightTShapeDemo -Attributes @{Label = 'Add-DiaRightTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'saddlebrown' } {
+        SubGraph RightTShapeDemo -Attributes @{Label = 'Add-RightTShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'saddlebrown' } {
 
-            Add-DiaNodeShape -Name 'RT-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'saddlebrown' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'RT-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'saddlebrown' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'RT-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'saddlebrown' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'RT-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'saddlebrown' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'RT-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'saddlebrown' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'RT-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'saddlebrown' -DraftMode:$DraftMode
 
-            Add-DiaRightTShapeLine -RightTShapeUp 'RT-JunctionUp' -RightTShapeDown 'RT-JunctionDown' -RightTShapeMiddleRight 'RT-JunctionMiddleRight' -RightTShapeMiddleLeft 'RT-JunctionMiddleLeft' -LineColor 'saddlebrown' -LineWidth 2 -RightTShapeUpLineLength 2 -RightTShapeDownLineLength 2 -RightTShapeMiddleRightLineLength 2 -DraftMode:$DraftMode
+            Add-RightTShapeLine -RightTShapeUp 'RT-JunctionUp' -RightTShapeDown 'RT-JunctionDown' -RightTShapeMiddleRight 'RT-JunctionMiddleRight' -RightTShapeMiddleLeft 'RT-JunctionMiddleLeft' -LineColor 'saddlebrown' -LineWidth 2 -RightTShapeUpLineLength 2 -RightTShapeDownLineLength 2 -RightTShapeMiddleRightLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'RT-Server-Top' -To 'RT-JunctionUp' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'saddlebrown'; penwidth = 2 }
             Edge -From 'RT-JunctionDown' -To 'RT-Server-Bottom' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'saddlebrown'; penwidth = 2 }
@@ -370,7 +370,7 @@ $example17 = & {
     SubGraph CrossShapeGroup -Attributes @{Label = 'Cross Shape Connector'; fontsize = 20; penwidth = 2; labelloc = 't'; style = 'dashed,rounded'; color = 'darkgray' } {
 
         <#
-            -- Add-DiaCrossShapeLine ---
+            -- Add-CrossShapeLine ---
             Creates a cross-shaped (plus sign) connector: a horizontal line between a start
             node, a center node, and an end node, with vertical lines extending up and down
             from the center.
@@ -394,17 +394,17 @@ $example17 = & {
             - CrossShapeEndLineLength:      Minimum length of the right horizontal segment (1-10).
             - CrossShapeMiddleTopLineLength: Minimum length of the upper vertical segment (1-10).
             - CrossShapeMiddleDownLineLength:Minimum length of the lower vertical segment (1-10).
-            - LineStyle, LineWidth, LineColor, IconDebug: See Add-DiaLShapeLine.
+            - LineStyle, LineWidth, LineColor, IconDebug: See Add-LShapeLine.
         #>
 
-        SubGraph CrossShapeDemo -Attributes @{Label = 'Add-DiaCrossShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'darkred' } {
+        SubGraph CrossShapeDemo -Attributes @{Label = 'Add-CrossShapeLine'; fontsize = 16; penwidth = 1.5; labelloc = 't'; style = 'rounded'; color = 'darkred' } {
 
-            Add-DiaNodeShape -Name 'X-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'X-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'X-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
-            Add-DiaNodeShape -Name 'X-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'X-Server-Left' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'X-Server-Right' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'X-Server-Top' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
+            Add-NodeShape -Name 'X-Server-Bottom' -Shape rectangle -ShapeFillColor 'lightyellow' -ShapeStyle 'filled' -ShapeWidth 1.5 -ShapeHeight 0.5 -ShapeLineColor 'darkred' -DraftMode:$DraftMode
 
-            Add-DiaCrossShapeLine -CrossShapeStart 'X-JunctionStart' -CrossShapeEnd 'X-JunctionEnd' -CrossShapeMiddle 'X-JunctionMiddle' -CrossShapeMiddleTop 'X-JunctionTop' -CrossShapeMiddleDown 'X-JunctionDown' -LineColor 'darkred' -LineWidth 2 -CrossShapeStartLineLength 2 -CrossShapeEndLineLength 2 -CrossShapeMiddleTopLineLength 2 -CrossShapeMiddleDownLineLength 2 -DraftMode:$DraftMode
+            Add-CrossShapeLine -CrossShapeStart 'X-JunctionStart' -CrossShapeEnd 'X-JunctionEnd' -CrossShapeMiddle 'X-JunctionMiddle' -CrossShapeMiddleTop 'X-JunctionTop' -CrossShapeMiddleDown 'X-JunctionDown' -LineColor 'darkred' -LineWidth 2 -CrossShapeStartLineLength 2 -CrossShapeEndLineLength 2 -CrossShapeMiddleTopLineLength 2 -CrossShapeMiddleDownLineLength 2 -DraftMode:$DraftMode
 
             Edge -From 'X-Server-Left' -To 'X-JunctionStart' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkred'; penwidth = 2 }
             Edge -From 'X-JunctionEnd' -To 'X-Server-Right' @{arrowhead = 'none'; arrowtail = 'none'; style = 'solid'; color = 'darkred'; penwidth = 2 }
@@ -418,7 +418,7 @@ $example17 = & {
 }
 
 <#
-    The New-Diagrammer cmdlet generates the diagram.
+    The New-AbrDiagram cmdlet generates the diagram.
 #>
 
-New-Diagrammer -InputObject $example17 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example17 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode
+New-AbrDiagram -InputObject $example17 -OutputFolderPath $OutputFolderPath -Format $Format -MainDiagramLabel $MainGraphLabel -Filename Example17 -LogoName 'Main_Logo' -Direction top-to-bottom -IconPath $IconPath -ImagesObj $Images -DraftMode:$DraftMode

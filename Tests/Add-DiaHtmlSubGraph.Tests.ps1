@@ -1,13 +1,13 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaHtmlSubGraph.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-HtmlSubGraph.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-NodeObject.ps1')
 
 }
 
-Describe Add-DiaHtmlSubGraph {
+Describe Add-HtmlSubGraph {
     BeforeAll {
         $Images = @{
             'Main_Logo' = 'AsBuiltReport.png'
@@ -17,18 +17,18 @@ Describe Add-DiaHtmlSubGraph {
         $DCsArray = @('Server-dc-01v', 'Server-dc-02v', 'Server-dc-03v', 'Server-dc-04v', 'Server-dc-05v', 'Server-dc-06v')
         $SubnetsArray = @('192.168.5.0', '192.168.7.0', '192.168.9.0', '172.16.9.0', '172.16.18.0', '10.10.8.0')
 
-        $DCNodes = Add-DiaHtmlNodeTable -Name 'Subnet' -ImagesObj $Images -inputObject $DCsArray -ColumnSize 3 -Align 'Center' -iconType 'DomainController' -MultiIcon
-        $SubnetsNodes = Add-DiaHtmlNodeTable -Name 'Subnet' -ImagesObj $Images -inputObject $SubnetsArray -ColumnSize 3 -Align 'Center' -iconType 'Subnets' -MultiIcon
+        $DCNodes = Add-HtmlNodeTable -Name 'Subnet' -ImagesObj $Images -inputObject $DCsArray -ColumnSize 3 -Align 'Center' -iconType 'DomainController' -MultiIcon
+        $SubnetsNodes = Add-HtmlNodeTable -Name 'Subnet' -ImagesObj $Images -inputObject $SubnetsArray -ColumnSize 3 -Align 'Center' -iconType 'Subnets' -MultiIcon
 
         $TableObjects = @($DCNodes, $SubnetsNodes)
 
-        $HTMLSubgraphLogoDown = Add-DiaHtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'down'
-        $HTMLSubgraphLogoDownDebug = Add-DiaHtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'down' -IconDebug $true
+        $HTMLSubgraphLogoDown = Add-HtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'down'
+        $HTMLSubgraphLogoDownDebug = Add-HtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'down' -IconDebug $true
 
-        $HTMLSubgraphLogoTop = Add-DiaHtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'top'
-        $HTMLSubgraphLogoTopDebug = Add-DiaHtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'top' -IconDebug $true
+        $HTMLSubgraphLogoTop = Add-HtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'top'
+        $HTMLSubgraphLogoTopDebug = Add-HtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'top' -IconDebug $true
 
-        $HTMLSubgraphLogoTopTableBackgroundColor = Add-DiaHtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'top' -TableBackgroundColor '#FFFFCC'
+        $HTMLSubgraphLogoTopTableBackgroundColor = Add-HtmlSubGraph -Name 'Subnet' -ImagesObj $Images -TableArray $TableObjects -Align 'Center' -IconType 'Main_Logo' -ColumnSize 2 -Label 'SubGraph Test' -LabelPos 'top' -TableBackgroundColor '#FFFFCC'
 
     }
 

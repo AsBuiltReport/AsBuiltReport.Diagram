@@ -1,12 +1,12 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Split-Array.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Split-ArrayElement.ps1')
 }
 
-Describe Split-Array {
+Describe Split-ArrayElement {
     BeforeAll {
         $ArrayObj = @(1, 2, 3, 4, 5, 6, 7, 8, 9)
-        $SplitArray = Split-Array -inArray $ArrayObj -size 3
+        $SplitArray = Split-ArrayElement -inArray $ArrayObj -size 3
     }
 
     It 'Should return a object split by size' {

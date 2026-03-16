@@ -1,19 +1,19 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaHtmlSignatureTable.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-HtmlSignatureTable.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
 }
 
-Describe Add-DiaHtmlSignatureTable {
+Describe Add-HtmlSignatureTable {
     BeforeAll {
         $Images = @{
             'Main_Logo' = 'AsBuiltReport.png'
             'ForestRoot' = 'RootDomain.png'
         }
         $Rows = @('Jonathan Colon', 'Zen PR Solutions')
-        $HTMLSignaturewithLogo = Add-DiaHtmlSignatureTable -ImagesObj $Images -Rows $Rows -Align 'Center' -Logo 'Main_Logo'
-        $HTMLSignaturewithLogoDebug = Add-DiaHtmlSignatureTable -ImagesObj $Images -Rows $Rows -Align 'Center' -Logo 'Main_Logo' -IconDebug $true
+        $HTMLSignaturewithLogo = Add-HtmlSignatureTable -ImagesObj $Images -Rows $Rows -Align 'Center' -Logo 'Main_Logo'
+        $HTMLSignaturewithLogoDebug = Add-HtmlSignatureTable -ImagesObj $Images -Rows $Rows -Align 'Center' -Logo 'Main_Logo' -IconDebug $true
 
     }
 

@@ -2,15 +2,15 @@ BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Join-Hashtable.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeText.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-NodeText.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-NodeObject.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
 }
 
-Describe Add-DiaNodeText {
+Describe Add-NodeText {
     BeforeAll {
-        $HTMLOutPut = Add-DiaNodeText -Text 'WAN' -Name 'Wan' -TextAlign 'Center' -FontSize 12 -FontColor 'black' -TableBorder 0 -TableBorderStyle 'SOLID' -IconDebug $false -TableBorderColor Blue
-        $HTMLOutPutDebug = Add-DiaNodeText -Text 'WAN' -Name 'Wan' -TextAlign 'Center' -FontSize 12 -FontColor 'black' -TableBorder 0 -TableBorderStyle 'SOLID' -IconDebug $true -TableBorderColor Blue
+        $HTMLOutPut = Add-NodeText -Text 'WAN' -Name 'Wan' -TextAlign 'Center' -FontSize 12 -FontColor 'black' -TableBorder 0 -TableBorderStyle 'SOLID' -IconDebug $false -TableBorderColor Blue
+        $HTMLOutPutDebug = Add-NodeText -Text 'WAN' -Name 'Wan' -TextAlign 'Center' -FontSize 12 -FontColor 'black' -TableBorder 0 -TableBorderStyle 'SOLID' -IconDebug $true -TableBorderColor Blue
     }
 
     It "Should return a HTML table with Text 'WAN'" {

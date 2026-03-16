@@ -2,12 +2,12 @@ BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Join-Hashtable.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeImage.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-NodeImage.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-NodeObject.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
 }
 
-Describe Add-DiaNodeImage {
+Describe Add-NodeImage {
     BeforeAll {
         $Images = @{
             'Main_Logo' = 'AsBuiltReport.png'
@@ -15,13 +15,13 @@ Describe Add-DiaNodeImage {
 
         $IconPath = Join-Path -Path $TestsFolder -ChildPath 'Icons'
 
-        $HTMLOutPut = Add-DiaNodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -IconPath $IconPath -ImageSizePercent 70
-        $HTMLOutPutDebug = Add-DiaNodeImage -Name 'Wan' -ImagesObj $Images -IconType 'Main_Logo' -DraftMode $true
+        $HTMLOutPut = Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -IconPath $IconPath -ImageSizePercent 70
+        $HTMLOutPutDebug = Add-NodeImage -Name 'Wan' -ImagesObj $Images -IconType 'Main_Logo' -DraftMode $true
 
-        $HTMLOutPutNodeObj = Add-DiaNodeImage -Name 'Wan' -ImagesObj $Images -IconType 'Main_Logo' -NodeObject
-        $HTMLOutPutDebugNodeObj = Add-DiaNodeImage -Name 'Wan' -ImagesObj $Images -IconType 'Main_Logo' -DraftMode $true -NodeObject
+        $HTMLOutPutNodeObj = Add-NodeImage -Name 'Wan' -ImagesObj $Images -IconType 'Main_Logo' -NodeObject
+        $HTMLOutPutDebugNodeObj = Add-NodeImage -Name 'Wan' -ImagesObj $Images -IconType 'Main_Logo' -DraftMode $true -NodeObject
 
-        $HTMLOutPutGraphvizAttributes = Add-DiaNodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -IconPath $IconPath -NodeObject -GraphvizAttributes @{color = 'blue' }
+        $HTMLOutPutGraphvizAttributes = Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -IconPath $IconPath -NodeObject -GraphvizAttributes @{color = 'blue' }
 
     }
 
@@ -45,7 +45,7 @@ Describe Add-DiaNodeImage {
     }
 
     It 'Should throw an error when IconPath is not provided and ImageSizePercent is less than 100' {
-        { Add-DiaNodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -ImageSizePercent 30 } | Should -Throw -ExpectedMessage 'IconPath is required when ImageSizePercent is less than 100.'
+        { Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -ImageSizePercent 30 } | Should -Throw -ExpectedMessage 'IconPath is required when ImageSizePercent is less than 100.'
     }
 
     It "Should return a HTML table with color=`"blue`" text" {

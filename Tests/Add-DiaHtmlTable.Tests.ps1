@@ -1,12 +1,12 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlFontProperty.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaHtmlTable.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-HtmlTable.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-NodeObject.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
 }
 
-Describe Add-DiaHtmlTable {
+Describe Add-HtmlTable {
     BeforeAll {
         $Images = @{
             'Main_Logo' = 'AsBuiltReport.png'
@@ -14,11 +14,11 @@ Describe Add-DiaHtmlTable {
         }
         $SiteSubnets = @('192.68.5.0/24', '192.68.7.0/24', '10.0.0.0/24')
 
-        $HTMLMultiColumn = Add-DiaHtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 2
-        $HTMLMultiColumnDebug = Add-DiaHtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 2 -DraftMode $true
+        $HTMLMultiColumn = Add-HtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 2
+        $HTMLMultiColumnDebug = Add-HtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 2 -DraftMode $true
 
-        $HTMLSingleColumn = Add-DiaHtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 1
-        $HTMLSingleColumnDebug = Add-DiaHtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 1 -DraftMode $true
+        $HTMLSingleColumn = Add-HtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 1
+        $HTMLSingleColumnDebug = Add-HtmlTable -Name 'SiteSubnets' -Rows $SiteSubnets -ALIGN 'Center' -ColumnSize 1 -DraftMode $true
     }
     # Todo
     # 1. Add test for Subgraph

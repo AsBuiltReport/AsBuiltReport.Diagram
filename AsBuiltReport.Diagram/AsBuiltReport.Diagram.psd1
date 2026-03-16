@@ -12,7 +12,7 @@
     RootModule = 'AsBuiltReport.Diagram.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.0.1'
+    ModuleVersion = '1.0.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'Add-DiaLeftLShapeLine', 'Add-DiaRightLShapeLine', 'Add-DiaInvertedLShapeLine', 'Add-DiaLShapeLine', 'Add-DiaLeftTShapeLine', 'Add-DiaRightTShapeLine', 'Add-DiaCrossShapeLine', 'Add-DiaInvertedTShapeLine', 'Add-DiaTShapeLine', 'Add-DiaVerticalLine', 'Add-DiaHorizontalLine', 'Add-DiaHtmlSignatureTable', 'Group-Node', 'Add-DiaHTMLSubGraph', 'Convert-DiaTableToHTML', 'Add-DiaHtmlLabel', 'Add-DiaHtmlNodeTable', 'Add-DiaHtmlTable', 'Get-NodeIP', 'Add-DiaNodeIcon', 'Export-Diagrammer', 'Remove-SpecialChar', 'Split-Array', 'Test-Image', 'Test-Logo', 'Write-ColorOutput', 'Get-DiaImagePercent', 'New-Diagrammer', 'Add-DiaNodeSpacer', 'Write-PSObject', 'Get-RandomColorHex', 'Get-RandomPastelColorHex', 'Add-DiaNodeImage', 'Add-DiaNodeShape', 'Add-DiaNodeText', 'Get-DiaBestImageAspectRatio', 'Add-DiaNodeEdge'
+    FunctionsToExport = 'Add-LeftLShapeLine', 'Add-RightLShapeLine', 'Add-InvertedLShapeLine', 'Add-LShapeLine', 'Add-LeftTShapeLine', 'Add-RightTShapeLine', 'Add-CrossShapeLine', 'Add-InvertedTShapeLine', 'Add-TShapeLine', 'Add-VerticalLine', 'Add-HorizontalLine', 'Add-HtmlSignatureTable', 'Group-AbrNode', 'Add-HtmlSubGraph', 'Convert-TableToHTML.ps1', 'Add-HtmlLabel', 'Add-HtmlNodeTable', 'Add-HtmlTable', 'Get-AbrNodeIP', 'Add-NodeIcon', 'Export-AbrDiagram', 'Remove-SpecialCharacter', 'Split-ArrayElement', 'Write-AbrColorOutput', 'Get-ImagePercent', 'New-AbrDiagram', 'Add-NodeSpacer', 'Write-AbrPSObject', 'Get-RandomColorInHex', 'Get-RandomPastelColorInHex', 'Add-NodeImage', 'Add-NodeShape', 'Add-NodeText', 'Get-BestImageAspectRatio', 'Add-NodeEdge'
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()

@@ -1,19 +1,19 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
     . (Join-Path -Path $PrivateFolder -ChildPath 'Join-Hashtable.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-DiaNodeShape.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-NodeShape.ps1')
 }
 
-Describe Add-DiaNodeShape {
+Describe Add-NodeShape {
     BeforeAll {
 
-        $HTMLOutPut = Add-DiaNodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeWidth 0.75 -ShapeHeight 0.5 -ShapeBorderSize 1 -ShapeLabelPosition 'center'
+        $HTMLOutPut = Add-NodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeWidth 0.75 -ShapeHeight 0.5 -ShapeBorderSize 1 -ShapeLabelPosition 'center'
 
-        $HTMLOutPutDebug = Add-DiaNodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeWidth 0.75 -ShapeHeight 0.5 -ShapeBorderSize 1 -ShapeLabelPosition 'center' -DraftMode $true
+        $HTMLOutPutDebug = Add-NodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeWidth 0.75 -ShapeHeight 0.5 -ShapeBorderSize 1 -ShapeLabelPosition 'center' -DraftMode $true
 
-        $HTMLOutPutGraphvizAttributes = Add-DiaNodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeBorderSize 1 -ShapeLabelPosition 'center' -GraphvizAttributes @{ margin = '0'; fixedsize = 'true' }
+        $HTMLOutPutGraphvizAttributes = Add-NodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeBorderSize 1 -ShapeLabelPosition 'center' -GraphvizAttributes @{ margin = '0'; fixedsize = 'true' }
 
-        $HTMLOutPutGraphvizAttributesReplacement = Add-DiaNodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeBorderSize 1 -ShapeLabelPosition 'center' -GraphvizAttributes @{ fillcolor = 'yellow' }
+        $HTMLOutPutGraphvizAttributesReplacement = Add-NodeShape -Name 'AD-Forest' -Shape triangle -ShapeFillColor 'lightblue' -ShapeFontSize 12 -ShapeFontColor 'black' -ShapeFontName 'Arial' -ShapeStyle 'filled' -ShapeOrientation 0 -ShapeBorderSize 1 -ShapeLabelPosition 'center' -GraphvizAttributes @{ fillcolor = 'yellow' }
 
     }
 

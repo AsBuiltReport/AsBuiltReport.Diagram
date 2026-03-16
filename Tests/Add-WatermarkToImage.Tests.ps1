@@ -1,9 +1,9 @@
 BeforeAll {
     . (Join-Path -Path $PSScriptRoot -ChildPath '_InitializeTests.ps1')
-    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-WatermarkToImage.ps1')
+    . (Join-Path -Path $PrivateFolder -ChildPath 'Add-AbrWatermarkToImage.ps1')
 }
 
-Describe Add-WatermarkToImage {
+Describe Add-AbrWatermarkToImage {
     BeforeAll {
         $IconsPath = Join-Path -Path $TestsFolder -ChildPath 'Icons'
         $env:TMP = $TestDrive
@@ -45,21 +45,21 @@ Describe Add-WatermarkToImage {
     }
 
     It 'Should return Temporary path' {
-        (Add-WatermarkToImage @PassParamsNoDestinationPath).FullName | Should -Exist
+        (Add-AbrWatermarkToImage @PassParamsNoDestinationPath).FullName | Should -Exist
     }
     It 'Should return AsBuiltReportMarked.png DestinationPath' {
-        Add-WatermarkToImage @PassParamsDestinationPath
+        Add-AbrWatermarkToImage @PassParamsDestinationPath
         (Get-Item -Path $PassParamsDestinationPath.DestinationPath).FullName | Should -Exist
     }
     It 'Should return AsBuiltReportMarked.png with 20% opacity' {
-        Add-WatermarkToImage @PassParamsFontOpacity
+        Add-AbrWatermarkToImage @PassParamsFontOpacity
         (Get-Item -Path $PassParamsFontOpacity.DestinationPath).FullName | Should -Exist
     }
     It 'Should work without FontColor parameter' {
-        (Add-WatermarkToImage @PassParamsNoFontColor).FullName | Should -Exist
+        (Add-AbrWatermarkToImage @PassParamsNoFontColor).FullName | Should -Exist
     }
     It 'Should throw not found exception when ImageInput does not exist' {
-        $scriptBlock = { Add-WatermarkToImage @FailParams -ErrorAction Stop }
+        $scriptBlock = { Add-AbrWatermarkToImage @FailParams -ErrorAction Stop }
         $scriptBlock | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'ImageInput'. File AsBuiltReport.png not found!"
     }
 }
