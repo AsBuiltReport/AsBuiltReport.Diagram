@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### :arrows_clockwise: Changed
 
 - Update module version to v1.0.2
-- Migrate cmdlet to a uniqe name to avoid conflicts with Diagrammer.Core cmdlets
+- Migrate cmdlet to a unique name to avoid conflicts with Diagrammer.Core cmdlets
 
 ## [1.0.1] - 2026-03-15
 
