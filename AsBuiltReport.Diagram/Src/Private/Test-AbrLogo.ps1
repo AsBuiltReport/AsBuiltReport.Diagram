@@ -1,4 +1,4 @@
-function Test-Logo {
+function Test-AbrLogo {
     <#
     .SYNOPSIS
         Used by AsBuiltReport.Diagram to validate logo path.
@@ -7,7 +7,7 @@ function Test-Logo {
         Version:        0.1.1
         Author:         Jonathan Colon
     .EXAMPLE
-        Test-Logo -LogoPath (Get-ChildItem -Path $Logo).FullName -IconPath $IconPath -ImagesObj $Images
+        Test-AbrLogo -LogoPath (Get-ChildItem -Path $Logo).FullName -IconPath $IconPath -ImagesObj $Images
     .LINK
     #>
 
@@ -36,7 +36,7 @@ function Test-Logo {
     )
 
     process {
-        if (((Test-Path -Path $LogoPath) -and (Test-Path -Path $IconPath)) -and (Test-Image -Path $LogoPath)) {
+        if (((Test-Path -Path $LogoPath) -and (Test-Path -Path $IconPath)) -and (Test-AbrImage -Path $LogoPath)) {
             # Add logo path to the Image variable
             Copy-Item -Path $LogoPath -Destination $IconPath
             $outputLogoFile = Split-Path $LogoPath -Leaf
