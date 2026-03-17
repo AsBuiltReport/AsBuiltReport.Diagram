@@ -85,20 +85,6 @@ $env:PSModulePath -Split ';'
 
 Copy the downloaded `AsBuiltReport.Diagram` module folder to a folder specified in the `$env:PSModulePath` output.
 
-### **GitHub**
-If you are unable to use the PowerShell Gallery, you can still install the `AsBuiltReport.Diagram` module manually. Ensure you repeat the following steps for the [system requirements](https://github.com/AsBuiltReport/AsBuiltReport.Diagram#wrench-system-requirements) also.
-
-1. Download the [latest release](https://github.com/AsBuiltReport/AsBuiltReport.Diagram/releases/latest) zip from GitHub
-2. Extract the zip file
-3. Copy the folder `AsBuiltReport.Diagram` to a path that is set in `$env:PSModulePath`.
-4. For Windows users only, open a PowerShell terminal window and unblock the downloaded files with
-    ```powershell
-    $path = (Get-Module -Name AsBuiltReport.Diagram -ListAvailable).ModuleBase; Unblock-File -Path $path\*.psd1; Unblock-File -Path $path\Src\Public\*.ps1; Unblock-File -Path $path\Src\Private\*.ps1
-    ```
-5. Close and reopen the PowerShell terminal window.
-
-_Note: You are not limited to installing the module to those example paths, you can add a new entry to the environment variable PSModulePath if you want to use another path._
-
 #### Graphviz Linux/MacOS Installation
 
 Linux & MacOs require the installation of Graphviz to be able to generate the diagram:
