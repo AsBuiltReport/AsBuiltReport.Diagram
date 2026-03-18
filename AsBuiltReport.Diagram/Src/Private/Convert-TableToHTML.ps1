@@ -1,4 +1,4 @@
-function Convert-TableToHTML.ps1 {
+function Convert-TableToHTML {
     <#
     .SYNOPSIS
     Creates a html table object
