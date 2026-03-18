@@ -1,7 +1,7 @@
 function Convert-TableToHTML {
     <#
     .SYNOPSIS
-    Creates a html table object
+    Creates an HTML table object
 
     .DESCRIPTION
     Creates a table object that contains rows of data.
