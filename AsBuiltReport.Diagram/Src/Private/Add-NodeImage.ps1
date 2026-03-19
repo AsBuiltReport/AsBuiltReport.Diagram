@@ -20,6 +20,10 @@ function Add-NodeImage {
     .PARAMETER ImageSizePercent
         Sets the size of the icon image as a percentage of its original size. Accepts values from 10 to 100. Default is 100%.
 
+    .PARAMETER ImageOpacityPercent
+        Sets the opacity of the icon image as a percentage (1-100). Default is 100 (fully opaque).
+        Requires IconPath to be provided when set below 100.
+
     .PARAMETER ImagesObj
         A required hashtable object containing available images. Used to retrieve the icon image for the node.
 
@@ -88,6 +92,13 @@ function Add-NodeImage {
         [int] $ImageSizePercent = 100,
 
         [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the image opacity in percent (100% is fully opaque, default)'
+        )]
+        [ValidateRange(1, 100)]
+        [int] $ImageOpacityPercent = 100,
+
+        [Parameter(
             Mandatory = $true,
             HelpMessage = 'Please provide the Image Hashtable Object'
         )]
@@ -149,6 +160,18 @@ function Add-NodeImage {
         $ICON = $ImagesObj[$IconType]
     } else { $ICON = 'no_icon.png' }
 
+    # Apply opacity to a temp file when requested
+    $IconSrc = $ICON
+    if ($ImageOpacityPercent -lt 100) {
+        if (-not $IconPath) {
+            throw 'IconPath is required when ImageOpacityPercent is less than 100.'
+        }
+        $sourcePath = Join-Path -Path $IconPath -ChildPath $ICON
+        $ext = [System.IO.Path]::GetExtension($ICON)
+        $IconSrc = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetTempFileName(), $ext)
+        Set-ImageOpacity -SourceImageFilePath $sourcePath -OutputImageFilePath $IconSrc -Opacity $ImageOpacityPercent | Out-Null
+    }
+
     if ($ImageSizePercent -lt 100) {
         if (-not $IconPath) {
             throw 'IconPath is required when ImageSizePercent is less than 100.'
@@ -165,14 +188,14 @@ function Add-NodeImage {
     } else {
         if ($ImageSize) {
 
-            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" fixedsize="true" width="{1}" height="{2}" colspan="1"><img src="{3}"/></TD></TR>' -f $TableBorderStyle, $ImageSize.Width, $ImageSize.Height, $ICON
+            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" fixedsize="true" width="{1}" height="{2}" colspan="1"><img src="{3}"/></TD></TR>' -f $TableBorderStyle, $ImageSize.Width, $ImageSize.Height, $IconSrc
 
             $HTML = Format-HtmlTable -TableStyle $TableBorderStyle -TableBorder $TableBorder -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
 
             Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
         } else {
 
-            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" colspan="1"><img src="{1}"/></TD></TR>' -f $TableBorderStyle, $ICON
+            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" colspan="1"><img src="{1}"/></TD></TR>' -f $TableBorderStyle, $IconSrc
 
             $HTML = Format-HtmlTable -TableStyle $TableBorderStyle -TableBorder $TableBorder -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
 
