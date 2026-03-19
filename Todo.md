@@ -5,7 +5,7 @@
   - [ ] Add pester to test this funtionality
   - [ ] Add documentation for this funtionality
   - [ ] Add example for this funtionality
-- [ ] Add function to dinamically build Table cells based on input hashtable use Format-HTMLTable as example
+- [ ] Add function to dinamically build Table cells based on input use Format-HTMLTable as example
   - [ ] Add pester to test this funtionality
   - [ ] Add documentation for this funtionality
   - [ ] Add example for this funtionality
@@ -23,4 +23,4 @@
 - [x] Add support for Watermark in SVG output format
   - [x] Use the Diagrammer c# package to add watermark support
 - [ ] Add-NodeImage
-  - [ ] Add option to set image opacity in percent
+  - [ ] Add option to set image opacity in percent use the Diagrammer c# package to add this functionality
