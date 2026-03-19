@@ -1,4 +1,4 @@
-function Add-HtmlTableCell {
+function Format-HtmlCell {
     <#
     .SYNOPSIS
         Dynamically builds Graphviz HTML table cell (<TR><TD>) markup from structured input.
@@ -16,19 +16,19 @@ function Add-HtmlTableCell {
 
     .EXAMPLE
         # Build cell markup from a hashtable and wrap it in a table
-        $cells = Add-HtmlTableCell -Rows @{ OS = 'Windows'; Version = '2019' }
+        $cells = Format-HtmlCell -Rows @{ OS = 'Windows'; Version = '2019' }
         $table = Format-HtmlTable -TableRowContent $cells
         Node 'MyServer' @{ label = $table; shape = 'plain' }
 
     .EXAMPLE
         # Build cell markup from a PSCustomObject
         $info = [PSCustomObject][ordered]@{ CPU = '8 vCPU'; RAM = '32 GB' }
-        $cells = Add-HtmlTableCell -Rows $info -FontBold -CellBackgroundColor '#EEF2FF'
+        $cells = Format-HtmlCell -Rows $info -FontBold -CellBackgroundColor '#EEF2FF'
         Format-HtmlTable -TableRowContent $cells
 
     .EXAMPLE
         # Build a two-column flat list from a string array
-        Add-HtmlTableCell -Rows @('192.168.1.0/24', '10.0.0.0/8') -Align 'Left' -FontSize 12
+        Format-HtmlCell -Rows @('192.168.1.0/24', '10.0.0.0/8') -Align 'Left' -FontSize 12
 
     .NOTES
         Version:        0.1.0
