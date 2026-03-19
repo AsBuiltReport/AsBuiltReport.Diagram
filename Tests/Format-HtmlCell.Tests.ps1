@@ -161,6 +161,51 @@ Describe 'Format-HtmlCell' {
         }
     }
 
+    Context 'image cell (Image parameter set)' {
+        It 'produces a TD with STYLE, ALIGN, colspan and an img tag' {
+            $result = Format-HtmlCell -ImageSrc '/icons/server.png' -CellStyle SOLID
+            $result | Should -BeExactly '<TR><TD STYLE="SOLID" ALIGN="Center" colspan="1"><img src="/icons/server.png"/></TD></TR>'
+        }
+
+        It 'honours a custom Align value' {
+            $result = Format-HtmlCell -ImageSrc '/icons/vm.png' -CellStyle SOLID -Align Left
+            $result | Should -Match 'ALIGN="Left"'
+        }
+
+        It 'honours a custom ColSpan value' {
+            $result = Format-HtmlCell -ImageSrc '/icons/vm.png' -CellStyle SOLID -ColSpan 2
+            $result | Should -Match 'colspan="2"'
+        }
+
+        It 'honours a custom CellStyle value' {
+            $result = Format-HtmlCell -ImageSrc '/icons/vm.png' -CellStyle ROUNDED
+            $result | Should -Match 'STYLE="ROUNDED"'
+        }
+
+        It 'adds fixedsize, width and height attributes when -FixedSize is set' {
+            $result = Format-HtmlCell -ImageSrc '/icons/server.png' -CellStyle SOLID -FixedSize -Width 64 -Height 48
+            $result | Should -BeExactly '<TR><TD STYLE="SOLID" ALIGN="Center" fixedsize="true" width="64" height="48" colspan="1"><img src="/icons/server.png"/></TD></TR>'
+        }
+
+        It 'does not include fixedsize attributes when -FixedSize is absent' {
+            $result = Format-HtmlCell -ImageSrc '/icons/server.png' -CellStyle SOLID
+            $result | Should -Not -Match 'fixedsize'
+            $result | Should -Not -Match '\bwidth='
+            $result | Should -Not -Match '\bheight='
+        }
+
+        It 'renders the image src as plain text in IconDebug mode' {
+            $result = Format-HtmlCell -ImageSrc '/icons/debug.png' -CellStyle SOLID -IconDebug $true
+            $result | Should -Match '/icons/debug\.png'
+            $result | Should -Not -Match '<img'
+        }
+
+        It 'defaults CellStyle to SOLID' {
+            $result = Format-HtmlCell -ImageSrc '/icons/x.png'
+            $result | Should -Match 'STYLE="SOLID"'
+        }
+    }
+
     Context 'composability with Format-HtmlTable' {
         BeforeAll {
             . (Join-Path -Path $PrivateFolder -ChildPath 'Format-HtmlTable.ps1')
