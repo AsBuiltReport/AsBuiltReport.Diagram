@@ -5,10 +5,10 @@
   - [ ] Add pester to test this funtionality
   - [ ] Add documentation for this funtionality
   - [ ] Add example for this funtionality
-- [ ] Add function to dinamically build Table cells based on input use Format-HTMLTable as example
-  - [ ] Add pester to test this funtionality
-  - [ ] Add documentation for this funtionality
-  - [ ] Add example for this funtionality
+- [x] Add function to dinamically build Table cells based on input use Format-HTMLTable as example
+  - [x] Add pester to test this funtionality
+  - [x] Add documentation for this funtionality
+  - [x] Add example for this funtionality
 
 ## Medium Priority
 
