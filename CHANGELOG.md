@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update module version to v1.0.5
 - Update edge length validation range, and help message to reflect the new range of 0 to 50 in Add-NodeEdge function
 
+### :wrench: Fixed
+
+- Fix pester tests failing in Windows Pwsh 5.1+
+
 ## [1.0.4] - 2026-03-17
 
 ### :arrows_clockwise: Changed

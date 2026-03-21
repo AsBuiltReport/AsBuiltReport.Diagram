@@ -12,10 +12,6 @@ BeforeAll {
 Describe Export-AbrDiagram {
     BeforeAll {
         $dotSource = Get-Content -Path (Join-Path $TestsFolder GraphvizSource.dot)
-        $base64Source = switch ($PSVersionTable.Platform) {
-            'Unix' { Get-Content -Path (Join-Path $TestsFolder GraphvizBase64SourceLinux.txt) }
-            default { Get-Content -Path (Join-Path $TestsFolder GraphvizBase64SourceWindows.txt) }
-        }
 
         $GraphvizOutputPNG = @{
             FileName = 'AsBuiltReport.png'
@@ -101,7 +97,7 @@ Describe Export-AbrDiagram {
     }
     It 'Should return Base64 string' {
         $GraphvizOutput = Export-AbrDiagram @GraphvizOutputBase64
-        $GraphvizOutput | Should -Be $base64Source
+        Test-AbrBase64 -String $GraphvizOutput | Should -Be $true
     }
     It 'Should return Diagrammer.svg full path' {
         $GraphvizOutput = Export-AbrDiagram @GraphvizOutputSVG

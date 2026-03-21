@@ -32,7 +32,7 @@ function ConvertTo-Dot {
     process {
         try {
             Write-Verbose -Message "Trying to convert Graphviz object to DOT format. Destination Path: $DestinationPath."
-            $Document = Export-PSGraph -Source $GraphObj -DestinationPath $DestinationPath -OutputFormat 'dot' -GraphVizPath $GraphvizPath
+            $Document = Export-PSGraph -Source $GraphObj -DestinationPath $DestinationPath -OutputFormat 'dot' -GraphVizPath $GraphvizPath -ErrorAction Stop
         } catch {
             Write-Verbose -Message 'Unable to convert Graphviz object to DOT format.'
             Write-Debug -Message $($_.Exception.Message)

@@ -61,7 +61,7 @@ function Resize-Image {
         [Parameter(Mandatory = $False, ParameterSetName = 'Absolute')][Int]$Height,
         [Parameter(Mandatory = $False, ParameterSetName = 'Absolute')][Int]$Width,
         [Parameter(Mandatory = $False, ParameterSetName = 'Percent')][Double]$Percentage,
-        [Parameter(Mandatory = $False)][System.Drawing.Drawing2D.SmoothingMode]$SmoothingMode = 'HighQuality',
+        [Parameter(Mandatory = $False)][Switch]$SmoothingMode,
         [Parameter(Mandatory = $False)][String]$NameModifier = 'resized'
     )
     begin {
@@ -125,7 +125,9 @@ function Resize-Image {
                     $NewImage = [System.Drawing.Graphics]::FromImage($Bitmap)
 
                     #Retrieving the best quality possible
-                    $NewImage.SmoothingMode = $SmoothingMode
+                    if ($SmoothingMode) {
+                        $NewImage.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+                    }
                     $NewImage.DrawImage($OldImage, $(New-Object -TypeName System.Drawing.Rectangle -ArgumentList 0, 0, $Width, $Height))
 
                     if ($PSCmdlet.ShouldProcess("Resized image based on $Path", "save to $OutputPath")) {

@@ -21,7 +21,7 @@ $Script:GraphvizPath = switch ($PSVersionTable.Platform) {
             }
         }
     }
-    default { Join-Path -Path $ProjectRoot -ChildPath 'Tools\Graphviz\bin\dot.exe' }
+    default { Join-Path -Path $ProjectRoot -ChildPath 'AsBuiltReport.Diagram\Tools\Graphviz\bin\dot.exe' }
 }
 
 switch ($PSVersionTable.PSEdition) {
@@ -46,4 +46,18 @@ switch ($PSVersionTable.PSEdition) {
 
 if (-not (Get-Module $ModuleName)) {
     Import-Module $ModuleRoot -Force
+}
+
+function Test-AbrBase64 {
+    param([string]$String)
+    process {
+        try {
+            # Attempt to decode the string. If successful, it's valid Base64.
+            [System.Convert]::FromBase64String($String) | Out-Null
+            $true
+        } catch {
+            # If an exception occurs, it's not valid Base64.
+            $false
+        }
+    }
 }
