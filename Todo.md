@@ -12,15 +12,8 @@
 
 ## Medium Priority
 
-- [x] Integrate PSGraph cmdlets to the module (Project without active maintenance)
 
 ## Low Priority
 
 - [ ] Add option to set icon size by percent
   - [ ] Add pester to test this funtionality
-- [x] Add NodeObject support see Add-HtmlTable as example (use Join-Hashtable)
-  - [ ] Add pester to test this funtionality
-- [x] Add support for Watermark in SVG output format
-  - [x] Use the Diagrammer c# package to add watermark support
-- [ ] Add-NodeImage
-  - [ ] Add option to set image opacity in percent use the Diagrammer c# package to add this functionality

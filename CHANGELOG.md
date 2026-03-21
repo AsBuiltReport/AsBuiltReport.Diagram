@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Format-HtmlCell cmdlet to the module to format HTML table cells with specified background color, text color, and font size
 - Add Set-ImageOpacity cmdlet to the module to set the opacity of an image file
 - Add new parameters to Add-NodeImage cmdlet to set image opacity for node images
+- Add WaterMark support to SVG output format
+  - Use the DiaConvertImageToPDF c# net4.8 package to add watermark support to SVG output format
 
 ### :arrows_clockwise: Changed
 
