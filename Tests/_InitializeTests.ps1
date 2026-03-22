@@ -24,6 +24,8 @@ $Script:GraphvizPath = switch ($PSVersionTable.Platform) {
     default { Join-Path -Path $ProjectRoot -ChildPath 'AsBuiltReport.Diagram\Tools\Graphviz\bin\dot.exe' }
 }
 
+Write-Host "Graphviz Path: $GraphvizPath" -ForegroundColor Cyan
+
 switch ($PSVersionTable.PSEdition) {
     'Core' {
         $Script:CoreAssemblyPath = "$ProjectRoot{0}AsBuiltReport.Diagram{0}Src{0}Bin{0}Assemblies{0}net80{0}AbrDiagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar

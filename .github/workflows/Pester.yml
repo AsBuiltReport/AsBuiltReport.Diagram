@@ -56,10 +56,6 @@ jobs:
         uses: tlylt/install-graphviz@v1
         if: runner.os != 'Windows'
 
-      - name: Install PSGraph module
-        run: |
-          Install-Module -Name PSGraph -Repository PSGallery -Force
-
       - name: Run Pester Tests
         run: |
           $CodeCoverageParam = @{}
