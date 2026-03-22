@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update module version to v1.0.5
 - Update edge length validation range, and help message to reflect the new range of 0 to 50 in Add-NodeEdge function
+- Update Pester workflow to run tests and upload results with code coverage support
 
 ### :wrench: Fixed
 
