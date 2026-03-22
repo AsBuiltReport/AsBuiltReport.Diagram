@@ -57,41 +57,40 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Install PSGraph module
-        shell: pwsh
         run: |
           Install-Module -Name PSGraph -Repository PSGallery -Force
 
-      - name: Run Pester Tests
-        run: |
-          $CodeCoverageParam = @{}
-          $OutputFormatParam = @{ OutputFormat = 'NUnitXml' }
-
-          .\Tests\Invoke-Tests.ps1 @CodeCoverageParam @OutputFormatParam
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.os }}-${{ matrix.shell }}
-          path: Tests/testResults.xml
-          retention-days: 30
-
-      # - name: Run Pester tests - PWSH
-      #   uses: PSModule/Invoke-Pester@v4
-      #   id: action-test
-      #   with:
-      #     Path: "./Tests"
-
-      # - name: Process test results
-      #   if: always()
+      # - name: Run Pester Tests
       #   run: |
-      #     Write-Output "Total tests: ${{ steps.action-test.outputs.TotalCount }}"
-      #     Write-Output "Passed tests: ${{ steps.action-test.outputs.PassedCount }}"
-      #     Write-Output "Failed tests: ${{ steps.action-test.outputs.FailedCount }}"
-      #     Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
-      #     Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
-      #     Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
+      #     $CodeCoverageParam = @{}
+      #     $OutputFormatParam = @{ OutputFormat = 'NUnitXml' }
 
-      # - name: Take action based on test outcome
-      #   if: steps.action-test.outputs.Result == 'Passed'
-      #   run: echo "All tests passed! Ready to proceed with deployment."
+      #     .\Tests\Invoke-Tests.ps1 @CodeCoverageParam @OutputFormatParam
+
+      # - name: Upload test results
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: test-results-${{ matrix.os }}-${{ matrix.shell }}
+      #     path: Tests/testResults.xml
+      #     retention-days: 30
+
+      - name: Run Pester tests - PWSH
+        uses: PSModule/Invoke-Pester@v4
+        id: action-test
+        with:
+          Path: "./Tests"
+
+      - name: Process test results
+        if: always()
+        run: |
+          Write-Output "Total tests: ${{ steps.action-test.outputs.TotalCount }}"
+          Write-Output "Passed tests: ${{ steps.action-test.outputs.PassedCount }}"
+          Write-Output "Failed tests: ${{ steps.action-test.outputs.FailedCount }}"
+          Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
+          Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
+          Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
+
+      - name: Take action based on test outcome
+        if: steps.action-test.outputs.Result == 'Passed'
+        run: echo "All tests passed! Ready to proceed with deployment."
