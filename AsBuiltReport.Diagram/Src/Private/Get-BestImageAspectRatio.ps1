@@ -5,7 +5,7 @@ function Get-BestImageAspectRatio {
     .DESCRIPTION
         This allow the diagram image to fit the report page margins
     .NOTES
-        Version:        0.2.39
+        Version:        1.0.5
         Author:         Jonathan Colon
     .EXAMPLE
         Get-BestImageAspectRatio -ImageInput "C:\Images\diagram.png" -MaxWidth 800 -MaxHeight 600
@@ -123,23 +123,14 @@ function Get-BestImageAspectRatio {
 
             $originalWidth = $Image.Width
             $originalHeight = $Image.Height
-            $aspectRatio = $originalWidth / $originalHeight
 
-            # Determine new dimensions based on constraints
-            if ($MaxWidth -and $originalWidth -gt $MaxWidth) {
-                $newWidth = $MaxWidth
-                $newHeight = [int]($newWidth / $aspectRatio)
-            } elseif ($MaxHeight -and $originalHeight -gt $MaxHeight) {
-                $newHeight = $MaxHeight
-                $newWidth = [int]($newHeight * $aspectRatio)
-            } else {
-                $newWidth = $originalWidth
-                $newHeight = $originalHeight
-            }
+            $ratioX = $MaxWidth / $OriginalWidth
+            $ratioY = $MaxHeight / $OriginalHeight
+            $ratio = [Math]::Min($ratioX, $ratioY)
 
             $ImagePrty = @{
-                'Width' = $newWidth
-                'Height' = $newHeight
+                'Width' = [int]($OriginalWidth * $ratio)
+                'Height' = [int]($OriginalHeight * $ratio)
             }
 
             return $ImagePrty
