@@ -168,7 +168,8 @@ function Add-NodeImage {
         }
         $sourcePath = Join-Path -Path $IconPath -ChildPath $ICON
         $ext = [System.IO.Path]::GetExtension($ICON)
-        $IconSrc = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetTempFileName(), $ext)
+        $tempFileName = [System.IO.Path]::GetRandomFileName()
+        $IconSrc = [System.IO.Path]::ChangeExtension((Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath $tempFileName), $ext)
         Set-ImageOpacity -SourceImageFilePath $sourcePath -OutputImageFilePath $IconSrc -Opacity $ImageOpacityPercent | Out-Null
     }
 
