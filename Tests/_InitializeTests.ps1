@@ -21,19 +21,21 @@ $Script:GraphvizPath = switch ($PSVersionTable.Platform) {
             }
         }
     }
-    default { Join-Path -Path $ProjectRoot -ChildPath 'Tools\Graphviz\bin\dot.exe' }
+    default { Join-Path -Path $ProjectRoot -ChildPath 'AsBuiltReport.Diagram\Tools\Graphviz\bin\dot.exe' }
 }
+
+Write-Host "Graphviz Path: $GraphvizPath" -ForegroundColor Cyan
 
 switch ($PSVersionTable.PSEdition) {
     'Core' {
-        $Script:CoreAssemblyPath = "$ProjectRoot{0}AsBuiltReport.Diagram{0}{0}Src{0}Bin{0}Assemblies{0}net80{0}AbrDiagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar
+        $Script:CoreAssemblyPath = "$ProjectRoot{0}AsBuiltReport.Diagram{0}Src{0}Bin{0}Assemblies{0}net80{0}AbrDiagrammer.dll" -f [System.IO.Path]::DirectorySeparatorChar
         if (-not (Test-Path -Path $Script:CoreAssemblyPath)) {
             throw "Required assembly not found: '$Script:CoreAssemblyPath'. Please build the project before running tests (e.g. 'dotnet build' in the Src directory)."
         }
         Import-Module $Script:CoreAssemblyPath
     }
     'Desktop' {
-        $Script:DesktopAssemblyPath = "$ProjectRoot{0}AsBuiltReport.Diagram{0}{0}Src{0}Bin{0}Assemblies{0}net48{0}AbrDiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar
+        $Script:DesktopAssemblyPath = "$ProjectRoot{0}AsBuiltReport.Diagram{0}Src{0}Bin{0}Assemblies{0}net48{0}AbrDiaConvertImageToPDF.dll" -f [System.IO.Path]::DirectorySeparatorChar
         if (-not (Test-Path -Path $Script:DesktopAssemblyPath)) {
             throw "Required assembly not found: '$Script:DesktopAssemblyPath'. Please build the project before running tests (e.g. run MSBuild or Visual Studio build targeting net48)."
         }
@@ -46,4 +48,18 @@ switch ($PSVersionTable.PSEdition) {
 
 if (-not (Get-Module $ModuleName)) {
     Import-Module $ModuleRoot -Force
+}
+
+function Test-AbrBase64 {
+    param([string]$String)
+    process {
+        try {
+            # Attempt to decode the string. If successful, it's valid Base64.
+            [System.Convert]::FromBase64String($String) | Out-Null
+            $true
+        } catch {
+            # If an exception occurs, it's not valid Base64.
+            $false
+        }
+    }
 }

@@ -279,6 +279,23 @@ namespace AsBuiltReportDiagram
             return 0f;
         }
 
+        internal static bool SetImageOpacity(string imagePath, int opacity, string outputPath)
+        {
+            try
+            {
+                float opacityValue = Math.Clamp(opacity / 100f, 0f, 1f);
+                using var image = Image.Load(imagePath);
+                image.Mutate(x => x.Opacity(opacityValue));
+                image.Save(outputPath);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error setting image opacity: {ex.Message}");
+                return false;
+            }
+        }
+
         private static float NormalizeOpacity(float opacity)
         {
             // Accept opacity inputs in either 0..1 or 0..100 range.

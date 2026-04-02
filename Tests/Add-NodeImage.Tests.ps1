@@ -23,6 +23,7 @@ Describe Add-NodeImage {
 
         $HTMLOutPutGraphvizAttributes = Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -IconPath $IconPath -NodeObject -GraphvizAttributes @{color = 'blue' }
 
+        $HTMLOutPutOpacity = Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -IconPath $IconPath -ImageOpacityPercent 50
     }
 
     It 'Should return a HTML table with AsBuiltReport.png image' {
@@ -50,5 +51,18 @@ Describe Add-NodeImage {
 
     It "Should return a HTML table with color=`"blue`" text" {
         $HTMLOutPutGraphvizAttributes | Should -Match "color=`"blue`""
+    }
+
+    It 'Should return a HTML table with a temp file path in img src when ImageOpacityPercent is less than 100' {
+        $HTMLOutPutOpacity | Should -Match '<img src=".*\.png"/>'
+        $HTMLOutPutOpacity | Should -Not -Match '<img src="AsBuiltReport\.png"/>'
+    }
+
+    It 'Should throw an error when IconPath is not provided and ImageOpacityPercent is less than 100' {
+        { Add-NodeImage -Name 'WAN' -ImagesObj $Images -IconType 'Main_Logo' -ImageOpacityPercent 50 } | Should -Throw -ExpectedMessage 'IconPath is required when ImageOpacityPercent is less than 100.'
+    }
+
+    It 'Should return a HTML table with the original img src when ImageOpacityPercent is 100' {
+        $HTMLOutPutNodeObj | Should -Match '<img src="AsBuiltReport\.png"/>'
     }
 }

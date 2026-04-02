@@ -228,9 +228,9 @@ function Add-NodeEdge {
 
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Sets the minimum edge length (minlen) in rank units. Controls the minimum number of ranks between connected nodes. Valid range is 0 to 10. Default is 1.'
+            HelpMessage = 'Sets the minimum edge length (minlen) in rank units. Controls the minimum number of ranks between connected nodes. Valid range is 0 to 50. Default is 1.'
         )]
-        [ValidateRange(0, 10)]
+        [ValidateRange(0, 50)]
         [double] $EdgeLength = 1,
 
 

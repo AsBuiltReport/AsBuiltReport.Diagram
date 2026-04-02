@@ -56,27 +56,17 @@ jobs:
         uses: tlylt/install-graphviz@v1
         if: runner.os != 'Windows'
 
-      - name: Install PSGraph module
-        shell: pwsh
+      - name: Run Pester Tests
         run: |
-          Install-Module -Name PSGraph -Repository PSGallery -Force
+          $CodeCoverageParam = @{}
+          $OutputFormatParam = @{ OutputFormat = 'NUnitXml' }
 
-      - name: Run Pester tests - PWSH
-        uses: PSModule/Invoke-Pester@v4
-        id: action-test
-        with:
-          Path: "./Tests"
+          .\Tests\Invoke-Tests.ps1 @CodeCoverageParam @OutputFormatParam
 
-      - name: Process test results
+      - name: Upload test results
         if: always()
-        run: |
-          Write-Output "Total tests: ${{ steps.action-test.outputs.TotalCount }}"
-          Write-Output "Passed tests: ${{ steps.action-test.outputs.PassedCount }}"
-          Write-Output "Failed tests: ${{ steps.action-test.outputs.FailedCount }}"
-          Write-Output "Failed blocks: ${{ steps.action-test.outputs.FailedBlocksCount }}"
-          Write-Output "Failed containers: ${{ steps.action-test.outputs.FailedContainersCount }}"
-          Write-Output "Test outcome: ${{ steps.action-test.outputs.Result }}"
-
-      - name: Take action based on test outcome
-        if: steps.action-test.outputs.Result == 'Passed'
-        run: echo "All tests passed! Ready to proceed with deployment."
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.shell }}
+          path: Tests/testResults.xml
+          retention-days: 30
