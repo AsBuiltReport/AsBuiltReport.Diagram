@@ -14,4 +14,9 @@
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
 </Project>

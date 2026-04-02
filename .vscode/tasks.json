@@ -2,10 +2,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile Solution - DiaConvertImageToPDF",
+            "label": "Compile Solution - AbrDiaConvertImageToPDF",
             "type": "dotnet",
             "task": "build",
-            "file": "${workspaceFolder}/Sources/DiaConvertImageToPDF/DiaConvertImageToPDF.csproj",
+            "file": "${workspaceFolder}/Sources/DiaConvertImageToPDF/AbrDiaConvertImageToPDF.csproj",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -13,10 +13,10 @@
             "problemMatcher": [],
         },
         {
-            "label": "Compile Solution - Diagrammer",
+            "label": "Compile Solution - AbrDiagrammer",
             "type": "dotnet",
             "task": "build",
-            "file": "${workspaceFolder}/Sources/Diagrammer/Diagrammer.csproj",
+            "file": "${workspaceFolder}/Sources/Diagrammer/AbrDiagrammer.csproj",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -24,18 +24,18 @@
             "problemMatcher": [],
         },
         {
-            "label": "Debug PowerShell Binary Module - DiaConvertImageToPDF",
+            "label": "Debug AbrDiaConvertImageToPDF",
             "dependsOn": [
-                "Compile Solution - DiaConvertImageToPDF",
+                "Compile Solution - AbrDiaConvertImageToPDF",
                 // "Copy SkiaSharp runtime", // Ensure SkiaSharp runtime is copied before debugging on Linux
                 // "Copy libHarfBuzzSharp runtime"
             ],
             "dependsOrder": "sequence" // "sequence" ensures tasks run one after another; default is "parallel"
         },
         {
-            "label": "Debug PowerShell Binary Module - Diagrammer",
+            "label": "Debug AbrDiagrammer",
             "dependsOn": [
-                "Compile Solution - Diagrammer",
+                "Compile Solution - AbrDiagrammer",
                 // "Copy SkiaSharp runtime", // Ensure SkiaSharp runtime is copied before debugging on Linux
                 // "Copy libHarfBuzzSharp runtime"
             ],

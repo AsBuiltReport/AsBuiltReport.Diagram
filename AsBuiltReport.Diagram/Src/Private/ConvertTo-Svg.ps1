@@ -87,8 +87,7 @@ function ConvertTo-Svg {
 
             if ($WaterMarkText) {
                 if (Get-Command -Name 'Add-WatermarkToSvg' -ErrorAction SilentlyContinue) {
-                    $opacity = [Math]::Clamp(($WaterMarkFontOpacity / 100), 0, 1)
-                    $null = Add-WatermarkToSvg -SourceSvgFilePath $Document.FullName -WatermarkText $WaterMarkText -OutputSvgFilePath $Document.FullName -WatermarkTextFontColor $WaterMarkColor -WatermarkTextOpacity $opacity
+                    $null = Add-WatermarkToSvg -SourceSvgFilePath $Document.FullName -WatermarkText $WaterMarkText -OutputSvgFilePath $Document.FullName -WatermarkTextFontColor $WaterMarkColor -WatermarkTextOpacity $WaterMarkFontOpacity
                 } else {
                     Write-Verbose -Message 'WaterMark option requires Add-WatermarkToSvg cmdlet from Diagrammer assembly.'
                 }
