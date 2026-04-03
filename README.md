@@ -29,7 +29,7 @@
 
 # AsBuiltReport.Diagram
 
-AsBuiltReport.Diagram is a PowerShell module that provides a foundational framework for creating sophisticated diagrams of various datacenter systems. It serves as a required dependency for individual diagram modules, which generate diagrams tailored to specific products or technologies.
+AsBuiltReport.Diagram is a PowerShell module that provides a foundational framework for creating sophisticated diagrams. It serves as a required dependency for individual diagram modules, which generate diagrams tailored to specific products or technologies.
 
 # :beginner: Getting Started
 
