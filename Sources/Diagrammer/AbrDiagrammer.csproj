@@ -5,12 +5,12 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>1.0.5</Version>
+        <Version>1.0.6</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="itext" Version="9.5.0" />
-        <PackageReference Include="itext.bouncy-castle-adapter" Version="9.5.0" />
+        <PackageReference Include="itext" Version="9.6.0" />
+        <PackageReference Include="itext.bouncy-castle-adapter" Version="9.6.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
         <PackageReference Include="SixLabors.Fonts" Version="2.1.3" />

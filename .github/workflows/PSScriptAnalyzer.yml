@@ -1,5 +1,5 @@
 name: PSScriptAnalyzer
-on: [push, pull_request]
+on: [ push, pull_request ]
 jobs:
     lint:
         name: Run PSScriptAnalyzer
