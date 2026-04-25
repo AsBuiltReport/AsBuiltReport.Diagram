@@ -447,7 +447,7 @@ function Add-HtmlNodeTable {
     if ($AditionalInfo) {
         $RowsGroupHTs = @()
         $isPSCustomObj = $AditionalInfo.GetType().Name -eq 'PSCustomObject' -or
-            ($AditionalInfo.GetType().Name -eq 'Object[]' -and $AditionalInfo[0].GetType().Name -eq 'PSCustomObject')
+        ($AditionalInfo.GetType().Name -eq 'Object[]' -and $AditionalInfo[0].GetType().Name -eq 'PSCustomObject')
 
         $Filter = if ($isPSCustomObj) {
             $AditionalInfo | ForEach-Object { $_.PSObject.Properties.name } | Select-Object -Unique
@@ -488,16 +488,16 @@ function Add-HtmlNodeTable {
     }
 
     $fontParams = @{
-        FontSize          = $FontSize
-        FontColor         = $FontColor
-        FontBold          = $FontBold
-        FontItalic        = $FontItalic
-        FontUnderline     = $FontUnderline
-        FontName          = $FontName
-        FontSubscript     = $FontSubscript
-        FontSuperscript   = $FontSuperscript
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
         FontStrikeThrough = $FontStrikeThrough
-        FontOverline      = $FontOverline
+        FontOverline = $FontOverline
     }
 
     $Number = 0
@@ -778,16 +778,16 @@ function Add-HtmlNodeTable {
     # This part set the capability to emulate Graphviz Subgraph
     if ($Subgraph) {
         $subgraphFontParams = @{
-            FontSize          = $SubgraphLabelFontSize
-            FontColor         = $SubgraphLabelFontColor
-            FontBold          = $SubgraphFontBold
-            FontItalic        = $SubgraphFontItalic
-            FontUnderline     = $SubgraphFontUnderline
-            FontName          = $SubgraphFontName
-            FontSubscript     = $SubgraphFontSubscript
-            FontSuperscript   = $SubgraphFontSuperscript
+            FontSize = $SubgraphLabelFontSize
+            FontColor = $SubgraphLabelFontColor
+            FontBold = $SubgraphFontBold
+            FontItalic = $SubgraphFontItalic
+            FontUnderline = $SubgraphFontUnderline
+            FontName = $SubgraphFontName
+            FontSubscript = $SubgraphFontSubscript
+            FontSuperscript = $SubgraphFontSuperscript
             FontStrikeThrough = $SubgraphFontStrikeThrough
-            FontOverline      = $SubgraphFontOverline
+            FontOverline = $SubgraphFontOverline
         }
         $FormattedSubGraphLabel = Format-HtmlFontProperty @subgraphFontParams -Text $SubGraphLabel
 
