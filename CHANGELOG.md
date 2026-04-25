@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactor: optimize Add-HtmlLabel function for improved readability and maintainability
 - refactor: simplify AditionalInfo handling and consolidate font parameter usage in Add-HtmlNodeTable function
 - refactor: add IconPath parameter and improve icon handling in Add-HtmlSubGraph function
+- refactor: streamline font parameter handling and improve subgraph icon logic in Add-HtmlTable function
 
 ## [1.0.6] - 2026-04-23
 
