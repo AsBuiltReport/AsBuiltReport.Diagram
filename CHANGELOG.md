@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update module version to v1.0.7
 - Enhance Add-HtmlSignatureTable with background color parameters
+- refactor: streamline Add-HtmlSignatureTable function and improve logo handling
 
 ## [1.0.6] - 2026-04-23
 

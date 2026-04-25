@@ -241,54 +241,60 @@ function Add-HtmlSignatureTable {
         [string] $Port = 'EdgeDot'
     )
 
-    if ($ImagesObj[$Logo]) {
-        $ICON = $ImagesObj[$Logo]
-    } else { $ICON = $false }
+    $ICON = if ($ImagesObj[$Logo]) { $ImagesObj[$Logo] } else { $null }
 
+    $ImageSize = $null
     if ($ImageSizePercent -lt 100) {
         if (-not $IconPath) {
             throw 'IconPath is required when ImageSizePercent is less than 100.'
         }
+        if (-not $ICON) {
+            throw 'A valid Logo must be resolved from ImagesObj when ImageSizePercent is less than 100.'
+        }
         $ImageSize = Get-ImagePercent -ImageInput (Join-Path -Path $IconPath -Child $ICON) -Percent $ImageSizePercent
     }
 
-    $TR = ''
-    foreach ($Row in $Rows) {
-        $FormattedRow = Format-HtmlFontProperty -Text $Row -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
-
-        if ($NoFontBold) {
-            $TR += '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
-        } else {
-            $TR += '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
-        }
+    $fontParams = @{
+        FontSize          = $FontSize
+        FontColor         = $FontColor
+        FontBold          = $FontBold
+        FontItalic        = $FontItalic
+        FontUnderline     = $FontUnderline
+        FontName          = $FontName
+        FontSubscript     = $FontSubscript
+        FontSuperscript   = $FontSuperscript
+        FontStrikeThrough = $FontStrikeThrough
+        FontOverline      = $FontOverline
     }
+
+    $tableParams = @{
+        Port                 = $Port
+        TableStyle           = $TableStyle
+        TableBackgroundColor = $TableBackgroundColor
+        TableBorderColor     = $TableBorderColor
+        TableBorder          = $TableBorder
+        CellBorder           = $CellBorder
+        CellSpacing          = $CellSpacing
+        CellPadding          = $CellPadding
+    }
+
+    $TR = ($Rows | ForEach-Object {
+        $FormattedRow = Format-HtmlFontProperty -Text $_ @fontParams
+        '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
+    }) -join ''
 
     if ($ICON) {
         if ($IconDebug) {
             $TRContent = '<TR><TD bgcolor="#FFCCCC" ALIGN="{0}" colspan="1" rowspan="4">{1}</TD></TR>{2}' -f $Align, $ICON, $TR
-
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor-TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
+            Format-HtmlTable @tableParams -TableRowContent $TRContent
+        } elseif ($ImageSize) {
+            $TRContent = '<TR><TD ALIGN="{0}" fixedsize="true" width="{1}" height="{2}" colspan="1" rowspan="4"><img src="{3}"/></TD></TR>{4}' -f $Align, $ImageSize.Width, $ImageSize.Height, $ICON, $TR
+            Format-HtmlTable -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorder $TableBorder -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
         } else {
-            if ($ImageSize) {
-                $TRContent = '<TR><TD ALIGN="{0}" fixedsize="true" width="{1}" height="{2}" colspan="1" rowspan="4"><img src="{3}"/></TD></TR>{4}' -f $Align, $ImageSize.Width, $ImageSize.Height, $ICON, $TR
-
-                Format-HtmlTable -TableStyle $TableBorderStyle -TableBackgroundColor $TableBackgroundColor -TableBorder $TableBorder -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
-
-            } else {
-                $TRContent = '<TR><TD fixedsize="true" width="80" height="80" ALIGN="{0}" colspan="1" rowspan="4"><img src="{1}"/></TD></TR>{2}' -f $Align, $ICON, $TR
-
-                Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-            }
+            $TRContent = '<TR><TD fixedsize="true" width="80" height="80" ALIGN="{0}" colspan="1" rowspan="4"><img src="{1}"/></TD></TR>{2}' -f $Align, $ICON, $TR
+            Format-HtmlTable @tableParams -TableRowContent $TRContent
         }
     } else {
-        if ($IconDebug) {
-            $TRContent = $TR
-
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-        } else {
-            $TRContent = $TR
-
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-        }
+        Format-HtmlTable @tableParams -TableRowContent $TR
     }
 }
