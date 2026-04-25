@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhance Add-HtmlSignatureTable with background color parameters
 - refactor: streamline Add-HtmlSignatureTable function and improve logo handling
 - refactor: optimize Add-HtmlLabel function for improved readability and maintainability
+- refactor: simplify AditionalInfo handling and consolidate font parameter usage in Add-HtmlNodeTable function
 
 ## [1.0.6] - 2026-04-23
 

@@ -445,76 +445,22 @@ function Add-HtmlNodeTable {
     }
 
     if ($AditionalInfo) {
-        switch ($AditionalInfo.GetType().Name) {
-            'Hashtable' {
-                if ($AditionalInfo) {
-                    $Filter = $AditionalInfo.keys | Select-Object -Unique
-                    $RowsGroupHTs = @()
+        $RowsGroupHTs = @()
+        $isPSCustomObj = $AditionalInfo.GetType().Name -eq 'PSCustomObject' -or
+            ($AditionalInfo.GetType().Name -eq 'Object[]' -and $AditionalInfo[0].GetType().Name -eq 'PSCustomObject')
 
-                    foreach ($RepoObj in ($Filter)) {
-                        $RowsGroupHTs += @{
-                            $RepoObj = $AditionalInfo.$RepoObj
-                        }
-                    }
-                }
-            }
+        $Filter = if ($isPSCustomObj) {
+            $AditionalInfo | ForEach-Object { $_.PSObject.Properties.name } | Select-Object -Unique
+        } else {
+            $AditionalInfo.keys | Select-Object -Unique
+        }
 
-            'OrderedDictionary' {
-                if ($AditionalInfo) {
-                    $Filter = $AditionalInfo.keys | Select-Object -Unique
-                    $RowsGroupHTs = @()
-
-                    foreach ($RepoObj in ($Filter)) {
-                        $RowsGroupHTs += @{
-                            $RepoObj = $AditionalInfo.$RepoObj
-                        }
-                    }
-                }
-            }
-
-            'Object[]' {
-                if ($AditionalInfo[0].GetType().Name -eq 'PSCustomObject') {
-                    $Filter = $AditionalInfo | ForEach-Object { $_.PSObject.Properties.name } | Select-Object -Unique
-                    $RowsGroupHTs = @()
-
-                    foreach ($RepoObj in ($Filter)) {
-                        $RowsGroupHTs += @{
-                            $RepoObj = $AditionalInfo.$RepoObj
-                        }
-                    }
-                } else {
-                    $Filter = $AditionalInfo.keys | Select-Object -Unique
-                    $RowsGroupHTs = @()
-
-                    foreach ($RepoObj in ($Filter)) {
-                        $RowsGroupHTs += @{
-                            $RepoObj = $AditionalInfo.$RepoObj
-                        }
-                    }
-                }
-            }
-
-            'PSCustomObject' {
-                if ($AditionalInfo) {
-                    $Filter = $AditionalInfo | ForEach-Object { $_.PSObject.Properties.name } | Select-Object -Unique
-                    $RowsGroupHTs = @()
-
-                    foreach ($RepoObj in ($Filter)) {
-                        $RowsGroupHTs += @{
-                            $RepoObj = $AditionalInfo.$RepoObj
-                        }
-                    }
-                }
-            }
+        foreach ($RepoObj in $Filter) {
+            $RowsGroupHTs += @{ $RepoObj = $AditionalInfo.$RepoObj }
         }
     }
 
-    # Determine FontBold based on NoFontBold switch
-    if ($NoFontBold) {
-        $FontBold = $false
-    } else {
-        $FontBold = $true
-    }
+    $FontBold = $true
 
     if ($ImagesObj) {
         if ($iconType.Count -gt 1) {
@@ -528,10 +474,9 @@ function Add-HtmlNodeTable {
             }
             $iconGroup = Split-ArrayElement -inArray $Icon -size $columnSize
         } else {
-            # $iconGroup = $iconType
             if ($ImagesObj[$iconType[0]]) {
                 $Icon = $ImagesObj[$iconType[0]]
-            } else { $Icon = $false }
+            } else { $Icon = $null }
             $iconGroup = $Icon
         }
     }
@@ -539,7 +484,20 @@ function Add-HtmlNodeTable {
     if ($SubgraphIconType) {
         if ($ImagesObj[$SubgraphIconType]) {
             $SubgraphIcon = $ImagesObj[$SubgraphIconType]
-        } else { $SubgraphIcon = $false }
+        } else { $SubgraphIcon = $null }
+    }
+
+    $fontParams = @{
+        FontSize          = $FontSize
+        FontColor         = $FontColor
+        FontBold          = $FontBold
+        FontItalic        = $FontItalic
+        FontUnderline     = $FontUnderline
+        FontName          = $FontName
+        FontSubscript     = $FontSubscript
+        FontSuperscript   = $FontSuperscript
+        FontStrikeThrough = $FontStrikeThrough
+        FontOverline      = $FontOverline
     }
 
     $Number = 0
@@ -560,14 +518,14 @@ function Add-HtmlNodeTable {
                     $TDICON = ''
 
                     foreach ($Element in $Group[$Number]) {
-                        $FormattedName = Format-HtmlFontProperty -Text $Element -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
+                        $FormattedName = Format-HtmlFontProperty @fontParams -Text $Element
 
                         $TDName += '<TD PORT="{0}" ALIGN="{1}" colspan="1">{2}</TD>' -f $Element, $Align, $FormattedName
                     }
                     $TR += '<TR>{0}</TR>' -f $TDName
                     $TDName = ''
 
-                    if ($AditionalInfo -or $AditionalInfoOrdered) {
+                    if ($AditionalInfo) {
                         if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
@@ -624,7 +582,7 @@ function Add-HtmlNodeTable {
 
                 while ($Number -ne $Group.Count) {
                     foreach ($Element in $Group[$Number]) {
-                        $FormattedName = Format-HtmlFontProperty -Text $Element -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
+                        $FormattedName = Format-HtmlFontProperty @fontParams -Text $Element
 
                         $TDName += '<TD PORT="{0}" ALIGN="{1}" colspan="1">{2}</TD>' -f $Element, $Align, $FormattedName
                     }
@@ -633,7 +591,7 @@ function Add-HtmlNodeTable {
 
                     $TDName = ''
 
-                    if ($AditionalInfo -or $AditionalInfoOrdered) {
+                    if ($AditionalInfo) {
                         if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
@@ -693,7 +651,7 @@ function Add-HtmlNodeTable {
 
                     foreach ($Element in $Group[$Number]) {
                         # Format the name with the specified font properties
-                        $FormattedName = Format-HtmlFontProperty -Text $Element -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
+                        $FormattedName = Format-HtmlFontProperty @fontParams -Text $Element
 
                         if ($CellBackgroundColor) {
                             $TDName += '<TD BGCOLOR="{0}" PORT="{1}" ALIGN="{2}" colspan="1">{3}</TD>' -f $CellBackgroundColor, $Element, $Align, $FormattedName
@@ -704,7 +662,7 @@ function Add-HtmlNodeTable {
                     $TR += '<TR>{0}</TR>' -f $TDName
                     $TDName = ''
 
-                    if ($AditionalInfo -or $AditionalInfoOrdered) {
+                    if ($AditionalInfo) {
                         if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
@@ -757,7 +715,7 @@ function Add-HtmlNodeTable {
                 while ($Number -ne $Group.Count) {
                     foreach ($Element in $Group[$Number]) {
                         # Format the name with the specified font properties
-                        $FormattedName = Format-HtmlFontProperty -Text $Element -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
+                        $FormattedName = Format-HtmlFontProperty @fontParams -Text $Element
 
                         if ($CellBackgroundColor) {
                             $TDName += '<TD BGCOLOR="{0}" PORT="{1}" ALIGN="{2}" colspan="1">{3}</TD>' -f $CellBackgroundColor, $Element, $Align, $FormattedName
@@ -768,7 +726,7 @@ function Add-HtmlNodeTable {
                     $TR += '<TR>{0}</TR>' -f $TDName
                     $TDName = ''
 
-                    if ($AditionalInfo -or $AditionalInfoOrdered) {
+                    if ($AditionalInfo) {
                         if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
@@ -777,7 +735,7 @@ function Add-HtmlNodeTable {
                                 $TDInfo += '<TD ALIGN="{0}" colspan="1"><FONT POINT-SIZE="{1}">{2}: {3}</FONT></TD>' -f $Align, $FontSize, [string]$Element.Keys, [string]$Element.values
                             }
 
-                            $TR += '<TR>{0}</TR>' -f $TDInfobgcolor
+                            $TR += '<TR>{0}</TR>' -f $TDInfo
                             $TDInfo = ''
                         } elseif (($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Multiple key and each key have a Single Values
@@ -819,75 +777,53 @@ function Add-HtmlNodeTable {
 
     # This part set the capability to emulate Graphviz Subgraph
     if ($Subgraph) {
-        $FormattedSubGraphLabel = Format-HtmlFontProperty -Text $SubGraphLabel -FontSize $SubgraphLabelFontSize -FontColor $SubgraphLabelFontColor -FontBold:$SubgraphFontBold -FontItalic:$SubgraphFontItalic -FontUnderline:$SubgraphFontUnderline -FontName $SubgraphFontName -FontSubscript:$SubgraphFontSubscript -FontSuperscript:$SubgraphFontSuperscript -FontStrikeThrough:$SubgraphFontStrikeThrough -FontOverline:$SubgraphFontOverline
+        $subgraphFontParams = @{
+            FontSize          = $SubgraphLabelFontSize
+            FontColor         = $SubgraphLabelFontColor
+            FontBold          = $SubgraphFontBold
+            FontItalic        = $SubgraphFontItalic
+            FontUnderline     = $SubgraphFontUnderline
+            FontName          = $SubgraphFontName
+            FontSubscript     = $SubgraphFontSubscript
+            FontSuperscript   = $SubgraphFontSuperscript
+            FontStrikeThrough = $SubgraphFontStrikeThrough
+            FontOverline      = $SubgraphFontOverline
+        }
+        $FormattedSubGraphLabel = Format-HtmlFontProperty @subgraphFontParams -Text $SubGraphLabel
 
         if ($SubgraphIcon) {
             if ($IconDebug) {
                 $TDSubgraphIcon = '<TD PORT="{0}" bgcolor="#FFCCCC" ALIGN="{1}" colspan="{2}"><FONT FACE="{3}" Color="{4}" POINT-SIZE="{5}"><B>{6}</B></FONT></TD>' -f $SubgraphPort, $Align, $columnSize, $FontName, $FontColor, $SubgraphLabelFontSize, $SubGraphIcon
-
-                $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedSubGraphLabel
-
-                if ($SubgraphLabelPos -eq 'down') {
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                } else {
-                    $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                    $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                    $TRTemp += $TR
-                    $TR = $TRTemp
-                }
+            } elseif ($SubgraphIconWidth -and $SubgraphIconHeight) {
+                $TDSubgraphIcon = '<TD PORT="{0}" ALIGN="{1}" colspan="{2}" fixedsize="true" width="{3}" height="{4}"><IMG src="{5}"></IMG></TD>' -f $SubgraphPort, $Align, $columnSize, $SubGraphIconWidth, $SubGraphIconHeight, $SubGraphIcon
             } else {
-                if ($SubgraphIconWidth -and $SubgraphIconHeight) {
-                    $TDSubgraphIcon = '<TD PORT="{0}" ALIGN="{1}" colspan="{2}" fixedsize="true" width="{3}" height="{4}"><IMG src="{5}"></IMG></TD>' -f $SubgraphPort, $Align, $columnSize, $SubGraphIconWidth, $SubGraphIconHeight, $SubGraphIcon
+                $TDSubgraphIcon = '<TD PORT="{0}" ALIGN="{1}" colspan="{2}" fixedsize="true" width="40" height="40"><IMG src="{3}"></IMG></TD>' -f $SubgraphPort, $Align, $columnSize, $SubGraphIcon
+            }
 
-                    $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedSubGraphLabel
+            $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedSubGraphLabel
 
-                    if ($SubgraphLabelPos -eq 'down') {
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                    } else {
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                        $TRTemp += $TR
-                        $TR = $TRTemp
-                    }
-                } else {
-                    $TDSubgraphIcon = '<TD PORT="{0}" ALIGN="{1}" colspan="{2}" fixedsize="true" width="40" height="40"><IMG src="{3}"></IMG></TD>' -f $SubgraphPort, $Align, $columnSize, $SubGraphIcon
-
-                    $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedSubGraphLabel
-
-                    if ($SubgraphLabelPos -eq 'down') {
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                    } else {
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                        $TRTemp += $TR
-                        $TR = $TRTemp
-                    }
-                }
+            if ($SubgraphLabelPos -eq 'down') {
+                $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
+                $TR += '<TR>{0}</TR>' -f $TDSubgraph
+            } else {
+                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
+                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
+                $TRTemp += $TR
+                $TR = $TRTemp
             }
         } else {
             if ($IconDebug) {
                 $TDSubgraph = '<TD PORT="{0}" bgcolor="#FFCCCC" ALIGN="{1}" colspan="{2}"><FONT FACE="{3}" POINT-SIZE="{4}" Color="{5}"><B>{6}</B></FONT></TD>' -f $SubgraphPort, $Align, $columnSize, $FontName, $SubgraphLabelFontSize, $FontColor, [string]$SubgraphLabel
-
-                if ($SubgraphLabelPos -eq 'down') {
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                } else {
-                    $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-                    $TRTemp += $TR
-                    $TR = $TRTemp
-                }
             } else {
                 $TDSubgraph = '<TD PORT="{0}" ALIGN="{1}" colspan="{2}">{3}</TD>' -f $SubgraphPort, $Align, $columnSize, $FormattedSubGraphLabel
+            }
 
-                if ($SubgraphLabelPos -eq 'down') {
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                } else {
-                    $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-                    $TRTemp += $TR
-                    $TR = $TRTemp
-                }
+            if ($SubgraphLabelPos -eq 'down') {
+                $TR += '<TR>{0}</TR>' -f $TDSubgraph
+            } else {
+                $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
+                $TRTemp += $TR
+                $TR = $TRTemp
             }
         }
     }
