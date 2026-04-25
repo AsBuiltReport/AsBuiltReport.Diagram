@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactor: streamline font parameter handling and improve subgraph icon logic in Add-HtmlTable function
 - refactor: enhance icon handling and streamline additional info processing in Add-NodeIcon function
 - refactor: optimize HTML table generation and streamline parameter handling in Add-NodeImage function
+- refactor: streamline font parameter handling in Add-NodeText function
 
 ## [1.0.6] - 2026-04-23
 
