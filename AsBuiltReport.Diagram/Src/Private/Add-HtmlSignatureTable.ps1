@@ -224,6 +224,18 @@ function Add-HtmlSignatureTable {
 
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Allow to set a table background color'
+        )]
+        [string] $TableBackgroundColor = '#FFFFFF',
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Allow to set a cell background color'
+        )]
+        [string] $CellBackgroundColor = '#FFFFFF',
+
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'Used inside Graphviz to modify the head or tail of an edge, so that the end attaches directly to the object'
         )]
         [string] $Port = 'EdgeDot'
@@ -245,9 +257,9 @@ function Add-HtmlSignatureTable {
         $FormattedRow = Format-HtmlFontProperty -Text $Row -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
 
         if ($NoFontBold) {
-            $TR += '<TR><TD valign="top" align="{0}" colspan="2">{1}</TD></TR>' -f $Align, $FormattedRow
+            $TR += '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
         } else {
-            $TR += '<TR><TD valign="top" align="{0}" colspan="2">{1}</TD></TR>' -f $Align, $FormattedRow
+            $TR += '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
         }
     }
 
@@ -255,28 +267,28 @@ function Add-HtmlSignatureTable {
         if ($IconDebug) {
             $TRContent = '<TR><TD bgcolor="#FFCCCC" ALIGN="{0}" colspan="1" rowspan="4">{1}</TD></TR>{2}' -f $Align, $ICON, $TR
 
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
+            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor-TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
         } else {
             if ($ImageSize) {
                 $TRContent = '<TR><TD ALIGN="{0}" fixedsize="true" width="{1}" height="{2}" colspan="1" rowspan="4"><img src="{3}"/></TD></TR>{4}' -f $Align, $ImageSize.Width, $ImageSize.Height, $ICON, $TR
 
-                Format-HtmlTable -TableStyle $TableBorderStyle -TableBorder $TableBorder -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
+                Format-HtmlTable -TableStyle $TableBorderStyle -TableBackgroundColor $TableBackgroundColor -TableBorder $TableBorder -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
 
             } else {
                 $TRContent = '<TR><TD fixedsize="true" width="80" height="80" ALIGN="{0}" colspan="1" rowspan="4"><img src="{1}"/></TD></TR>{2}' -f $Align, $ICON, $TR
 
-                Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
+                Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
             }
         }
     } else {
         if ($IconDebug) {
             $TRContent = $TR
 
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
+            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
         } else {
             $TRContent = $TR
 
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
+            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
         }
     }
 }
