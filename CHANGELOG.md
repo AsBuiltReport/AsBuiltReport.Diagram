@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 2026-05-02
+
+### :arrows_clockwise: Changed
+
+- Update module version to v1.0.7
+- Enhance Add-HtmlSignatureTable with background color parameters
+- refactor: streamline Add-HtmlSignatureTable function and improve logo handling
+- refactor: optimize Add-HtmlLabel function for improved readability and maintainability
+- refactor: simplify AditionalInfo handling and consolidate font parameter usage in Add-HtmlNodeTable function
+- refactor: add IconPath parameter and improve icon handling in Add-HtmlSubGraph function
+- refactor: streamline font parameter handling and improve subgraph icon logic in Add-HtmlTable function
+- refactor: enhance icon handling and streamline additional info processing in Add-NodeIcon function
+- refactor: optimize HTML table generation and streamline parameter handling in Add-NodeImage function
+- refactor: streamline font parameter handling in Add-NodeText function
+
+### :wrench: Fixed
+
+- Fix duplicate pester test names in AdvancedExample02.Tests tests
+
 ## [1.0.6] - 2026-04-23
 
 ### :arrows_clockwise: Changed

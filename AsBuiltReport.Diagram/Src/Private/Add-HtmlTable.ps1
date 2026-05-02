@@ -402,7 +402,7 @@ function Add-HtmlTable {
     ## Getting the Subgraph Icon from the ImagesObj Hashtable
     if ($ImagesObj -and $ImagesObj[$SubgraphIconType]) {
         $SubgraphIcon = $ImagesObj[$SubgraphIconType]
-    } else { $SubgraphIcon = $false }
+    } else { $SubgraphIcon = $null }
 
     ## This part split the array in groups based on the ColumnSize value
     if ($Rows.Count -le 1) {
@@ -411,16 +411,25 @@ function Add-HtmlTable {
         $Group = Split-ArrayElement -inArray $Rows -size $ColumnSize
     }
 
-    # Index to track the number of rows processed
     $Number = 0
-
     $TD = ''
     $TR = ''
+    $fontParams = @{
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
+        FontStrikeThrough = $FontStrikeThrough
+        FontOverline = $FontOverline
+    }
     # Create the table and splitting elements based on the ColumnSize value
     while ($Number -ne $Group.Count) {
         foreach ($Element in $Group[$Number]) {
-            $FormattedElement = Format-HtmlFontProperty -Text $Element -FontSize $Fontsize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
-
+            $FormattedElement = Format-HtmlFontProperty @fontParams -Text $Element
             $TD += '<TD ALIGN="{0}" COLSPAN="1">{1}</TD>' -f $ALIGN, $FormattedElement
         }
         $TR += '<TR>{0}</TR>' -f $TD
@@ -430,89 +439,72 @@ function Add-HtmlTable {
 
     # This part set the capability to emulate Graphviz Subgraph
     if ($Subgraph) {
-        if ($SubGraphLabel) {
-            # Get the Formatted Subgraph Label Ex: <FONT POINT-SIZE="12">Label</FONT>
-            $FormattedName = Format-HtmlFontProperty -Text $SubGraphLabel -FontSize $SubgraphLabelFontsize -FontColor $SubgraphFontColor -FontBold:$SubgraphFontBold -FontItalic:$SubgraphFontItalic -FontUnderline:$SubgraphFontUnderline -FontName $SubgraphFontName -FontSubscript:$SubgraphFontSubscript -FontSuperscript:$SubgraphFontSuperscript -FontStrikeThrough:$SubgraphFontStrikeThrough -FontOverline:$SubgraphFontOverline
+        $subgraphFontParams = @{
+            FontSize = $SubgraphLabelFontsize
+            FontColor = $SubgraphFontColor
+            FontBold = $SubgraphFontBold
+            FontItalic = $SubgraphFontItalic
+            FontUnderline = $SubgraphFontUnderline
+            FontName = $SubgraphFontName
+            FontSubscript = $SubgraphFontSubscript
+            FontSuperscript = $SubgraphFontSuperscript
+            FontStrikeThrough = $SubgraphFontStrikeThrough
+            FontOverline = $SubgraphFontOverline
         }
+        $FormattedName = if ($SubGraphLabel) {
+            Format-HtmlFontProperty @subgraphFontParams -Text $SubGraphLabel
+        }
+
+        # $TDSubgraph format depends only on $IconDebug, regardless of icon presence
+        $TDSubgraph = if ($IconDebug) {
+            '<TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
+        } else {
+            '<TD ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
+        }
+
+        $TRTemp = ''
         if ($SubgraphIcon) {
             if ($IconDebug) {
                 $TDSubgraphIcon = '<TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="{1}"><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}"><B>SubGraph Icon</B></FONT></TD>' -f $ALIGN, $columnSize, $FontName, $FontColor, $SubgraphLabelFontsize
-
-                $TDSubgraph = '<TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
-
-                if ($SubgraphLabelPos -eq 'down') {
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                } else {
-                    $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                    $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                    $TRTemp += $TR
-                    $TR = $TRTemp
-                }
+            } elseif ($SubgraphIconWIDTH -and $SubgraphIconHEIGHT) {
+                $TDSubgraphIcon = '<TD ALIGN="{0}" COLSPAN="{1}" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><IMG SRC="{4}"></IMG></TD>' -f $ALIGN, $columnSize, $SubGraphIconWIDTH, $SubGraphIconHEIGHT, $SubGraphIcon
             } else {
-                if ($SubgraphIconWIDTH -and $SubgraphIconHEIGHT) {
-
-                    $TDSubgraphIcon = '<TD ALIGN="{0}" COLSPAN="{1}" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><IMG SRC="{4}"></IMG></TD>' -f $ALIGN, $columnSize, $SubGraphIconWIDTH, $SubGraphIconHEIGHT, $SubGraphIcon
-
-                    $TDSubgraph = '<TD ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
-
-                    if ($SubgraphLabelPos -eq 'down') {
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                    } else {
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                        $TRTemp += $TR
-                        $TR = $TRTemp
-                    }
-                } else {
-
-                    $TDSubgraphIcon = '<TD ALIGN="{0}" COLSPAN="{1}" FIXEDSIZE="true" WIDTH="40" HEIGHT="40"><IMG SRC="{2}"></IMG></TD>' -f $ALIGN, $columnSize, $SubGraphIcon
-
-                    $TDSubgraph = '<TD ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
-
-                    if ($SubgraphLabelPos -eq 'down') {
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                    } else {
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                        $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                        $TRTemp += $TR
-                        $TR = $TRTemp
-                    }
-                }
+                $TDSubgraphIcon = '<TD ALIGN="{0}" COLSPAN="{1}" FIXEDSIZE="true" WIDTH="40" HEIGHT="40"><IMG SRC="{2}"></IMG></TD>' -f $ALIGN, $columnSize, $SubGraphIcon
+            }
+            if ($SubgraphLabelPos -eq 'down') {
+                $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
+                $TR += '<TR>{0}</TR>' -f $TDSubgraph
+            } else {
+                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
+                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
+                $TRTemp += $TR
+                $TR = $TRTemp
             }
         } else {
-            if ($IconDebug) {
-                $TDSubgraph = '<TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
-                if ($SubgraphLabelPos -eq 'down') {
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                } else {
-                    $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-                    $TRTemp += $TR
-                    $TR = $TRTemp
-                }
-
+            if ($SubgraphLabelPos -eq 'down') {
+                $TR += '<TR>{0}</TR>' -f $TDSubgraph
             } else {
-                $TDSubgraph = '<TD ALIGN="{0}" COLSPAN="{1}">{2}</TD>' -f $ALIGN, $columnSize, $FormattedName
-                if ($SubgraphLabelPos -eq 'down') {
-                    $TR += '<TR>{0}</TR>' -f $TDSubgraph
-                } else {
-                    $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-                    $TRTemp += $TR
-                    $TR = $TRTemp
-                }
+                $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
+                $TRTemp += $TR
+                $TR = $TRTemp
             }
         }
     }
 
-    if ($IconDebug) {
-        $HTML = Format-HtmlTable -TableStyle $SubgraphTableStyle -TableBorderColor 'red' -CellBorder $CellBorder -TableRowContent $TR -Cellspacing $CellSpacing -Cellpadding $CellPadding -TableBackgroundColor $TableBackgroundColor
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
-    } else {
-        $HTML = Format-HtmlTable -TableStyle $SubgraphTableStyle -TableBorderColor $TableBorderColor -CellBorder $CellBorder -TableBorder $TableBorder -TableRowContent $TR -Cellspacing $CellSpacing -Cellpadding $CellPadding -TableBackgroundColor $TableBackgroundColor
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
+    $tableParams = @{
+        TableStyle = $SubgraphTableStyle
+        TableBackgroundColor = $TableBackgroundColor
+        CellBorder = $CellBorder
+        CellSpacing = $CellSpacing
+        CellPadding = $CellPadding
+        TableRowContent = $TR
     }
+    if ($IconDebug) {
+        $tableParams.TableBorderColor = 'red'
+    } else {
+        $tableParams.TableBorderColor = $TableBorderColor
+        $tableParams.TableBorder = $TableBorder
+    }
+    $HTML = Format-HtmlTable @tableParams
+    Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
 }

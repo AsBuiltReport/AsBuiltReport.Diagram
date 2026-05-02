@@ -281,71 +281,80 @@ function Add-HtmlLabel {
         [string] $Port = 'EdgeDot'
     )
 
-    if ($IconType -eq 'NoIcon') {
-        $ICON = 'NoIcon'
-    } elseif ($ImagesObj[$IconType]) {
-        $ICON = $ImagesObj[$IconType]
-    } else { $ICON = 'no_icon.png' }
+    $ICON = if ($IconType -eq 'NoIcon') { 'NoIcon' }
+    elseif ($ImagesObj[$IconType]) { $ImagesObj[$IconType] }
+    else { 'no_icon.png' }
 
-    if ($ImageSizePercent -lt 100) {
+    $CalculatedImageSize = $null
+    if ($ImageSizePercent -lt 100 -and $ICON -ne 'NoIcon') {
         if (-not $IconPath) {
             throw 'IconPath is required when ImageSizePercent is less than 100.'
         }
         $CalculatedImageSize = Get-ImagePercent -ImageInput (Join-Path -Path $IconPath -Child $ICON) -Percent $ImageSizePercent
     }
 
-    $FormattedLabel = Format-HtmlFontProperty -Text $Label -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
-
-    if (-not $SubgraphLabel) {
-
-        if ($IconDebug) {
-            $TRContent = '<TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="1">{1} Logo</TD></TR><TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" ><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD></TR><TR><TD ALIGN="{0}"><FONT Color="red">DraftMode ON</FONT></TD></TR>' -f $Align, $ICON, $FontName, $FontColor, $FontSize, $Label
-
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-        } elseif ($ICON -ne 'NoIcon') {
-            if ($IconWidth -and $IconHeight) {
-                $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><img SRC="{4}"/></TD></TR><TR><TD ALIGN="{0}">{5}</TD></TR>' -f $Align, $CellBackgroundColor, $IconWidth, $IconHeight, $ICON, $FormattedLabel
-
-                Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-            } elseif ($CalculatedImageSize) {
-                $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><img SRC="{4}"/></TD></TR><TR><TD ALIGN="{0}">{5}</TD></TR>' -f $Align, $CellBackgroundColor, $CalculatedImageSize.Width, $CalculatedImageSize.Height, $ICON, $FormattedLabel
-
-                Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-            } else {
-                $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1"><img SRC="{2}"/></TD></TR><TR><TD ALIGN="{0}">{3}</TD></TR>' -f $Align, $CellBackgroundColor, $ICON, $FormattedLabel
-
-                Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-            }
-        } else {
-            $TRContent = '<TR><TD BGCOLOR="{1}" ALIGN="{0}">{2}</TD></TR>' -f $Align, $CellBackgroundColor, $FormattedLabel
-
-            Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-        }
+    $fontParams = @{
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
+        FontStrikeThrough = $FontStrikeThrough
+        FontOverline = $FontOverline
     }
-    if ($SubgraphLabel) {
+    $FormattedLabel = Format-HtmlFontProperty -Text $Label @fontParams
 
-        if ($IconDebug) {
+    $effectiveCellSpacing = if ($SubgraphLabel) { $SubgraphCellSpacing } else { $CellSpacing }
+    $effectiveCellPadding = if ($SubgraphLabel) { $SubgraphCellPadding } else { $CellPadding }
+
+    # Base table params shared by all branches; TableBackgroundColor is added for non-debug branches only.
+    $baseTableParams = @{
+        Port = $Port
+        TableStyle = $TableStyle
+        TableBorder = $TableBorder
+        CellBorder = $CellBorder
+        CellSpacing = $effectiveCellSpacing
+        CellPadding = $effectiveCellPadding
+    }
+
+    if ($IconDebug) {
+        if ($SubgraphLabel) {
             $TRContent = '<TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="1">{1} Logo</TD><TD BGCOLOR="#FFCCCC" ALIGN="Center">{2}</TD></TR>' -f $Align, $ICON, $FormattedLabel
-
-            Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $SubgraphCellSpacing -CellPadding $SubgraphCellPadding -TableRowContent $TRContent -CellBorder $CellBorder
-        } elseif ($ICON -ne 'NoIcon') {
+        } else {
+            $TRContent = '<TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="1">{1} Logo</TD></TR><TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" ><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD></TR><TR><TD ALIGN="{0}"><FONT Color="red">DraftMode ON</FONT></TD></TR>' -f $Align, $ICON, $FontName, $FontColor, $FontSize, $Label
+        }
+        Format-HtmlTable @baseTableParams -TableRowContent $TRContent
+    } elseif ($ICON -ne 'NoIcon') {
+        if ($SubgraphLabel) {
+            # Side-by-side layout: icon cell | label cell in same TR. Uses uppercase <IMG>.
             if ($IconWidth -and $IconHeight) {
                 $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><IMG SRC="{4}"/></TD><TD ALIGN="{0}">{5}</TD></TR>' -f $Align, $CellBackgroundColor, $IconWidth, $IconHeight, $ICON, $FormattedLabel
-
-                Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $SubgraphCellSpacing -CellPadding $SubgraphCellPadding -TableRowContent $TRContent -CellBorder $CellBorder
             } elseif ($CalculatedImageSize) {
                 $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><IMG SRC="{4}"/></TD><TD ALIGN="{0}">{5}</TD></TR>' -f $Align, $CellBackgroundColor, $CalculatedImageSize.Width, $CalculatedImageSize.Height, $ICON, $FormattedLabel
-
-                Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $SubgraphCellSpacing -CellPadding $SubgraphCellPadding -TableRowContent $TRContent -CellBorder $CellBorder
             } else {
                 $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1"><IMG SRC="{2}"/></TD><TD ALIGN="{0}">{3}</TD></TR>' -f $Align, $CellBackgroundColor, $ICON, $FormattedLabel
-
-                Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $SubgraphCellSpacing -CellPadding $SubgraphCellPadding -TableRowContent $TRContent -CellBorder $CellBorder
             }
         } else {
-            $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}">{2}</TD></TR>' -f $Align, $CellBackgroundColor, $FormattedLabel
-
-            Format-HtmlTable -Port $Port -TableBackgroundColor $TableBackgroundColor -TableStyle $TableStyle -TableBorder $TableBorder -CellSpacing $SubgraphCellSpacing -CellPadding $SubgraphCellPadding -TableRowContent $TRContent -CellBorder $CellBorder
+            # Stacked layout: icon TR on top, label TR below. Uses lowercase <img>.
+            if ($IconWidth -and $IconHeight) {
+                $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><img SRC="{4}"/></TD></TR><TR><TD ALIGN="{0}">{5}</TD></TR>' -f $Align, $CellBackgroundColor, $IconWidth, $IconHeight, $ICON, $FormattedLabel
+            } elseif ($CalculatedImageSize) {
+                $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1" FIXEDSIZE="true" WIDTH="{2}" HEIGHT="{3}"><img SRC="{4}"/></TD></TR><TR><TD ALIGN="{0}">{5}</TD></TR>' -f $Align, $CellBackgroundColor, $CalculatedImageSize.Width, $CalculatedImageSize.Height, $ICON, $FormattedLabel
+            } else {
+                $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}" COLSPAN="1"><img SRC="{2}"/></TD></TR><TR><TD ALIGN="{0}">{3}</TD></TR>' -f $Align, $CellBackgroundColor, $ICON, $FormattedLabel
+            }
         }
+        Format-HtmlTable @baseTableParams -TableBackgroundColor $TableBackgroundColor -TableRowContent $TRContent
+    } else {
+        # NoIcon: attribute order differs intentionally between layouts (preserved from original).
+        if ($SubgraphLabel) {
+            $TRContent = '<TR><TD ALIGN="{0}" BGCOLOR="{1}">{2}</TD></TR>' -f $Align, $CellBackgroundColor, $FormattedLabel
+        } else {
+            $TRContent = '<TR><TD BGCOLOR="{0}" ALIGN="{1}">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedLabel
+        }
+        Format-HtmlTable @baseTableParams -TableBackgroundColor $TableBackgroundColor -TableRowContent $TRContent
     }
 }

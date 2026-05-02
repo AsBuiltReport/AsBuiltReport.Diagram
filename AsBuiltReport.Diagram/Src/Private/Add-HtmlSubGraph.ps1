@@ -276,6 +276,12 @@ function Add-HtmlSubGraph {
         [int] $IconHeight = 40,
 
         [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Path to the directory containing icon image files'
+        )]
+        [string] $IconPath,
+
+        [Parameter(
             Mandatory,
             HelpMessage = 'Specifies the name of the node.'
         )]
@@ -303,15 +309,14 @@ function Add-HtmlSubGraph {
 
     if ($ImagesObj -and $ImagesObj[$IconType]) {
         $Icon = $ImagesObj[$IconType]
-    } else { $Icon = $false }
+    } else { $Icon = $null }
 
     # Set the image size if ImageSizePercent is less than 100
-    if ($ImageSizePercent -lt 100) {
+    if ($Icon -and $ImageSizePercent -lt 100) {
         if (-not $IconPath) {
             throw 'IconPath is required when ImageSizePercent is less than 100.'
         }
         $ImageSize = Get-ImagePercent -ImageInput (Join-Path -Path $IconPath -Child $Icon) -Percent $ImageSizePercent
-
         $IconWidth = $ImageSize.Width
         $IconHeight = $ImageSize.Height
     }
@@ -323,7 +328,6 @@ function Add-HtmlSubGraph {
     }
 
     $Number = 0
-
     $TD = ''
     $TR = ''
     while ($Number -ne $Group.Count) {
@@ -335,71 +339,66 @@ function Add-HtmlSubGraph {
         $Number++
     }
 
-    # Format the name with the specified font properties
-    $FormattedLabel = Format-HtmlFontProperty -Text $Label -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
+    $fontParams = @{
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
+        FontStrikeThrough = $FontStrikeThrough
+        FontOverline = $FontOverline
+    }
+    $FormattedLabel = Format-HtmlFontProperty @fontParams -Text $Label
 
-    # This part set the capability to emulate Graphviz Subgraph
-    if ($IconDebug) {
-        if ($Icon) {
+    # Build subgraph icon/label rows and prepend or append based on LabelPos
+    $TRTemp = ''
+    if ($Icon) {
+        if ($IconDebug) {
             $TDSubgraphIcon = '<TD bgcolor="#FFCCCC" ALIGN="{0}" colspan="{1}"><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD>' -f $Align, $columnSize, $fontName, $fontColor, $fontSize, $Icon
             $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
-
-            if ($LabelPos -eq 'down') {
-                $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                $TR += '<TR>{0}</TR>' -f $TDSubgraph
-            } else {
-                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                $TRTemp += $TR
-                $TR = $TRTemp
-            }
         } else {
-            $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
-            if ($LabelPos -eq 'down') {
-                $TR += '<TR>{0}</TR>' -f $TDSubgraph
-            } else {
-                $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-                $TRTemp += $TR
-                $TR = $TRTemp
-            }
-        }
-    } else {
-        if ($Icon) {
             $TDSubgraphIcon = '<TD valign="BOTTOM" ALIGN="{0}" colspan="{1}" fixedsize="true" width="{3}" height="{4}"><IMG src="{2}"></IMG></TD>' -f $Align, $columnSize, $Icon, $IconWidth, $IconHeight
             $TDSubgraph = '<TD valign="TOP" ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
-
-            if ($LabelPos -eq 'down') {
-                $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                $TR += '<TR>{0}</TR>' -f $TDSubgraph
-            } else {
-                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
-                $TRTemp += $TR
-                $TR = $TRTemp
-            }
+        }
+        if ($LabelPos -eq 'down') {
+            $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
+            $TR += '<TR>{0}</TR>' -f $TDSubgraph
         } else {
-            $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
-            if ($LabelPos -eq 'down') {
-                $TR += '<TR>{0}</TR>' -f $TDSubgraph
-            } else {
-                $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-                $TRTemp += $TR
-                $TR = $TRTemp
-            }
+            $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
+            $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
+            $TRTemp += $TR
+            $TR = $TRTemp
+        }
+    } else {
+        $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
+        if ($LabelPos -eq 'down') {
+            $TR += '<TR>{0}</TR>' -f $TDSubgraph
+        } else {
+            $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
+            $TRTemp += $TR
+            $TR = $TRTemp
         }
     }
 
-    if ($IconDebug) {
-
-        $HTML = Format-HtmlTable -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor 'red' -CellBorder 1 -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TR
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
-
-    } else {
-
-        $HTML = Format-HtmlTable -TableBorder $TableBorder -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -CellBorder $CellBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TR
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
-
+    $tableParams = @{
+        TableStyle = $TableStyle
+        TableBackgroundColor = $TableBackgroundColor
+        CellSpacing = $CellSpacing
+        CellPadding = $CellPadding
+        TableRowContent = $TR
     }
+    if ($IconDebug) {
+        $tableParams.TableBorderColor = 'red'
+        $tableParams.TableBorder = 1
+        $tableParams.CellBorder = 1
+    } else {
+        $tableParams.TableBorderColor = $TableBorderColor
+        $tableParams.TableBorder = $TableBorder
+        $tableParams.CellBorder = $CellBorder
+    }
+    $HTML = Format-HtmlTable @tableParams
+    Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
 }
