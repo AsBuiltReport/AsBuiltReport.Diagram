@@ -254,10 +254,12 @@ function Add-HtmlSignatureTable {
         $ImageSize = Get-ImagePercent -ImageInput (Join-Path -Path $IconPath -Child $ICON) -Percent $ImageSizePercent
     }
 
+    $effectiveFontBold = if ($NoFontBold) { $false } else { $FontBold }
+
     $fontParams = @{
         FontSize          = $FontSize
         FontColor         = $FontColor
-        FontBold          = $FontBold
+        FontBold          = $effectiveFontBold
         FontItalic        = $FontItalic
         FontUnderline     = $FontUnderline
         FontName          = $FontName
