@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactor: optimize HTML table generation and streamline parameter handling in Add-NodeImage function
 - refactor: streamline font parameter handling in Add-NodeText function
 
+### :wrench: Fixed
+
+- Fix duplicate pester test names in AdvancedExample02.Tests tests
+
 ## [1.0.6] - 2026-04-23
 
 ### :arrows_clockwise: Changed
