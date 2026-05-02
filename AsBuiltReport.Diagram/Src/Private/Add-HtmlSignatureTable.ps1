@@ -289,7 +289,7 @@ function Add-HtmlSignatureTable {
             Format-HtmlTable @tableParams -TableRowContent $TRContent
         } elseif ($ImageSize) {
             $TRContent = '<TR><TD ALIGN="{0}" fixedsize="true" width="{1}" height="{2}" colspan="1" rowspan="4"><img src="{3}"/></TD></TR>{4}' -f $Align, $ImageSize.Width, $ImageSize.Height, $ICON, $TR
-            Format-HtmlTable -TableStyle $TableStyle -TableBackgroundColor $TableBackgroundColor -TableBorder $TableBorder -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
+            Format-HtmlTable @tableParams -TableRowContent $TRContent
         } else {
             $TRContent = '<TR><TD fixedsize="true" width="80" height="80" ALIGN="{0}" colspan="1" rowspan="4"><img src="{1}"/></TD></TR>{2}' -f $Align, $ICON, $TR
             Format-HtmlTable @tableParams -TableRowContent $TRContent
