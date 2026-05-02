@@ -257,33 +257,33 @@ function Add-HtmlSignatureTable {
     $effectiveFontBold = if ($NoFontBold) { $false } else { $FontBold }
 
     $fontParams = @{
-        FontSize          = $FontSize
-        FontColor         = $FontColor
-        FontBold          = $effectiveFontBold
-        FontItalic        = $FontItalic
-        FontUnderline     = $FontUnderline
-        FontName          = $FontName
-        FontSubscript     = $FontSubscript
-        FontSuperscript   = $FontSuperscript
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $effectiveFontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
         FontStrikeThrough = $FontStrikeThrough
-        FontOverline      = $FontOverline
+        FontOverline = $FontOverline
     }
 
     $tableParams = @{
-        Port                 = $Port
-        TableStyle           = $TableStyle
+        Port = $Port
+        TableStyle = $TableStyle
         TableBackgroundColor = $TableBackgroundColor
-        TableBorderColor     = $TableBorderColor
-        TableBorder          = $TableBorder
-        CellBorder           = $CellBorder
-        CellSpacing          = $CellSpacing
-        CellPadding          = $CellPadding
+        TableBorderColor = $TableBorderColor
+        TableBorder = $TableBorder
+        CellBorder = $CellBorder
+        CellSpacing = $CellSpacing
+        CellPadding = $CellPadding
     }
 
     $TR = ($Rows | ForEach-Object {
-        $FormattedRow = Format-HtmlFontProperty -Text $_ @fontParams
-        '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
-    }) -join ''
+            $FormattedRow = Format-HtmlFontProperty -Text $_ @fontParams
+            '<TR><TD BGCOLOR="{0}" valign="top" align="{1}" colspan="2">{2}</TD></TR>' -f $CellBackgroundColor, $Align, $FormattedRow
+        }) -join ''
 
     if ($ICON) {
         if ($IconDebug) {

@@ -384,28 +384,28 @@ function Add-NodeIcon {
     }
 
     $fontParams = @{
-        Text             = $LabelName
-        FontSize         = $FontSize
-        FontColor        = $FontColor
-        FontBold         = $FontBold
-        FontItalic       = $FontItalic
-        FontUnderline    = $FontUnderline
-        FontName         = $FontName
-        FontSubscript    = $FontSubscript
-        FontSuperscript  = $FontSuperscript
+        Text = $LabelName
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
         FontStrikeThrough = $FontStrikeThrough
-        FontOverline     = $FontOverline
+        FontOverline = $FontOverline
     }
     $FormattedName = Format-HtmlFontProperty @fontParams
 
     $tableParams = @{
-        Port                 = $Port
-        TableStyle           = $TableStyle
-        TableBorderColor     = $TableBorderColor
-        TableBorder          = $TableBorder
-        CellBorder           = $CellBorder
-        CellSpacing          = $CellSpacing
-        CellPadding          = $CellPadding
+        Port = $Port
+        TableStyle = $TableStyle
+        TableBorderColor = $TableBorderColor
+        TableBorder = $TableBorder
+        CellBorder = $CellBorder
+        CellSpacing = $CellSpacing
+        CellPadding = $CellPadding
         TableBackgroundColor = $TableBackgroundColor
     }
     if ($IconDebug) {

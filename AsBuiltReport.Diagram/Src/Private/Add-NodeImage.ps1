@@ -186,11 +186,11 @@ function Add-NodeImage {
         $HTML = Format-HtmlTable -TableBackgroundColor '#FFCCCC' -TableBorderColor 'red' -CellBorder 0 -CellSpacing 0 -CellPadding 0 -TableRowContent $TRContent
     } else {
         $tableParams = @{
-            TableStyle           = $TableBorderStyle
-            TableBorder          = $TableBorder
+            TableStyle = $TableBorderStyle
+            TableBorder = $TableBorder
             TableBackgroundColor = $TableBackgroundColor
-            TableBorderColor     = $TableBorderColor
-            CellBorder           = 0
+            TableBorderColor = $TableBorderColor
+            CellBorder = 0
         }
         if ($ImageSize) {
             $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" fixedsize="true" width="{1}" height="{2}" colspan="1"><img src="{3}"/></TD></TR>' -f $TableBorderStyle, $ImageSize.Width, $ImageSize.Height, $IconSrc

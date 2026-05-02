@@ -187,13 +187,13 @@ function Add-NodeText {
     }
 
     $fontParams = @{
-        Text         = $Text
-        FontSize     = $FontSize
-        FontColor    = $FontColor
-        FontBold     = $FontBold
-        FontItalic   = $FontItalic
+        Text = $Text
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
         FontUnderline = $FontUnderline
-        FontName     = $FontName
+        FontName = $FontName
     }
     $FormattedText = Format-HtmlFontProperty @fontParams
 

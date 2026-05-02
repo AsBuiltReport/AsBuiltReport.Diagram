@@ -340,16 +340,16 @@ function Add-HtmlSubGraph {
     }
 
     $fontParams = @{
-        FontSize          = $FontSize
-        FontColor         = $FontColor
-        FontBold          = $FontBold
-        FontItalic        = $FontItalic
-        FontUnderline     = $FontUnderline
-        FontName          = $FontName
-        FontSubscript     = $FontSubscript
-        FontSuperscript   = $FontSuperscript
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
         FontStrikeThrough = $FontStrikeThrough
-        FontOverline      = $FontOverline
+        FontOverline = $FontOverline
     }
     $FormattedLabel = Format-HtmlFontProperty @fontParams -Text $Label
 
@@ -384,11 +384,11 @@ function Add-HtmlSubGraph {
     }
 
     $tableParams = @{
-        TableStyle           = $TableStyle
+        TableStyle = $TableStyle
         TableBackgroundColor = $TableBackgroundColor
-        CellSpacing          = $CellSpacing
-        CellPadding          = $CellPadding
-        TableRowContent      = $TR
+        CellSpacing = $CellSpacing
+        CellPadding = $CellPadding
+        TableRowContent = $TR
     }
     if ($IconDebug) {
         $tableParams.TableBorderColor = 'red'
