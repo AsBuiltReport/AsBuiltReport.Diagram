@@ -282,8 +282,8 @@ function Add-HtmlLabel {
     )
 
     $ICON = if ($IconType -eq 'NoIcon') { 'NoIcon' }
-            elseif ($ImagesObj[$IconType]) { $ImagesObj[$IconType] }
-            else { 'no_icon.png' }
+    elseif ($ImagesObj[$IconType]) { $ImagesObj[$IconType] }
+    else { 'no_icon.png' }
 
     $CalculatedImageSize = $null
     if ($ImageSizePercent -lt 100 -and $ICON -ne 'NoIcon') {
@@ -294,16 +294,16 @@ function Add-HtmlLabel {
     }
 
     $fontParams = @{
-        FontSize          = $FontSize
-        FontColor         = $FontColor
-        FontBold          = $FontBold
-        FontItalic        = $FontItalic
-        FontUnderline     = $FontUnderline
-        FontName          = $FontName
-        FontSubscript     = $FontSubscript
-        FontSuperscript   = $FontSuperscript
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
         FontStrikeThrough = $FontStrikeThrough
-        FontOverline      = $FontOverline
+        FontOverline = $FontOverline
     }
     $FormattedLabel = Format-HtmlFontProperty -Text $Label @fontParams
 
@@ -312,10 +312,10 @@ function Add-HtmlLabel {
 
     # Base table params shared by all branches; TableBackgroundColor is added for non-debug branches only.
     $baseTableParams = @{
-        Port        = $Port
-        TableStyle  = $TableStyle
+        Port = $Port
+        TableStyle = $TableStyle
         TableBorder = $TableBorder
-        CellBorder  = $CellBorder
+        CellBorder = $CellBorder
         CellSpacing = $effectiveCellSpacing
         CellPadding = $effectiveCellPadding
     }

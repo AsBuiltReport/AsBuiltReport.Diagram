@@ -415,16 +415,16 @@ function Add-HtmlTable {
     $TD = ''
     $TR = ''
     $fontParams = @{
-        FontSize          = $FontSize
-        FontColor         = $FontColor
-        FontBold          = $FontBold
-        FontItalic        = $FontItalic
-        FontUnderline     = $FontUnderline
-        FontName          = $FontName
-        FontSubscript     = $FontSubscript
-        FontSuperscript   = $FontSuperscript
+        FontSize = $FontSize
+        FontColor = $FontColor
+        FontBold = $FontBold
+        FontItalic = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName = $FontName
+        FontSubscript = $FontSubscript
+        FontSuperscript = $FontSuperscript
         FontStrikeThrough = $FontStrikeThrough
-        FontOverline      = $FontOverline
+        FontOverline = $FontOverline
     }
     # Create the table and splitting elements based on the ColumnSize value
     while ($Number -ne $Group.Count) {
@@ -440,16 +440,16 @@ function Add-HtmlTable {
     # This part set the capability to emulate Graphviz Subgraph
     if ($Subgraph) {
         $subgraphFontParams = @{
-            FontSize          = $SubgraphLabelFontsize
-            FontColor         = $SubgraphFontColor
-            FontBold          = $SubgraphFontBold
-            FontItalic        = $SubgraphFontItalic
-            FontUnderline     = $SubgraphFontUnderline
-            FontName          = $SubgraphFontName
-            FontSubscript     = $SubgraphFontSubscript
-            FontSuperscript   = $SubgraphFontSuperscript
+            FontSize = $SubgraphLabelFontsize
+            FontColor = $SubgraphFontColor
+            FontBold = $SubgraphFontBold
+            FontItalic = $SubgraphFontItalic
+            FontUnderline = $SubgraphFontUnderline
+            FontName = $SubgraphFontName
+            FontSubscript = $SubgraphFontSubscript
+            FontSuperscript = $SubgraphFontSuperscript
             FontStrikeThrough = $SubgraphFontStrikeThrough
-            FontOverline      = $SubgraphFontOverline
+            FontOverline = $SubgraphFontOverline
         }
         $FormattedName = if ($SubGraphLabel) {
             Format-HtmlFontProperty @subgraphFontParams -Text $SubGraphLabel
@@ -492,12 +492,12 @@ function Add-HtmlTable {
     }
 
     $tableParams = @{
-        TableStyle           = $SubgraphTableStyle
+        TableStyle = $SubgraphTableStyle
         TableBackgroundColor = $TableBackgroundColor
-        CellBorder           = $CellBorder
-        CellSpacing          = $CellSpacing
-        CellPadding          = $CellPadding
-        TableRowContent      = $TR
+        CellBorder = $CellBorder
+        CellSpacing = $CellSpacing
+        CellPadding = $CellPadding
+        TableRowContent = $TR
     }
     if ($IconDebug) {
         $tableParams.TableBorderColor = 'red'
