@@ -186,21 +186,24 @@ function Add-NodeText {
         throw 'TableBorderStyle must be specified when TableBorderColor is used.'
     }
 
-    $FormattedText = Format-HtmlFontProperty -Text $Text -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName
+    $fontParams = @{
+        Text         = $Text
+        FontSize     = $FontSize
+        FontColor    = $FontColor
+        FontBold     = $FontBold
+        FontItalic   = $FontItalic
+        FontUnderline = $FontUnderline
+        FontName     = $FontName
+    }
+    $FormattedText = Format-HtmlFontProperty @fontParams
 
     if ($IconDebug) {
         $TRContent = '<TR><TD STYLE="{0}" ALIGN="{1}" colspan="1">{2}</TD></TR>' -f 'SOLID', $TextAlign, $FormattedText
-
         $HTML = Format-HtmlTable -TableBackgroundColor '#FFCCCC' -TableBorderColor 'red' -CellBorder 0 -TableRowContent $TRContent
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
-
     } else {
         $TRContent = '<TR><TD STYLE="{0}" ALIGN="{1}" colspan="1">{2}</TD></TR>' -f $TableBorderStyle, $TextAlign, $FormattedText
-
         $HTML = Format-HtmlTable -TableStyle $TableBorderStyle -TableBorder $TableBorder -TableBorderColor $TableBorderColor -TableBackgroundColor $TableBackgroundColor -CellBorder 0 -TableRowContent $TRContent
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
     }
+    Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
 
 }

@@ -113,7 +113,7 @@ Describe AdvancedExample02 {
             }
         }
 
-        Context 'Graphviz Dot Node Icon (Label) Tests' {
+        Context 'Graphviz Dot Node Icon (Label) Tests - Web-Server Nodes' {
             It 'Should match HTML label Web-Server-01 node with embedded image' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw
@@ -193,7 +193,7 @@ Describe AdvancedExample02 {
             }
         }
 
-        Context 'Graphviz Dot Node Icon (Label) Tests' {
+        Context 'Graphviz Dot Node Icon (Label) Tests - Info-Box Nodes' {
             It 'Should match HTML label Info-Box node with embedded image' {
                 $DotFile = ($RunFile).FullName
                 $DotContent = Get-Content -Path $DotFile -Raw

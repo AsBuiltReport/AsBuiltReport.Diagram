@@ -357,7 +357,7 @@ function Add-NodeIcon {
     } else { $ICON = 'no_icon.png' }
 
     # Set the image size if ImageSizePercent is less than 100
-    if ($ImageSizePercent -lt 100) {
+    if ($ICON -ne 'NoIcon' -and $ImageSizePercent -lt 100) {
         if (-not $IconPath) {
             throw 'IconPath is required when ImageSizePercent is less than 100.'
         }
@@ -365,93 +365,68 @@ function Add-NodeIcon {
     }
 
     # Process additionalinfo if provided
+    $TRAditionalInfo = ''
     if ($AditionalInfo) {
-        $TRAditionalInfo = @()
-        switch ($AditionalInfo.GetType().Name) {
-            'Hashtable' {
-                foreach ($r in $AditionalInfo) {
-                    [string]$TRAditionalInfo += $r.getEnumerator() | ForEach-Object {
-                        '<TR><TD PORT="{0}" BGCOLOR="{1}" ALIGN="{2}" colspan="1"><FONT POINT-SIZE="{3}">{4}: {5}</FONT></TD></TR>' -f $_.Key, $CellBackgroundColor, $Align, $FontSize, $_.Key, $_.Value
-                    }
-                }
-            }
-
-            'OrderedDictionary' {
-                foreach ($r in $AditionalInfo) {
-                    [string]$TRAditionalInfo += $r.getEnumerator() | ForEach-Object {
-                        '<TR><TD PORT="{0}" BGCOLOR="{1}" ALIGN="{2}" colspan="1"><FONT POINT-SIZE="{3}">{4}: {5}</FONT></TD></TR>' -f $_.Key, $CellBackgroundColor, $Align, $FontSize, $_.Key, $_.Value
-                    }
-                }
-            }
-
-            'PSCustomObject' {
-                foreach ($r in $AditionalInfo) {
-                    [string]$TRAditionalInfo += $r.PSObject.Properties | ForEach-Object {
-                        '<TR><TD PORT="{0}" BGCOLOR="{1}" ALIGN="{2}" colspan="1"><FONT POINT-SIZE="{3}">{4}: {5}</FONT></TD></TR>' -f $_.Name, $CellBackgroundColor, $Align, $FontSize, $_.Name, $_.Value
-                    }
-                }
-            }
-
-            'Object[]' {
-                foreach ($r in $AditionalInfo) {
-                    [string]$TRAditionalInfo += $r.PSObject.Properties | ForEach-Object {
-                        '<TR><TD PORT="{0}" BGCOLOR="{1}" ALIGN="{2}" colspan="1"><FONT POINT-SIZE="{3}">{4}: {5}</FONT></TD></TR>' -f $_.Name, $CellBackgroundColor, $Align, $FontSize, $_.Name, $_.Value
-                    }
-                }
+        $isPSCustomObj = $AditionalInfo.GetType().Name -in 'PSCustomObject', 'Object[]'
+        foreach ($r in $AditionalInfo) {
+            $entries = if ($isPSCustomObj) { $r.PSObject.Properties } else { $r.getEnumerator() }
+            [string]$TRAditionalInfo += $entries | ForEach-Object {
+                $key = if ($isPSCustomObj) { $_.Name } else { $_.Key }
+                '<TR><TD PORT="{0}" BGCOLOR="{1}" ALIGN="{2}" colspan="1"><FONT POINT-SIZE="{3}">{4}: {5}</FONT></TD></TR>' -f $key, $CellBackgroundColor, $Align, $FontSize, $key, $_.Value
             }
         }
     }
 
-    # Determine FontBold based on NoFontBold switch
-    if ($NoFontBold) {
-        $FontBold = $false
-    } else {
-        $FontBold = $true
-    }
+    $FontBold = -not $NoFontBold
 
     if (-not $LabelName) {
         $LabelName = $Name
     }
 
-    # Format the name with the specified font properties
-    $FormattedName = Format-HtmlFontProperty -Text $LabelName -FontSize $FontSize -FontColor $FontColor -FontBold:$FontBold -FontItalic:$FontItalic -FontUnderline:$FontUnderline -FontName $FontName -FontSubscript:$FontSubscript -FontSuperscript:$FontSuperscript -FontStrikeThrough:$FontStrikeThrough -FontOverline:$FontOverline
+    $fontParams = @{
+        Text             = $LabelName
+        FontSize         = $FontSize
+        FontColor        = $FontColor
+        FontBold         = $FontBold
+        FontItalic       = $FontItalic
+        FontUnderline    = $FontUnderline
+        FontName         = $FontName
+        FontSubscript    = $FontSubscript
+        FontSuperscript  = $FontSuperscript
+        FontStrikeThrough = $FontStrikeThrough
+        FontOverline     = $FontOverline
+    }
+    $FormattedName = Format-HtmlFontProperty @fontParams
 
+    $tableParams = @{
+        Port                 = $Port
+        TableStyle           = $TableStyle
+        TableBorderColor     = $TableBorderColor
+        TableBorder          = $TableBorder
+        CellBorder           = $CellBorder
+        CellSpacing          = $CellSpacing
+        CellPadding          = $CellPadding
+        TableBackgroundColor = $TableBackgroundColor
+    }
     if ($IconDebug) {
         if ($ICON -ne 'NoIcon') {
             $TRContent = '<TR><TD bgcolor="#FFCCCC" ALIGN="{0}" {1}><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD></TR><TR><TD bgcolor="{6}" ALIGN="{0}">{7}</TD></TR>{8}' -f $Align, $TDProperties, $FontName, $FontColor, $FontSize, $ICON, $CellBackgroundColor, $FormattedName, $TRAditionalInfo
-
-            $HTML = Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor 'red' -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent
-
-            Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
         } else {
             $TRContent = '<TR><TD ALIGN="{0}" {1}></TD></TR><TR><TD bgcolor="{2}" ALIGN="{0}">{3}</TD></TR>{4}' -f $Align, $TDProperties, $CellBackgroundColor, $FormattedName, $TRAditionalInfo
-
-            $HTML = Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor 'red' -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent
-
-            Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
         }
+        $HTML = Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor 'red' -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent
     } else {
         if ($ICON -ne 'NoIcon') {
             if ($ImageSize) {
                 $TRContent = '<TR><TD ALIGN="{0}" FIXEDSIZE="true" WIDTH="{1}" HEIGHT="{2}" {3}><IMG SRC="{4}"/></TD></TR><TR><TD BGCOLOR="{5}" ALIGN="{0}">{6}</TD></TR>{7}' -f $Align, $ImageSize.Width, $ImageSize.Height, $TDProperties, $ICON, $CellBackgroundColor, $FormattedName, $TRAditionalInfo
-
-                $HTML = Format-HtmlTable -Port $Port -TableStyle $TableStyle -Tableborder $TableBorder -TableBorderColor $TableBorderColor -TableRowContent $TRContent -CellBorder $CellBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableBackgroundColor $TableBackgroundColor
-
-                Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
             } else {
                 $TRContent = '<TR><TD ALIGN="{0}" {1}><img src="{2}"/></TD></TR><TR><TD bgcolor="{3}" ALIGN="{0}">{4}</TD></TR>{5}' -f $Align, $TDProperties, $ICON, $CellBackgroundColor, $FormattedName, $TRAditionalInfo
-
-                $HTML = Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor $TableBorderColor -TableRowContent $TRContent -TableBorder $TableBorder -CellBorder $CellBorder -CellSpacing $CellSpacing -CellPadding $CellPadding -TableBackgroundColor $TableBackgroundColor
-
-                Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
             }
         } else {
             $TRContent = '<TD ALIGN="{0}" {1}></TD></TR><TR><TD bgcolor="{2}" ALIGN="{0}">{3}</TD></TR>{4}' -f $Align, $TDProperties, $CellBackgroundColor, $FormattedName, $TRAditionalInfo
-
-            $HTML = Format-HtmlTable -Port $Port -TableStyle $TableStyle -TableBorderColor $TableBorderColor -TableRowContent $TRContent -TableBackgroundColor $TableBackgroundColor -TableBorder $TableBorder -CellBorder $CellBorder -CellSpacing $CellSpacing -CellPadding $CellPadding
-
-            Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
         }
+        $HTML = Format-HtmlTable @tableParams -TableRowContent $TRContent
     }
+    Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
 
 }

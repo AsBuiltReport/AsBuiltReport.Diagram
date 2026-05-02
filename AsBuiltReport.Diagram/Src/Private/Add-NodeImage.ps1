@@ -173,6 +173,7 @@ function Add-NodeImage {
         Set-ImageOpacity -SourceImageFilePath $sourcePath -OutputImageFilePath $IconSrc -Opacity $ImageOpacityPercent | Out-Null
     }
 
+    $ImageSize = $null
     if ($ImageSizePercent -lt 100) {
         if (-not $IconPath) {
             throw 'IconPath is required when ImageSizePercent is less than 100.'
@@ -182,26 +183,22 @@ function Add-NodeImage {
 
     if ($IconDebug) {
         $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" colspan="1">{1}</TD></TR>' -f 'SOLID', $ICON
-
-        $HTML = Format-HtmlTable -TableBackgroundColor '#FFCCCC' -TableBorderColor 'red' -CellBorder 0 -CellSpacing $CellSpacing -CellPadding $CellPadding -TableRowContent $TRContent
-
-        Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
+        $HTML = Format-HtmlTable -TableBackgroundColor '#FFCCCC' -TableBorderColor 'red' -CellBorder 0 -CellSpacing 0 -CellPadding 0 -TableRowContent $TRContent
     } else {
-        if ($ImageSize) {
-
-            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" fixedsize="true" width="{1}" height="{2}" colspan="1"><img src="{3}"/></TD></TR>' -f $TableBorderStyle, $ImageSize.Width, $ImageSize.Height, $IconSrc
-
-            $HTML = Format-HtmlTable -TableStyle $TableBorderStyle -TableBorder $TableBorder -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
-
-            Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
-        } else {
-
-            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" colspan="1"><img src="{1}"/></TD></TR>' -f $TableBorderStyle, $IconSrc
-
-            $HTML = Format-HtmlTable -TableStyle $TableBorderStyle -TableBorder $TableBorder -TableBackgroundColor $TableBackgroundColor -TableBorderColor $TableBorderColor -CellBorder 0 -TableRowContent $TRContent
-
-            Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
+        $tableParams = @{
+            TableStyle           = $TableBorderStyle
+            TableBorder          = $TableBorder
+            TableBackgroundColor = $TableBackgroundColor
+            TableBorderColor     = $TableBorderColor
+            CellBorder           = 0
         }
+        if ($ImageSize) {
+            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" fixedsize="true" width="{1}" height="{2}" colspan="1"><img src="{3}"/></TD></TR>' -f $TableBorderStyle, $ImageSize.Width, $ImageSize.Height, $IconSrc
+        } else {
+            $TRContent = '<TR><TD STYLE="{0}" ALIGN="Center" colspan="1"><img src="{1}"/></TD></TR>' -f $TableBorderStyle, $IconSrc
+        }
+        $HTML = Format-HtmlTable @tableParams -TableRowContent $TRContent
     }
+    Format-NodeObject -Name $Name -HtmlObject $HTML -GraphvizAttributes $GraphvizAttributes -AsHtml:(-not $NodeObject)
 
 }
