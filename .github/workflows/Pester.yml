@@ -38,12 +38,9 @@ jobs:
               run: dotnet restore ./Sources/DiaConvertImageToPDF
               if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
-            - name: Set environment variable for SixLaborsLicenseKey
+            - name: Build the library PWSH
               env:
                   SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
-              run: echo $SixLaborsLicenseKey
-
-            - name: Build the library PWSH
               run: dotnet publish ./Sources/Diagrammer -c Release
               if: matrix.shell == 'pwsh'
             - name: Copy the library PWSH
