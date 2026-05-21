@@ -142,38 +142,23 @@ namespace AsBuiltReportDiagram
                     fontColor = System.Drawing.Color.Red;
                 }
 
+
+
+                // Parse font color
+                var color = Color.FromRgba(fontColor.R, fontColor.G, fontColor.B, fontColor.A);
+                var rgba = color.ToPixel<Rgba32>();
                 float normalizedOpacity = NormalizeOpacity(opacity);
+                byte alpha = (byte)Math.Round(255f * normalizedOpacity, MidpointRounding.AwayFromZero);
+                var colorWithOpacity = Color.FromRgba(rgba.R, rgba.G, rgba.B, alpha);
 
 
                 // Calculate center position
                 var textOptions = new TextOptions(font);
-                var textSize = TextMeasurer.Measure(watermarkText, textOptions);
-                float x = (image.Width - textSize.Bounds.Width) / 2;
-                float y = (image.Height - textSize.Bounds.Height) / 2;
-                PointF centerPoint = new(x + textSize.Bounds.Width / 2, y + textSize.Bounds.Height / 2);
+                var textSize = TextMeasurer.MeasureSize(watermarkText, textOptions);
+                float x = (image.Width - textSize.Width) / 2;
+                float y = (image.Height - textSize.Height) / 2;
 
-                // Use RichTextOptions for text placement
-                var richTextOptions = new RichTextOptions(font)
-                {
-                    Origin = centerPoint
-                };
-
-                // Create 4x4 transformation matrix for rotation
-                System.Numerics.Matrix3x2 rotationMatrix = Matrix3x2Extensions.CreateRotationDegrees(-45, centerPoint);
-                System.Numerics.Matrix4x4 transformMatrix = new(
-                    rotationMatrix.M11, rotationMatrix.M12, 0, 0,
-                    rotationMatrix.M21, rotationMatrix.M22, 0, 0,
-                    0, 0, 1, 0,
-                    rotationMatrix.M31, rotationMatrix.M32, 0, 1
-                );
-
-                var drawingOptions = new DrawingOptions
-                {
-                    Transform = transformMatrix
-                };
-
-                image.Mutate(ctx => ctx.Paint(drawingOptions,
-                    canvas => canvas.DrawText(richTextOptions, watermarkText, Brushes.Solid(Color.Red), pen: null)));
+                image.Mutate(ctx => ctx.DrawText(new DrawingOptions() { Transform = Matrix3x2Extensions.CreateRotationDegrees(-45, new PointF(x + textSize.Width / 2, y + textSize.Height / 2)) }, watermarkText, font, colorWithOpacity, new SixLabors.ImageSharp.PointF(x, y)));
 
                 image.Save(outputPath);
                 return true;

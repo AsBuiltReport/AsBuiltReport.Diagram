@@ -39,8 +39,6 @@ jobs:
               if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
             - name: Build the library PWSH
-              env:
-                  SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
               run: dotnet publish ./Sources/Diagrammer -c Release
               if: matrix.shell == 'pwsh'
             - name: Copy the library PWSH
