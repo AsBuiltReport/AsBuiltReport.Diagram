@@ -77,4 +77,4 @@ jobs:
               with:
                   name: test-results-${{ matrix.os }}-${{ matrix.shell }}
                   path: Tests/testResults.xml
-                  retention-days: 10
+                  retention-days: 30
