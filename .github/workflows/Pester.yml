@@ -41,7 +41,7 @@ jobs:
             - name: Set environment variable for SixLaborsLicenseKey
               env:
                   SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
-              run: echo "The value is $SixLaborsLicenseKey"
+              run: echo $SixLaborsLicenseKey
 
             - name: Build the library PWSH
               run: dotnet publish ./Sources/Diagrammer -c Release
