@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Version>1.0.8</Version>
-        <SixLaborsLicenseKey>$(SIXLABORSLICENSEKEY)</SixLaborsLicenseKey>
+        <SixLaborsLicenseKey>$(SixLaborsLicenseKey)</SixLaborsLicenseKey>
     </PropertyGroup>
 
     <ItemGroup>
