@@ -41,6 +41,7 @@ jobs:
             - name: Build the library PWSH
               env:
                   SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
+                  run: echo "The value is $SixLaborsLicenseKey"
               run: dotnet publish ./Sources/Diagrammer -c Release
               if: matrix.shell == 'pwsh'
             - name: Copy the library PWSH
