@@ -30,10 +30,6 @@ jobs:
               uses: actions/setup-dotnet@v5
               with:
                   dotnet-version: "8.0.x"
-            - name: Set environment variable for SixLaborsLicenseKey
-              env:
-                  SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
-              run: echo "The value is $SixLaborsLicenseKey"
             - name: Restore dependencies Diagrammer
               run: dotnet restore ./Sources/Diagrammer
               if: matrix.shell == 'pwsh'
@@ -43,6 +39,8 @@ jobs:
               if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
             - name: Build the library PWSH
+              env:
+                  SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
               run: dotnet publish ./Sources/Diagrammer -c Release
               if: matrix.shell == 'pwsh'
             - name: Copy the library PWSH
