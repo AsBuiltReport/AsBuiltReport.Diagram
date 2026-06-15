@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Improve the name resolutions in Get-AbrNodeIP cmdlet
 
+### :wrench: Fixed
+
+- Fix missing TableBorderColor parameter in Add-HtmlSignatureTable calls in New-AbrDiagram function
+
 ## [1.0.7] - 2026-05-02
 
 ### :arrows_clockwise: Changed

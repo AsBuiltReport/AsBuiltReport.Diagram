@@ -72,6 +72,9 @@ function New-AbrDiagram {
     .PARAMETER SignatureLogoName
         Name (key in $ImagesObj) to use as the signature logo.
 
+    .PARAMETER SignatureTableBorderColor
+        Border color for the signature table (RGB hex or color name). Default: '#000000'.
+
     .PARAMETER Logo
         Path to a custom main diagram logo file.
 
@@ -340,6 +343,13 @@ function New-AbrDiagram {
 
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Please provide the signature table border color in RGB format (Ex: #FFFFFF) or color string'
+        )]
+        [ValidateNotNullOrEmpty()]
+        [string] $SignatureTableBorderColor = '#000000',
+
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'Please provide the path to the custom logo'
         )]
         [ValidateScript( {
@@ -599,9 +609,9 @@ function New-AbrDiagram {
             if ($Signature) {
                 Write-Verbose -Message 'Generating diagram signature'
                 if ($CustomSignatureLogo) {
-                    $Signature = (Add-HtmlSignatureTable -ImagesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo $CustomSignatureLogo -IconDebug $IconDebug)
+                    $Signature = (Add-HtmlSignatureTable -ImagesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo $CustomSignatureLogo -IconDebug $IconDebug -TableBorderColor $SignatureTableBorderColor)
                 } else {
-                    $Signature = (Add-HtmlSignatureTable -ImagesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -IconDebug $IconDebug)
+                    $Signature = (Add-HtmlSignatureTable -ImaSignatureTableBorderColorgesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -IconDebug $IconDebug -TableBorderColor $SignatureTableBorderColor)
                 }
             } else {
                 Write-Verbose -Message 'No diagram signature specified'
