@@ -129,6 +129,9 @@ function New-AbrDiagram {
     .PARAMETER MainGraphAttributes
         Hashtable of graph attributes to override or augment defaults (examples: fontname, fontcolor, imagepath, style, nodesep, ranksep, bgcolor).
 
+    .PARAMETER Dpi
+        Raster output resolution in dots per inch for PNG/JPG formats (Ex: 300). Default: 96 (Graphviz default).
+
     .PARAMETER WaterMarkColor
         Color used for watermark text. Default: 'DarkGray'.
 
@@ -514,7 +517,14 @@ function New-AbrDiagram {
             HelpMessage = 'Set the image size in percent (100% is default)'
         )]
         [ValidateRange(1, 100)]
-        [int] $MainGraphLogoSizePercent = 100
+        [int] $MainGraphLogoSizePercent = 100,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Allow to set the raster output resolution in dots per inch (Ex: 300). Default: 96 (Graphviz default)'
+        )]
+        [ValidateRange(72, 600)]
+        [int] $Dpi
     )
 
     begin {
@@ -592,6 +602,10 @@ function New-AbrDiagram {
 
         if ($MainGraphSize) {
             $MainGraphAttributes['size'] = $MainGraphSize
+        }
+
+        if ($Dpi) {
+            $MainGraphAttributes['dpi'] = $Dpi
         }
     }
 
