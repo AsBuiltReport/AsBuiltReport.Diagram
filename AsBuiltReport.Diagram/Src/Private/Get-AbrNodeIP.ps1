@@ -26,17 +26,21 @@ function Get-AbrNodeIP {
     )
     process {
         try {
-            try {
-                if ('InterNetwork' -in [System.Net.Dns]::GetHostAddresses($Hostname).AddressFamily) {
-                    $IPADDR = ([System.Net.Dns]::GetHostAddresses($Hostname) | Where-Object { $_.AddressFamily -eq 'InterNetwork' })[0].IPAddressToString
-                } elseif ('InterNetworkV6' -in [System.Net.Dns]::GetHostAddresses($Hostname).AddressFamily) {
-                    $IPADDR = ([System.Net.Dns]::GetHostAddresses($Hostname) | Where-Object { $_.AddressFamily -eq 'InterNetworkV6' })[0].IPAddressToString
-                } else {
+            if ([string]::IsNullOrEmpty($Hostname)) {
+                $IPADDR = $Null
+            } else {
+                try {
+                    if ('InterNetwork' -in [System.Net.Dns]::GetHostAddresses($Hostname).AddressFamily) {
+                        $IPADDR = ([System.Net.Dns]::GetHostAddresses($Hostname) | Where-Object { $_.AddressFamily -eq 'InterNetwork' })[0].IPAddressToString
+                    } elseif ('InterNetworkV6' -in [System.Net.Dns]::GetHostAddresses($Hostname).AddressFamily) {
+                        $IPADDR = ([System.Net.Dns]::GetHostAddresses($Hostname) | Where-Object { $_.AddressFamily -eq 'InterNetworkV6' })[0].IPAddressToString
+                    } else {
+                        $IPADDR = $Null
+                    }
+                } catch {
+                    Write-Verbose -Message "Unable to resolve Hostname Address: $Hostname"
                     $IPADDR = $Null
                 }
-            } catch {
-                Write-Verbose -Message "Unable to resolve Hostname Address: $Hostname"
-                $IPADDR = $Null
             }
             $NodeIP = switch ([string]::IsNullOrEmpty($IPADDR)) {
                 $true { 'Unknown' }
