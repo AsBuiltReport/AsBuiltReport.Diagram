@@ -114,6 +114,9 @@ function New-AbrDiagram {
     .PARAMETER MainDiagramLabel
         Main label/title displayed at the top of the diagram.
 
+    .PARAMETER MainDiagramLabelTableBackgroundColor
+        Main label/title displayed at the top of the diagram.
+
     .PARAMETER MainDiagramLabelFontsize
         Font size for the main diagram label. Default: 24.
 
@@ -350,6 +353,13 @@ function New-AbrDiagram {
 
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Please provide the signature table border color in RGB format (Ex: #FFFFFF) or color string'
+        )]
+        [ValidateNotNullOrEmpty()]
+        [string] $SignatureTableBackgroundColor = '#000000',
+
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'Please provide the path to the custom logo'
         )]
         [ValidateScript( {
@@ -436,6 +446,12 @@ function New-AbrDiagram {
             HelpMessage = 'Set the Main Label used at the top of the diagram'
         )]
         [string] $MainDiagramLabel,
+
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Set the Main Label Table Background color used at the top of the diagram'
+        )]
+        [string] $MainDiagramLabelTableBackgroundColor = '#ffffff',
 
         [Parameter(
             Mandatory = $false,
@@ -609,9 +625,9 @@ function New-AbrDiagram {
             if ($Signature) {
                 Write-Verbose -Message 'Generating diagram signature'
                 if ($CustomSignatureLogo) {
-                    $Signature = (Add-HtmlSignatureTable -ImagesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo $CustomSignatureLogo -IconDebug $IconDebug -TableBorderColor $SignatureTableBorderColor)
+                    $Signature = (Add-HtmlSignatureTable -ImagesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo $CustomSignatureLogo -IconDebug $IconDebug -TableBorderColor $SignatureTableBorderColor -TableBackgroundColor $SignatureTableBackgroundColor -CellBackgroundColor $SignatureTableBackgroundColor -FontColor $Fontcolor)
                 } else {
-                    $Signature = (Add-HtmlSignatureTable -ImaSignatureTableBorderColorgesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -IconDebug $IconDebug -TableBorderColor $SignatureTableBorderColor)
+                    $Signature = (Add-HtmlSignatureTable -ImagesObj $ImagesObj -Rows "Author: $($AuthorName)", "Company: $($CompanyName)" -TableBorder 2 -CellBorder 0 -Align 'left' -Logo 'Logo_Footer' -IconDebug $IconDebug -TableBorderColor $SignatureTableBorderColor -TableBackgroundColor $SignatureTableBackgroundColor -CellBackgroundColor $SignatureTableBackgroundColor -FontColor $Fontcolor)
                 }
             } else {
                 Write-Verbose -Message 'No diagram signature specified'
@@ -632,7 +648,7 @@ function New-AbrDiagram {
                 if ($DisableMainDiagramLogo) {
                     $FormatedMainLogo = ''
                 } else {
-                    $FormatedMainLogo = (Add-HtmlLabel -ImagesObj $ImagesObj -Label $MainDiagramLabel -IconType $CustomLogo -IconDebug $IconDebug -ImageSizePercent $MainGraphLogoSizePercent -Fontsize $MainDiagramLabelFontsize -FontColor $MainDiagramLabelFontColor -FontName $MainDiagramLabelFontname -FontBold:$MainDiagramLabelFontBold -FontItalic:$MainDiagramLabelFontItalic -FontUnderline:$MainDiagramLabelFontUnderline -FontOverline:$MainDiagramLabelFontOverline -FontSubscript:$MainDiagramLabelFontSubscript -FontSuperscript:$MainDiagramLabelFontSuperscript -FontStrikeThrough:$MainDiagramLabelFontStrikeThrough -CellSpacing 0 -IconPath $IconPath)
+                    $FormatedMainLogo = (Add-HtmlLabel -ImagesObj $ImagesObj -Label $MainDiagramLabel -TableBackgroundColor $MainDiagramLabelTableBackgroundColor -CellBackgroundColor $MainDiagramLabelTableBackgroundColor -IconType $CustomLogo -IconDebug $IconDebug -ImageSizePercent $MainGraphLogoSizePercent -Fontsize $MainDiagramLabelFontsize -FontColor $MainDiagramLabelFontColor -FontName $MainDiagramLabelFontname -FontBold:$MainDiagramLabelFontBold -FontItalic:$MainDiagramLabelFontItalic -FontUnderline:$MainDiagramLabelFontUnderline -FontOverline:$MainDiagramLabelFontOverline -FontSubscript:$MainDiagramLabelFontSubscript -FontSuperscript:$MainDiagramLabelFontSuperscript -FontStrikeThrough:$MainDiagramLabelFontStrikeThrough -CellSpacing 0 -IconPath $IconPath)
                 }
 
                 SubGraph MainGraph -Attributes @{Label = $FormatedMainLogo; fontsize = 24; penwidth = 0; labelloc = 't'; labeljust = 'c' } {

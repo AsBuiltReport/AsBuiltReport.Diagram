@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### :wrench: Fixed
 
 - Fix missing TableBorderColor parameter in Add-HtmlSignatureTable calls in New-AbrDiagram function
+- Fix missing TableBorderColor parameter in Main Logo section calls in New-AbrDiagram function
 
 ## [1.0.7] - 2026-05-02
 
