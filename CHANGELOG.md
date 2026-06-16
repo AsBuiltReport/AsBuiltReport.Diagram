@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### :rocket: Added
 
 - Add `-Dpi` parameter to `New-AbrDiagram`, allowing the raster output resolution (PNG/JPG) to be set directly via the Graphviz `dpi` graph attribute instead of being fixed at the Graphviz default of 96
+- Add `-IconWidth`/`-IconHeight` parameters to `Add-HtmlNodeTable`, allowing the rendered icon size in a node's HTML table to be set explicitly instead of being derived solely from the source image's pixel dimensions
 
 ## [1.0.7] - 2026-05-02
 
