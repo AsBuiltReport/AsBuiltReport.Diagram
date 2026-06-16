@@ -451,7 +451,7 @@ function New-AbrDiagram {
         [string] $MainDiagramLabel,
 
         [Parameter(
-            Mandatory = $true,
+            Mandatory = $false,
             HelpMessage = 'Set the Main Label Table Background color used at the top of the diagram'
         )]
         [string] $MainDiagramLabelTableBackgroundColor = '#ffffff',
