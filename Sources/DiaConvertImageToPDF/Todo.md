@@ -1,2 +1,2 @@
-- [ ] Add support for Watermark in SVG output format to DiaConvertImageToPDF
-    - [ ] Use the Diagrammer c# package as a reference to add watermark support to SVG output format
+- [x] Add support for Watermark in SVG output format to DiaConvertImageToPDF
+    - [x] Use the Diagrammer c# package as a reference to add watermark support to SVG output format

@@ -120,6 +120,12 @@ function Add-HtmlNodeTable {
     .PARAMETER SubgraphIconHeight
         Allow to set a subgraph icon height.
 
+    .PARAMETER IconWidth
+        Allow to set the icon width. When combined with IconHeight, the icon's table cell is fixed to that size and the image is scaled to fit.
+
+    .PARAMETER IconHeight
+        Allow to set the icon height. When combined with IconWidth, the icon's table cell is fixed to that size and the image is scaled to fit.
+
     .PARAMETER TableBackgroundColor
         Allow to set a table background color (Hex format EX: #FFFFFF).
 
@@ -402,6 +408,18 @@ function Add-HtmlNodeTable {
 
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Allow to set the icon width'
+        )]
+        [string] $IconWidth,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Allow to set the icon height'
+        )]
+        [string] $IconHeight,
+
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'Allow to set a table background color'
         )]
         [string] $TableBackgroundColor = '#FFFFFF',
@@ -634,16 +652,17 @@ function Add-HtmlNodeTable {
                 }
             }
         } else {
+            $IconSizeAttr = if ($IconWidth -and $IconHeight) { ' fixedsize="true" width="{0}" height="{1}"' -f $IconWidth, $IconHeight } else { '' }
             if ($MultiIcon) {
                 while ($Number -ne $Group.Count) {
                     if ($Icon.Count -gt 1) {
                         foreach ($Element in $Group[$Number]) {
-                            $TDICON += '<TD ALIGN="{0}" colspan="1"><img src="{1}"/></TD>' -f $Align, $Icon[$iconNumber]
+                            $TDICON += '<TD ALIGN="{0}" colspan="1"{1}><img src="{2}"/></TD>' -f $Align, $IconSizeAttr, $Icon[$iconNumber]
                             $iconNumber++
                         }
                     } else {
                         foreach ($Element in $Group[$Number]) {
-                            $TDICON += '<TD ALIGN="{0}" colspan="1"><img src="{1}"/></TD>' -f $Align, $Icon
+                            $TDICON += '<TD ALIGN="{0}" colspan="1"{1}><img src="{2}"/></TD>' -f $Align, $IconSizeAttr, $Icon
                         }
                     }
                     $TR += '<TR>{0}</TR>' -f $TDICON
@@ -708,7 +727,7 @@ function Add-HtmlNodeTable {
             } else {
 
                 $TDICONMatch = if ($Icon.Count -eq 1) { $Icon } else { $Icon[0] }
-                $TDICON += '<TD ALIGN="{0}" colspan="{1}"><img src="{2}"/></TD>' -f $Align, $inputObject.Count, $TDICONMatch
+                $TDICON += '<TD ALIGN="{0}" colspan="{1}"{2}><img src="{3}"/></TD>' -f $Align, $inputObject.Count, $IconSizeAttr, $TDICONMatch
 
                 $TR += '<TR>{0}</TR>' -f $TDICON
 
