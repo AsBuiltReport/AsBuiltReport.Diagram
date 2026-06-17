@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.8] - Unreleased
+## [1.0.8] - 2026-06-16
 
 ### :toolbox: Added
 
@@ -14,12 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :arrows_clockwise: Changed
 
-- Improve the name resolutions in Get-AbrNodeIP cmdlet
+- Improve the name resolutions in `Get-AbrNodeIP` cmdlet
 
 ### :wrench: Fixed
 
-- Fix missing TableBorderColor parameter in Add-HtmlSignatureTable calls in New-AbrDiagram function
-- Fix missing TableBorderColor parameter in Main Logo section calls in New-AbrDiagram function
+- Fix missing TableBorderColor parameter in `Add-HtmlSignatureTable` calls in `New-AbrDiagram` function
+- Fix missing TableBorderColor parameter in Main Logo section calls in `New-AbrDiagram` function
 
 
 ## [1.0.7] - 2026-05-02
