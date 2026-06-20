@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### :arrows_clockwise: Changed
 
-- Update module version to v1.0.9
+- Bump module version v1.0.9
+- Update Graphviz binaries to v15.1.0
 
 ## [1.0.8] - 2026-06-16
 
