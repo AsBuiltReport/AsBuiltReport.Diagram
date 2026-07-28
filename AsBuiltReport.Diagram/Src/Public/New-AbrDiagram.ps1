@@ -675,7 +675,8 @@ function New-AbrDiagram {
         foreach ($OutputFormat in $Format) {
             #Export the Diagram
             if ($Graph) {
-                Export-AbrDiagram -GraphObj ($Graph | Select-String -Pattern '"\w+"\s\[label="";style="invis";shape="point";]' -NotMatch) -ErrorDebug $EnableErrorDebug -Format $OutputFormat -Filename "$Filename.$OutputFormat" -OutputFolderPath $OutputFolderPath -WaterMarkText $WaterMarkText -WaterMarkColor $WaterMarkColor -IconPath $IconPath -WaterMarkFontOpacity $WaterMarkFontOpacity
+                $FilteredGraph = $Graph | Select-String -Pattern '(?s)"?\w+"?\s+\[\s*label="";\s*shape="point";\s*style="invis";\s*\]' -NotMatch
+                Export-AbrDiagram -GraphObj $FilteredGraph -ErrorDebug $EnableErrorDebug -Format $OutputFormat -Filename "$Filename.$OutputFormat" -OutputFolderPath $OutputFolderPath -WaterMarkText $WaterMarkText -WaterMarkColor $WaterMarkColor -IconPath $IconPath -WaterMarkFontOpacity $WaterMarkFontOpacity
             } else {
                 Write-Verbose -Message 'No Graph object found. Disabling diagram section'
             }

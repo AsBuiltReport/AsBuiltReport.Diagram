@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump module version v1.0.9
 - Update Graphviz binaries to v15.1.0
 
+### :wrench: Fixed
+
+- Fix for hidden nodes in the diagram output interfering with the layout of the graph, causing some nodes to be misplaced or not displayed correctly
+
 ## [1.0.8] - 2026-06-16
 
 ### :toolbox: Added
