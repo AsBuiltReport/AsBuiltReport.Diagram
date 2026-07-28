@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "PowerShell: Module Interactive Session",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "Import-Module -Force /home/rebelinux/.local/share/powershell/Modules/AsBuiltReport.Diagram/AsBuiltReport.Diagram.psd1"
+        },
+        {
             "name": "PowerShell: Interactive Session",
             "type": "PowerShell",
             "request": "launch"
