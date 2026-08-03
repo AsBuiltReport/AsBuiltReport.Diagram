@@ -151,7 +151,7 @@ function New-AbrDiagram {
         Scale percent for the main logo when rendered in the diagram. Range: 1-100. Default: 100.
 
     .NOTES
-        Version:        0.2.36
+        Version:        1.0.10
         Author(s):      Jonathan Colon
         Bluesky:        @jcolonfpr.bsky.social
         Github:         rebelinux
