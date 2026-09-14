@@ -83,6 +83,8 @@ function Add-HtmlNodeTable {
 
     .PARAMETER MultiIcon
         Allow to draw an icon for each table element. If not set, the table shares a single icon.
+        Each element's icon cell gets its own PORT="Icon_{Element}" (in addition to the label cell's existing
+        PORT="{Element}"), so an edge can be routed onto the icon specifically via Add-NodeEdge's -HeadPort/-TailPort.
 
     .PARAMETER ImagesObj
         Hashtable with the IconName to IconPath translation.
@@ -91,7 +93,12 @@ function Add-HtmlNodeTable {
         Enable the icon debug mode.
 
     .PARAMETER AditionalInfo
-        Hashtable used to add more information to the table elements.
+        Hashtable (or array of PSCustomObject/hashtable, one per inputObject element) used to add more
+        information to the table elements.
+        When used with -MultiIcon, each key's value must be an array with one entry per inputObject
+        element (e.g. @{ 'Address Space' = @('10.3.0.0/16'); 'Role' = @('Spoke') } for a single-node
+        group) - this is how a distinct value per node is supplied. A scalar (non-array) value is only
+        appropriate for the non-MultiIcon, single-node case.
 
     .PARAMETER Subgraph
         Create the table that can be used as a Subgraph replacement with the hashtable inside it.
@@ -473,8 +480,18 @@ function Add-HtmlNodeTable {
             $AditionalInfo.keys | Select-Object -Unique
         }
 
+        # Tracks whether any AditionalInfo value is array-typed (the shape MultiIcon uses to carry
+        # one value per group element), so rendering below can route array-valued rows through the
+        # Split-ArrayElement branch instead of the single-scalar-value branches, which stringify a
+        # wrapped array as its .NET type name (e.g. "System.Object[]") rather than its contents.
+        $AditionalInfoHasArrayValues = $false
+
         foreach ($RepoObj in $Filter) {
-            $RowsGroupHTs += @{ $RepoObj = $AditionalInfo.$RepoObj }
+            $RepoObjValue = $AditionalInfo.$RepoObj
+            if ($RepoObjValue -is [array]) {
+                $AditionalInfoHasArrayValues = $true
+            }
+            $RowsGroupHTs += @{ $RepoObj = $RepoObjValue }
         }
     }
 
@@ -528,7 +545,7 @@ function Add-HtmlNodeTable {
                     $TDIconNumber = 0
                     foreach ($Element in $Group[$Number]) {
                         $TDIconMatch = if ($Icon.Count -eq 1) { $Icon } else { $iconGroup[$Number][$TDIconNumber] }
-                        $TDICON += '<TD bgcolor="#FFCCCC" ALIGN="{0}" colspan="1"><FONT FACE="{1}" Color="{2}" POINT-SIZE="{3}">{4}</FONT></TD>' -f $Align, $FontName, $FontColor, $FontSize, $TDIconMatch
+                        $TDICON += '<TD PORT="Icon_{0}" bgcolor="#FFCCCC" ALIGN="{1}" colspan="1"><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD>' -f $Element, $Align, $FontName, $FontColor, $FontSize, $TDIconMatch
 
                         $TDIconNumber++
                     }
@@ -544,7 +561,7 @@ function Add-HtmlNodeTable {
                     $TDName = ''
 
                     if ($AditionalInfo) {
-                        if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
+                        if ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
                             #
@@ -554,7 +571,7 @@ function Add-HtmlNodeTable {
 
                             $TR += '<TR>{0}</TR>' -f $TDInfo
                             $TDInfo = ''
-                        } elseif (($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
+                        } elseif ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Multiple key and each key have a Single Values
                             #       Keys:        Values:
                             #       Path:          C:\Backup
@@ -574,7 +591,7 @@ function Add-HtmlNodeTable {
                             #  Keys: Path - Values: {C:\Backup, F:\Backup}
                             #
                             foreach ($RowsGroupHT in $RowsGroupHTs) {
-                                $RowsGroup = Split-ArrayElement -inArray ($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
+                                $RowsGroup = Split-ArrayElement -inArray @($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
                                 foreach ($Element in $RowsGroup[$Number]) {
                                     $TDInfo += '<TD ALIGN="{0}" colspan="1"><FONT POINT-SIZE="{1}">{2}: {3}</FONT></TD>' -f $Align, $FontSize, [string]$RowsGroupHT.Keys, [string]$Element
                                 }
@@ -610,7 +627,7 @@ function Add-HtmlNodeTable {
                     $TDName = ''
 
                     if ($AditionalInfo) {
-                        if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
+                        if ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
                             #
@@ -620,7 +637,7 @@ function Add-HtmlNodeTable {
 
                             $TR += '<TR>{0}</TR>' -f $TDInfo
                             $TDInfo = ''
-                        } elseif (($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
+                        } elseif ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Multiple key and each key have a Single Values
                             #       Keys:        Values:
                             #       Path:          C:\Backup
@@ -639,7 +656,7 @@ function Add-HtmlNodeTable {
                             #  Keys: Path - Values: {C:\Backup, F:\Backup}
                             #
                             foreach ($RowsGroupHT in $RowsGroupHTs) {
-                                $RowsGroup = Split-ArrayElement -inArray ($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
+                                $RowsGroup = Split-ArrayElement -inArray @($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
                                 foreach ($Element in $RowsGroup[$Number]) {
                                     $TDInfo += '<TD ALIGN="{0}" colspan="1"><FONT POINT-SIZE="{1}">{2}: {3}</FONT></TD>' -f $Align, $FontSize, [string]$RowsGroupHT.Keys, [string]$Element
                                 }
@@ -657,12 +674,12 @@ function Add-HtmlNodeTable {
                 while ($Number -ne $Group.Count) {
                     if ($Icon.Count -gt 1) {
                         foreach ($Element in $Group[$Number]) {
-                            $TDICON += '<TD ALIGN="{0}" colspan="1"{1}><img src="{2}"/></TD>' -f $Align, $IconSizeAttr, $Icon[$iconNumber]
+                            $TDICON += '<TD PORT="Icon_{0}" ALIGN="{1}" colspan="1"{2}><img src="{3}"/></TD>' -f $Element, $Align, $IconSizeAttr, $Icon[$iconNumber]
                             $iconNumber++
                         }
                     } else {
                         foreach ($Element in $Group[$Number]) {
-                            $TDICON += '<TD ALIGN="{0}" colspan="1"{1}><img src="{2}"/></TD>' -f $Align, $IconSizeAttr, $Icon
+                            $TDICON += '<TD PORT="Icon_{0}" ALIGN="{1}" colspan="1"{2}><img src="{3}"/></TD>' -f $Element, $Align, $IconSizeAttr, $Icon
                         }
                     }
                     $TR += '<TR>{0}</TR>' -f $TDICON
@@ -682,7 +699,7 @@ function Add-HtmlNodeTable {
                     $TDName = ''
 
                     if ($AditionalInfo) {
-                        if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
+                        if ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
                             #
@@ -692,7 +709,7 @@ function Add-HtmlNodeTable {
 
                             $TR += '<TR>{0}</TR>' -f $TDInfo
                             $TDInfo = ''
-                        } elseif (($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
+                        } elseif ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Multiple key and each key have a Single Values
                             #       Keys:          Values:
                             #       Path:          C:\Backup
@@ -712,7 +729,7 @@ function Add-HtmlNodeTable {
                             #  Keys: Path - Values: {C:\Backup, F:\Backup}
                             #
                             foreach ($RowsGroupHT in $RowsGroupHTs) {
-                                $RowsGroup = Split-ArrayElement -inArray ($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
+                                $RowsGroup = Split-ArrayElement -inArray @($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
                                 foreach ($Element in $RowsGroup[$Number]) {
                                     $TDInfo += '<TD ALIGN="{0}" colspan="1"><FONT POINT-SIZE="{1}">{2}: {3}</FONT></TD>' -f $Align, $FontSize, [string]$RowsGroupHT.Keys, [string]$Element
                                 }
@@ -746,7 +763,7 @@ function Add-HtmlNodeTable {
                     $TDName = ''
 
                     if ($AditionalInfo) {
-                        if (($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
+                        if ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -le 1 ) -and ($RowsGroupHTs.Values.Count -le 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Single key with Single Values
                             #  Keys: Path - Values: C:\Backup
                             #
@@ -756,7 +773,7 @@ function Add-HtmlNodeTable {
 
                             $TR += '<TR>{0}</TR>' -f $TDInfo
                             $TDInfo = ''
-                        } elseif (($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
+                        } elseif ((-not $AditionalInfoHasArrayValues) -and ($RowsGroupHTs.Keys.Count -gt 1) -and ($RowsGroupHTs.Values.Count -gt 1) -and ($inputObject.Count -le 1)) {
                             # $RowsGroupHT is Multiple key and each key have a Single Values
                             #  Keys:        Values:
                             #       Path:          C:\Backup
@@ -776,7 +793,7 @@ function Add-HtmlNodeTable {
                             #  Keys: Path - Values: {C:\Backup, F:\Backup}
                             #
                             foreach ($RowsGroupHT in $RowsGroupHTs) {
-                                $RowsGroup = Split-ArrayElement -inArray ($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
+                                $RowsGroup = Split-ArrayElement -inArray @($RowsGroupHT.GetEnumerator() | ForEach-Object { $_.value }) -size $columnSize
                                 foreach ($Element in $RowsGroup[$Number]) {
                                     $TDInfo += '<TD ALIGN="{0}" colspan="1"><FONT POINT-SIZE="{1}">{2}: {3}</FONT></TD>' -f $Align, $FontSize, [string]$RowsGroupHT.Keys, [string]$Element
                                 }

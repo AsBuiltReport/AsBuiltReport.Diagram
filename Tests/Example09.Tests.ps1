@@ -20,7 +20,9 @@ Describe Example09 {
             Path = 'C:\logo.png'
             Format = @('dot')
         }
-        $RunFile = & $ProjectRoot\Examples\Example09.ps1 @PassParamsDot
+        $RunOutput = & $ProjectRoot\Examples\Example09.ps1 @PassParamsDot 2>&1
+        $RunFile = $RunOutput | Where-Object { $_ -is [System.IO.FileInfo] }
+        $RunWarnings = ($RunOutput | Where-Object { $_ -is [System.Management.Automation.ErrorRecord] } | ForEach-Object { $_.ToString() }) -join "`n"
     }
 
     Context 'Format Parameter Tests' {
@@ -127,6 +129,27 @@ Describe Example09 {
             $ExpectedText = '"App-Server-01" -> "DB-Server-01"'
 
             $DotContent | Should -Match $ExpectedText
+        }
+        It 'Should match App-Server-01 -> Web-Server-Farm edge' {
+            $DotFile = ($RunFile).FullName
+            $DotContent = Get-Content -Path $DotFile -Raw
+            $ExpectedText = '"App-Server-01" -> "Web-Server-Farm"'
+
+            $DotContent | Should -Match $ExpectedText
+        }
+        It 'Should route the health-check edge onto the Web-Server-02 icon port' {
+            $DotFile = ($RunFile).FullName
+            $DotContent = Get-Content -Path $DotFile -Raw
+            # Note: Graphviz's dot.exe layout engine canonicalizes the headport="Icon_Web-Server-02"
+            # attribute set by -HeadPort into inline "Node":"port" syntax on the edge itself when it
+            # writes the laid-out graph back to DOT text (unlike Add-NodeEdge's raw, non-laid-out
+            # string output, which retains the headport="..." attribute form).
+            $ExpectedText = '"Web-Server-Farm":"Icon_Web-Server-02"'
+
+            $DotContent | Should -Match $ExpectedText
+        }
+        It 'Should not warn that the Web-Server-02 icon port is unrecognized' {
+            $RunWarnings | Should -Not -Match 'port Icon_Web-Server-02 unrecognized'
         }
     }
 }
