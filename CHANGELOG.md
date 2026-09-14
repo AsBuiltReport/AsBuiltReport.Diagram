@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### :arrows_clockwise: Changed
 
 - Bump module version v1.0.11
-- Update Graphviz binaries to v16.0.0
+- Update Graphviz binaries to v16.1.0
 - Update test to correctly handle the new output format for the `Add-HtmlNodeTable -MultiIcon` cmdlet
 
 ### :wrench: Fixed
