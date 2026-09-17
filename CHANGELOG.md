@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump module version v1.0.12
 - Update .Net dependencies to latest versions
 - Refactor graph attributes handling in New-AbrDiagram function
+- Update version to 1.0.12 in AbrDiaConvertImageToPDF/AbrDiagrammer project files
 
 ## [1.0.11] - 2026-09-14
 
