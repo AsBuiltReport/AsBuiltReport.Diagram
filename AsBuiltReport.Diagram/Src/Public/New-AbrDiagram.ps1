@@ -151,7 +151,7 @@ function New-AbrDiagram {
         Scale percent for the main logo when rendered in the diagram. Range: 1-100. Default: 100.
 
     .NOTES
-        Version:        1.0.10
+        Version:        1.0.11
         Author(s):      Jonathan Colon
         Bluesky:        @jcolonfpr.bsky.social
         Github:         rebelinux
@@ -583,7 +583,7 @@ function New-AbrDiagram {
             $CustomSignatureLogo = 'AsBuiltReport.png'
         }
 
-        $MainGraphAttributes = @{
+        $GraphAttributes = @{
             pad = 1
             rankdir = $Dir
             splines = $EdgeType
@@ -601,18 +601,22 @@ function New-AbrDiagram {
         }
 
         if ($MainGraphSize) {
-            $MainGraphAttributes['size'] = $MainGraphSize
+            $GraphAttributes['size'] = $MainGraphSize
         }
 
         if ($Dpi) {
-            $MainGraphAttributes['dpi'] = $Dpi
+            $GraphAttributes['dpi'] = $Dpi
+        }
+
+        if ($MainGraphAttributes) {
+            $GraphAttributes = Join-Hashtable -PrimaryHash $GraphAttributes -SecondaryHash $MainGraphAttributes -PreferSecondary
         }
     }
 
     process {
 
         # Graph default atrributes
-        $script:Graph = Graph -Name Root -Attributes $MainGraphAttributes {
+        $script:Graph = Graph -Name Root -Attributes $GraphAttributes {
             # Node default theme
             Node @{
                 # label = ''
