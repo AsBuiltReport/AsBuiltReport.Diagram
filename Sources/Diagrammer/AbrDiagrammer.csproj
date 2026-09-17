@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="ChartForgeX" Version="1.6.0" />
         <PackageReference Include="itext" Version="9.7.0" />
         <PackageReference Include="itext.bouncy-castle-adapter" Version="9.7.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
