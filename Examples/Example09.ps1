@@ -182,6 +182,14 @@ $example9 = & {
         Add-NodeEdge -From 'App-Server-01' -To 'Db-Server-01' -EdgeLabel 'SQL' -EdgeColor 'black' -EdgeLabelFontSize 14 -EdgeLabelFontColor 'black' -EdgeLength 3 -EdgeThickness 3 -EdgeStyle 'dashed'
 
         <#
+            This edge demonstrates routing directly onto a specific element's icon cell inside a MultiIcon
+            table, rather than its label cell. -HeadPort 'Icon_Web-Server-02' targets the icon TD for
+            Web-Server-02 (PORT="Icon_Web-Server-02"), whereas -HeadPort 'Web-Server-02' would land on the
+            label TD (PORT="Web-Server-02") instead.
+        #>
+        Add-NodeEdge -From 'App-Server-01' -To 'Web-Server-Farm' -HeadPort 'Icon_Web-Server-02' -EdgeLabel 'Health Check' -EdgeColor 'gray' -EdgeStyle 'dotted' -Arrowhead 'vee'
+
+        <#
             The Rank cmdlet is used to place nodes at the same hierarchical level.
             In this example, App-Server-01 and Db-Server-01 are aligned horizontally.
         #>

@@ -15,6 +15,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add ChartForgeX topology edge controls for named ports, endpoint markers and labels, custom stroke styling, and layout hints.
 
+## [1.0.12] - Unreleased
+
+### :arrows_clockwise: Changed
+
+- Bump module version v1.0.12
+- Update .Net dependencies to latest versions
+- Refactor graph attributes handling in New-AbrDiagram function
+- Update version to 1.0.12 in AbrDiaConvertImageToPDF/AbrDiagrammer project files
+
+## [1.0.11] - 2026-09-14
+
+### :arrows_clockwise: Changed
+
+- Bump module version v1.0.11
+- Update Graphviz binaries to v16.1.0
+- Update test to correctly handle the new output format for the `Add-HtmlNodeTable -MultiIcon` cmdlet
+
+### :wrench: Fixed
+
+- Fix `Add-HtmlNodeTable -MultiIcon` with multi-key `-AditionalInfo` rendering each array value as its .NET type name (e.g. `System.Object[]`) instead of its content when the group being rendered has exactly 1 item
+
 ## [1.0.10] - 2026-08-03
 
 ### :arrows_clockwise: Changed
@@ -26,6 +47,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix for hidden nodes in the diagram output interfering with the layout of the graph, causing some nodes to be misplaced or not displayed correctly
 
 ## [1.0.9] - 2026-07-27
+
+### :toolbox: Added
+
+- Add a dedicated `PORT="Icon_{Element}"` port to each icon cell in `Add-HtmlNodeTable -MultiIcon` output (both normal and `-IconDebug` rendering), so edges can target the icon directly instead of only the label cell
 
 ### :arrows_clockwise: Changed
 

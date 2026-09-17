@@ -512,3 +512,5 @@ $RECYCLE.BIN/
 *.tiff
 
 .cache
+# Subagent-driven-development scratch state
+.superpowers/
