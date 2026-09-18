@@ -146,6 +146,7 @@ All examples in the latest release of AsBuiltReport.Diagram can be found in the 
 | [Example15](./Examples/Example15.ps1)                | Add-NodeSpacer cmdlet               | AsBuiltReport.Diagram |
 | [Example16](./Examples/Example16.ps1)                | Add-NodeEdge cmdlet                 | AsBuiltReport.Diagram |
 | [Example17](./Examples/Example17.ps1)                | ShapeLine cmdlet                    | AsBuiltReport.Diagram |
+| [Example18](./Examples/Example18.ps1)                | Add-NodeCard cmdlet                 | AsBuiltReport.Diagram |
 | [AdvancedExample1](./Examples/AdvancedExample01.ps1) | Add-HtmlSubGraph cmdlet             | AsBuiltReport.Diagram |
 | [AdvancedExample2](./Examples/AdvancedExample02.ps1) | Add-NodeText cmdlet                 | AsBuiltReport.Diagram |
 
