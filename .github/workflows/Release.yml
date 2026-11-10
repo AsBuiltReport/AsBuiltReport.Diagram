@@ -27,7 +27,7 @@ jobs:
               shell: pwsh
 
             - name: Build the library PWSH
-              run: dotnet publish ./Sources/Diagrammer -c Release
+              run: dotnet publish "/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY" ./Sources/Diagrammer -c Release
               shell: pwsh
 
             - name: Copy the library PWSH
