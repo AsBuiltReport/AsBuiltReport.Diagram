@@ -41,8 +41,7 @@ jobs:
             - name: Build the library PWSH
               env:
                 SIXLABORS_LICENSE_KEY: ${{ secrets.SIXLABORSLICENSEKEY }}
-                SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
-              run: dotnet publish ./Sources/Diagrammer -c Release
+              run: dotnet publish "/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY" ./Sources/Diagrammer -c Release
               if: matrix.shell == 'pwsh'
             - name: Copy the library PWSH
               run:
