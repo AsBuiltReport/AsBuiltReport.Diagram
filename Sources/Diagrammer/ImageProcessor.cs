@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.Fonts;
 using System;
 using System.Globalization;
+using System.Numerics;
 using System.Xml.Linq;
 
 namespace AsBuiltReportDiagram
@@ -113,7 +114,7 @@ namespace AsBuiltReportDiagram
         {
             try
             {
-                using var image = Image.Load(imagePath);
+                using var image = Image.Load<Rgba32>(imagePath);
                 FontFamily family;
                 if (!string.IsNullOrEmpty(fontPath) && File.Exists(fontPath))
                 {
@@ -131,7 +132,7 @@ namespace AsBuiltReportDiagram
 
                 if (fontSize == 0)
                 {
-                    fontSize = ((image.Width + image.Height) / 2) / watermarkText.Length;
+                    fontSize = Math.Max(1, ((image.Width + image.Height) / 2) / Math.Max(1, watermarkText.Length));
                 }
 
                 Font font = family.CreateFont(fontSize, FontStyle.Regular);
@@ -145,20 +146,34 @@ namespace AsBuiltReportDiagram
 
 
                 // Parse font color
-                var color = Color.FromRgba(fontColor.R, fontColor.G, fontColor.B, fontColor.A);
+                var color = Color.FromPixel(new Rgba32(fontColor.R, fontColor.G, fontColor.B, fontColor.A));
                 var rgba = color.ToPixel<Rgba32>();
                 float normalizedOpacity = NormalizeOpacity(opacity);
                 byte alpha = (byte)Math.Round(255f * normalizedOpacity, MidpointRounding.AwayFromZero);
-                var colorWithOpacity = Color.FromRgba(rgba.R, rgba.G, rgba.B, alpha);
+                var colorWithOpacity = Color.FromPixel(new Rgba32(rgba.R, rgba.G, rgba.B, alpha));
 
 
                 // Calculate center position
                 var textOptions = new TextOptions(font);
-                var textSize = TextMeasurer.MeasureSize(watermarkText, textOptions);
+                var textSize = TextMeasurer.MeasureAdvance(watermarkText, textOptions);
                 float x = (image.Width - textSize.Width) / 2;
                 float y = (image.Height - textSize.Height) / 2;
 
-                image.Mutate(ctx => ctx.DrawText(new DrawingOptions() { Transform = Matrix3x2Extensions.CreateRotationDegrees(-45, new PointF(x + textSize.Width / 2, y + textSize.Height / 2)) }, watermarkText, font, colorWithOpacity, new SixLabors.ImageSharp.PointF(x, y)));
+                float centerX = x + textSize.Width / 2;
+                float centerY = y + textSize.Height / 2;
+                var transform = Matrix4x4.CreateTranslation(-centerX, -centerY, 0)
+                    * Matrix4x4.CreateRotationZ(-MathF.PI / 4)
+                    * Matrix4x4.CreateTranslation(centerX, centerY, 0);
+                var drawingOptions = new DrawingOptions { Transform = transform };
+                var richTextOptions = new RichTextOptions(font)
+                {
+                    Origin = new SixLabors.ImageSharp.PointF(x, y)
+                };
+
+                using (var canvas = image.Frames.RootFrame.CreateCanvas(image.Configuration, drawingOptions))
+                {
+                    canvas.DrawText(richTextOptions, watermarkText.AsSpan(), new SolidBrush(colorWithOpacity), null);
+                }
 
                 image.Save(outputPath);
                 return true;
