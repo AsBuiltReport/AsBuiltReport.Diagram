@@ -10,7 +10,7 @@
 [CmdletBinding()]
 param (
     [System.IO.FileInfo] $Path = '~\Desktop\',
-    [ValidateSet('svg', 'png', 'html', 'bmp', 'gif', 'tiff', 'ppm', 'apng', 'base64')]
+    [ValidateSet('svg', 'png', 'html', 'bmp', 'tiff', 'ppm', 'apng', 'base64')]
     [array] $Format = @('svg')
 )
 
@@ -42,7 +42,7 @@ $MainGraphLabel = 'Web Application Diagram'
     that object via the pipeline and returns the updated diagram, so calls can be chained.
 #>
 
-$Diagram = New-AbrTopologyDiagram -Id 'ChartForgeXExample02' -Title $MainGraphLabel -Subtitle '3 Tier Concept' -LayoutMode Manual -LayoutDirection TopToBottom
+$Diagram = New-AbrTopologyDiagram -Id 'ChartForgeXExample02' -Title $MainGraphLabel -Subtitle '3 Tier Concept' -LayoutDirection TopToBottom
 
 <#
     Add-AbrTopologyGroup creates a logical region (equivalent to the Graphviz SubGraph used in
@@ -76,8 +76,8 @@ foreach ($WebServer in $WebServerFarm) {
     and a subtitle describing its OS/build (the ChartForgeX equivalent of Add-NodeIcon in Example15.ps1).
 #>
 
-$Diagram = $Diagram | Add-AbrTopologyNode -Id 'App01' -Label 'App-Server-01' -Width 200 -Height 64 -Subtitle 'Windows Server 2019' -Kind Application -Status Healthy -IconPath $ServerIcon -X 300 -Y 200
-$Diagram = $Diagram | Add-AbrTopologyNode -Id 'Db01' -Label 'Db-Server-01' -Subtitle 'Oracle Server 8' -Kind Database -Status Warning -IconPath $ServerIcon -DisplayMode Pill -Width 200 -Height 200 -X 300 -Y 400
+$Diagram = $Diagram | Add-AbrTopologyNode -Id 'App01' -Label 'App-Server-01' -Width 200 -Height 64 -Subtitle 'Windows Server 2019' -Kind Application -Status Healthy -IconPath $ServerIcon
+$Diagram = $Diagram | Add-AbrTopologyNode -Id 'Db01' -Label 'Db-Server-01' -Subtitle 'Oracle Server 8' -Kind Database -Status Warning -IconPath $ServerIcon -DisplayMode Pill -Width 200 -Height 200
 
 <#
     Add-AbrTopologyEdge connects the web server farm to the app tier, and the app tier to the database.

@@ -163,8 +163,6 @@ namespace AsBuiltReportDiagram
                         format = ImageFormat.Jpeg;
                     else if (ext == ".bmp")
                         format = ImageFormat.Bmp;
-                    else if (ext == ".gif")
-                        format = ImageFormat.Gif;
                     else
                         format = ImageFormat.Png;
 

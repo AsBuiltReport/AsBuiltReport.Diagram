@@ -12,7 +12,7 @@
     RootModule = 'AsBuiltReport.Diagram.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.0.12'
+    ModuleVersion = '1.0.13'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'Add-LeftLShapeLine', 'Add-RightLShapeLine', 'Add-InvertedLShapeLine', 'Add-LShapeLine', 'Add-LeftTShapeLine', 'Add-RightTShapeLine', 'Add-CrossShapeLine', 'Add-InvertedTShapeLine', 'Add-TShapeLine', 'Add-VerticalLine', 'Add-HorizontalLine', 'Add-HtmlSignatureTable', 'Group-AbrNode', 'Add-HtmlSubGraph', 'Convert-TableToHTML', 'Add-HtmlLabel', 'Add-HtmlNodeTable', 'Add-HtmlTable', 'Format-HtmlCell', 'Get-AbrNodeIP', 'Add-NodeIcon', 'Add-NodeCard', 'Export-AbrDiagram', 'Remove-SpecialCharacter', 'Split-ArrayElement', 'Write-AbrColorOutput', 'Get-ImagePercent', 'New-AbrDiagram', 'Add-NodeSpacer', 'Write-AbrPSObject', 'Get-RandomColorInHex', 'Get-RandomPastelColorInHex', 'Add-NodeImage', 'Add-NodeShape', 'Add-NodeText', 'Get-BestImageAspectRatio', 'Add-NodeEdge', 'Test-AbrLogo', 'Test-AbrImage', 'New-AbrTopologyDiagram', 'Add-AbrTopologyGroup', 'Add-AbrTopologyNode', 'Add-AbrTopologyNodePort', 'Add-AbrTopologyEdge', 'Add-AbrTopologyHierarchy', 'New-AbrTopologyLegend', 'Add-AbrTopologyLegendItem', 'Set-AbrTopologyLegend', 'Export-AbrTopologyDiagram'
+    FunctionsToExport = 'Add-LeftLShapeLine', 'Add-RightLShapeLine', 'Add-InvertedLShapeLine', 'Add-LShapeLine', 'Add-LeftTShapeLine', 'Add-RightTShapeLine', 'Add-CrossShapeLine', 'Add-InvertedTShapeLine', 'Add-TShapeLine', 'Add-VerticalLine', 'Add-HorizontalLine', 'Add-HtmlSignatureTable', 'Group-AbrNode', 'Add-HtmlSubGraph', 'Convert-TableToHTML', 'Add-HtmlLabel', 'Add-HtmlNodeTable', 'Add-HtmlTable', 'Format-HtmlCell', 'Get-AbrNodeIP', 'Add-NodeIcon', 'Add-NodeCard', 'Export-AbrDiagram', 'Remove-SpecialCharacter', 'Split-ArrayElement', 'Write-AbrColorOutput', 'Get-ImagePercent', 'New-AbrDiagram', 'Add-NodeSpacer', 'Write-AbrPSObject', 'Get-RandomColorInHex', 'Get-RandomPastelColorInHex', 'Add-NodeImage', 'Add-NodeShape', 'Add-NodeText', 'Get-BestImageAspectRatio', 'Add-NodeEdge', 'Test-AbrLogo', 'Test-AbrImage'
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()
@@ -120,4 +120,3 @@
     # DefaultCommandPrefix = ''
 
 }
-
