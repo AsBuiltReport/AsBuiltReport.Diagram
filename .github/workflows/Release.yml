@@ -26,8 +26,7 @@ jobs:
               shell: pwsh
               env:
                 SIXLABORS_LICENSE_KEY: ${{ secrets.SIXLABORSLICENSEKEY }}
-              run: dotnet publish "/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY" ./Sources/Diagrammer -c Release
-
+              run: dotnet publish ./Sources/Diagrammer -c Release
 
             - name: Copy the library PWSH
               run: Copy-Item -Path ./Sources/Diagrammer/bin/Release/net8.0/publish/*
