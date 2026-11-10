@@ -39,7 +39,7 @@ jobs:
               if: matrix.os == 'windows-latest' && matrix.shell == 'powershell'
 
             - name: Set SIXLABORS_LICENSE_KEY environment variable
-              run: $env:SIXLABORS_LICENSE_KEY = ${{ secrets.SIXLABORSLICENSEKEY }}
+              run: $env:SIXLABORS_LICENSE_KEY = '${{ secrets.SIXLABORSLICENSEKEY }}'
               shell: pwsh
 
             - name: Build the library PWSH
