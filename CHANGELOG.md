@@ -8,9 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.13] - Unreleased
 
+### :toolbox: Added
+
+- Add SixLabors.ImageSharp community license environment variable to the Release workflow to allow the AbrDiagrammer project to build successfully
+
 ### :arrows_clockwise: Changed
 
 - Bump module version v1.0.13
+- Update .Net dependencies to latest versions
 - Update Graphviz binaries to v16.1.1
 
 ### :x: Removed
