@@ -57,9 +57,9 @@ if ($PSVersion.Major -lt 7) {
 Write-Host "`nInstalling required modules..." -ForegroundColor Yellow
 
 $RequiredModules = @(
-    @{ Name = 'Pester'; MinimumVersion = '5.0.0' }
+    @{ Name = 'Pester'; MinimumVersion = '6.2.0' }
     @{ Name = 'PSGraph'; MinimumVersion = '2.1.38.27' }
-    @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.0.0' }
+    @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.25.0' }
 )
 
 foreach ($Module in $RequiredModules) {
@@ -80,7 +80,7 @@ foreach ($Module in $RequiredModules) {
 Get-Module Pester | Remove-Module -Force -ErrorAction SilentlyContinue
 
 # Import Pester with explicit minimum version
-Import-Module Pester -MinimumVersion 5.0.0 -Force -ErrorAction Stop
+Import-Module Pester -MinimumVersion 6.2.0 -Force -ErrorAction Stop
 
 # Configure Pester
 $PesterConfiguration = New-PesterConfiguration
