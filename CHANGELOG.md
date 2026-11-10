@@ -5,18 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - Unreleased
 
-### :toolbox: Added
-
-- Add ChartForgeX topology edge controls for named ports, endpoint markers and labels, custom stroke styling, and layout hints.
-- Add bounded topology reports through `New-AbrTopologyReport` and `Export-AbrTopologyReport`, producing an overview and numbered SVG or PNG detail pages for dense diagrams.
-- Add the `-TextMeasurementMode` option to `Export-AbrTopologyDiagram` for ChartForgeX's opt-in installed-font typography measurement.
+## [1.0.12] - Unreleased
 
 ### :arrows_clockwise: Changed
 
-- Update ChartForgeX to v1.8.1. Topology hierarchy layout policies now inherit through each subtree until overridden.
-- Update the ChartForgeX web-farm example to use GroupGrid placement so non-group tiers do not overlap the farm's auto-sized container.
+- Bump module version v1.0.12
+- Update Graphviz binaries to v16.1.1
+
+### :x: Removed
+
+- Remove ChartForgeX dependency from the module manifest and update the FunctionsToExport entry to remove the cmdlets that were dependent on it
 
 ## [1.0.12] - 2026-09-18
 
