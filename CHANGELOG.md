@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### :toolbox: Added
 
 - Add SixLabors.ImageSharp community license secret variable to the Release workflow to allow the AbrDiagrammer project to build successfully
+- Improve draftmode to include
+  - Graphviz version
+  - Display font properties (Size, Color, Family, Style)
 
 ### :arrows_clockwise: Changed
 
