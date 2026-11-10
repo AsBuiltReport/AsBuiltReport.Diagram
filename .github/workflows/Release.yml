@@ -22,13 +22,13 @@ jobs:
               run: dotnet restore ./Sources/DiaConvertImageToPDF
               shell: powershell
 
-            - name: Set SIXLABORS_LICENSE_KEY environment variable
-              run: $env:SIXLABORS_LICENSE_KEY = ${{ secrets.SIXLABORSLICENSEKEY }}
-              shell: pwsh
-
             - name: Build the library PWSH
-              run: dotnet publish "/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY" ./Sources/Diagrammer -c Release
               shell: pwsh
+              env:
+                SIXLABORS_LICENSE_KEY: ${{ secrets.SIXLABORSLICENSEKEY }}
+                SixLaborsLicenseKey: ${{ secrets.SIXLABORSLICENSEKEY }}
+              run: dotnet publish "/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY" ./Sources/Diagrammer -c Release
+
 
             - name: Copy the library PWSH
               run: Copy-Item -Path ./Sources/Diagrammer/bin/Release/net8.0/publish/*
