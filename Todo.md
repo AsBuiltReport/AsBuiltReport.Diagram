@@ -5,6 +5,6 @@
 
 ## Low Priority
 
-- [ ] Improve draftmode to include
-  - [ ] graphviz version
-  - [ ] Display font properties (Size, Color, Family, Style)
+- [x] Improve draftmode to include
+  - [x] graphviz version
+  - [x] Display font properties (Size, Color, Family, Style)
