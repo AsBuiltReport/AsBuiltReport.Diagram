@@ -547,6 +547,7 @@ function New-AbrDiagram {
         }
 
         $IconDebug = $false
+        $DraftInfo = @()
 
         if ($DraftMode) {
             $SubGraphDebug = @{style = 'dashed'; color = 'red' }
@@ -554,6 +555,25 @@ function New-AbrDiagram {
             $NodeDebugEdge = @{color = 'black'; style = 'red'; shape = 'plain' }
             $EdgeDebug = @{style = 'filled'; color = 'red' }
             $IconDebug = $true
+
+            $GraphvizExecutable = switch ($PSVersionTable.Platform) {
+                'Unix' {
+                    @('/usr/bin/dot', '/bin/dot', '/usr/local/bin/dot', '/opt/homebrew/bin/dot', '/opt/local/bin/dot') |
+                        Where-Object { Test-Path -Path $_ -PathType Leaf } |
+                        Select-Object -First 1
+                }
+                default {
+                    Join-Path -Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Tools\Graphviz\bin\dot.exe'
+                }
+            }
+            if (-not $GraphvizExecutable -or -not (Test-Path -Path $GraphvizExecutable -PathType Leaf)) {
+                throw "Graphviz 'dot' executable not found. Cannot collect draft-mode version information."
+            }
+            $GraphvizVersionOutput = (& $GraphvizExecutable -V 2>&1 | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0 -or $GraphvizVersionOutput -notmatch 'version\s+([^\s(]+)') {
+                throw "Unable to determine Graphviz version for draft mode. Output: $GraphvizVersionOutput"
+            }
+            $GraphvizVersion = $Matches[1]
         } else {
             $SubGraphDebug = @{style = 'invis'; color = 'gray' }
             $NodeDebug = @{color = 'transparent'; style = 'transparent'; shape = 'point' }
@@ -611,6 +631,25 @@ function New-AbrDiagram {
         if ($MainGraphAttributes) {
             $GraphAttributes = Join-Hashtable -PrimaryHash $GraphAttributes -SecondaryHash $MainGraphAttributes -PreferSecondary
         }
+
+        if ($DraftMode) {
+            $TitleFontStyles = @()
+            if ($MainDiagramLabelFontBold) { $TitleFontStyles += 'Bold' }
+            if ($MainDiagramLabelFontItalic) { $TitleFontStyles += 'Italic' }
+            if ($MainDiagramLabelFontUnderline) { $TitleFontStyles += 'Underline' }
+            if ($MainDiagramLabelFontOverline) { $TitleFontStyles += 'Overline' }
+            if ($MainDiagramLabelFontSubscript) { $TitleFontStyles += 'Subscript' }
+            if ($MainDiagramLabelFontSuperscript) { $TitleFontStyles += 'Superscript' }
+            if ($MainDiagramLabelFontStrikeThrough) { $TitleFontStyles += 'StrikeThrough' }
+            if ($TitleFontStyles.Count -eq 0) { $TitleFontStyles = @('Regular') }
+
+            $DraftInfo = @(
+                "Graphviz version: $GraphvizVersion"
+                "Graph font: Size=$($GraphAttributes.fontsize); Color=$($GraphAttributes.fontcolor); Family=$($GraphAttributes.fontname); Style=Regular"
+                "Node font: Size=$NodeFontSize; Color=$NodeFontcolor; Family=$($GraphAttributes.fontname); Style=Regular"
+                "Title font: Size=$MainDiagramLabelFontsize; Color=$MainDiagramLabelFontColor; Family=$MainDiagramLabelFontname; Style=$($TitleFontStyles -join ', ')"
+            )
+        }
     }
 
     process {
@@ -666,7 +705,7 @@ function New-AbrDiagram {
                 if ($DisableMainDiagramLogo) {
                     $FormatedMainLogo = ''
                 } else {
-                    $FormatedMainLogo = (Add-HtmlLabel -ImagesObj $ImagesObj -Label $MainDiagramLabel -TableBackgroundColor $MainDiagramLabelTableBackgroundColor -CellBackgroundColor $MainDiagramLabelTableBackgroundColor -IconType $CustomLogo -IconDebug $IconDebug -ImageSizePercent $MainGraphLogoSizePercent -Fontsize $MainDiagramLabelFontsize -FontColor $MainDiagramLabelFontColor -FontName $MainDiagramLabelFontname -FontBold:$MainDiagramLabelFontBold -FontItalic:$MainDiagramLabelFontItalic -FontUnderline:$MainDiagramLabelFontUnderline -FontOverline:$MainDiagramLabelFontOverline -FontSubscript:$MainDiagramLabelFontSubscript -FontSuperscript:$MainDiagramLabelFontSuperscript -FontStrikeThrough:$MainDiagramLabelFontStrikeThrough -CellSpacing 0 -IconPath $IconPath)
+                    $FormatedMainLogo = (Add-HtmlLabel -ImagesObj $ImagesObj -Label $MainDiagramLabel -TableBackgroundColor $MainDiagramLabelTableBackgroundColor -CellBackgroundColor $MainDiagramLabelTableBackgroundColor -IconType $CustomLogo -IconDebug $IconDebug -DraftInfo $DraftInfo -ImageSizePercent $MainGraphLogoSizePercent -Fontsize $MainDiagramLabelFontsize -FontColor $MainDiagramLabelFontColor -FontName $MainDiagramLabelFontname -FontBold:$MainDiagramLabelFontBold -FontItalic:$MainDiagramLabelFontItalic -FontUnderline:$MainDiagramLabelFontUnderline -FontOverline:$MainDiagramLabelFontOverline -FontSubscript:$MainDiagramLabelFontSubscript -FontSuperscript:$MainDiagramLabelFontSuperscript -FontStrikeThrough:$MainDiagramLabelFontStrikeThrough -CellSpacing 0 -IconPath $IconPath)
                 }
 
                 SubGraph MainGraph -Attributes @{Label = $FormatedMainLogo; fontsize = 24; penwidth = 0; labelloc = 't'; labeljust = 'c' } {

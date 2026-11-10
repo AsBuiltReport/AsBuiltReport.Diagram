@@ -65,6 +65,9 @@ function Add-HtmlLabel {
     .PARAMETER IconDebug
         Enables debug (draft) mode for icon rendering. When set, a debug table row is included indicating DraftMode.
 
+    .PARAMETER DraftInfo
+        Additional diagnostic lines to display in the draft-mode label.
+
     .PARAMETER IconType
         The key or name of the icon to use. If set to 'NoIcon' no icon is displayed. Resolved from ImagesObj when available.
 
@@ -146,6 +149,12 @@ function Add-HtmlLabel {
         )]
         [Alias('DraftMode')]
         [bool] $IconDebug,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Additional diagnostic lines to display in the draft-mode label'
+        )]
+        [string[]] $DraftInfo = @(),
 
         [Parameter(
             Mandatory = $false,
@@ -325,6 +334,10 @@ function Add-HtmlLabel {
             $TRContent = '<TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="1">{1} Logo</TD><TD BGCOLOR="#FFCCCC" ALIGN="Center">{2}</TD></TR>' -f $Align, $ICON, $FormattedLabel
         } else {
             $TRContent = '<TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" COLSPAN="1">{1} Logo</TD></TR><TR><TD BGCOLOR="#FFCCCC" ALIGN="{0}" ><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD></TR><TR><TD ALIGN="{0}"><FONT Color="red">DraftMode ON</FONT></TD></TR>' -f $Align, $ICON, $FontName, $FontColor, $FontSize, $Label
+            foreach ($Info in $DraftInfo) {
+                $EncodedInfo = [System.Net.WebUtility]::HtmlEncode($Info)
+                $TRContent += '<TR><TD ALIGN="{0}"><FONT Color="red">{1}</FONT></TD></TR>' -f $Align, $EncodedInfo
+            }
         }
         Format-HtmlTable @baseTableParams -TableRowContent $TRContent
     } elseif ($ICON -ne 'NoIcon') {
