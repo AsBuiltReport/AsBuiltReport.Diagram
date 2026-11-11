@@ -13,12 +13,14 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                os: [windows-latest, ubuntu-latest, macos-latest]
+                os: [windows-latest, ubuntu-latest, macos-latest, macos-26-intel]
                 shell: [pwsh, powershell]
                 exclude:
                     - os: ubuntu-latest
                       shell: powershell
                     - os: macos-latest
+                      shell: powershell
+                    - os: macos-26-intel
                       shell: powershell
         defaults:
             run:
