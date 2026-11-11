@@ -9,7 +9,7 @@
 [CmdletBinding()]
 param (
     [System.IO.FileInfo] $Path = '~\Desktop\',
-    [ValidateSet('svg', 'png', 'html', 'bmp', 'gif', 'tiff', 'ppm', 'apng', 'base64')]
+    [ValidateSet('svg', 'png', 'html', 'bmp', 'tiff', 'ppm', 'apng', 'base64')]
     [array] $Format = @('svg')
 )
 

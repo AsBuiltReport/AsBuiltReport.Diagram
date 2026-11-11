@@ -56,12 +56,26 @@ function Add-HtmlSubGraph {
         The text font name used inside the cell (Default: Segoe Ui)
     .PARAMETER FontColor
         The text font color used inside the cell (Default: #000000)
+    .PARAMETER FontBold
+        Make the label text bold.
+    .PARAMETER FontItalic
+        Make the label text italic.
+    .PARAMETER FontUnderline
+        Underline the label text.
+    .PARAMETER FontOverline
+        Add an overline to the label text.
+    .PARAMETER FontSubscript
+        Format the label text as subscript.
+    .PARAMETER FontSuperscript
+        Format the label text as superscript.
+    .PARAMETER FontStrikeThrough
+        Strike through the label text.
     .PARAMETER ColumnSize
         Number used to split objects inside the HTML table (Default: 1)
     .PARAMETER IconDebug
-        Enable the icon debug mode
+        Enable debug rendering for the icon.
     .PARAMETER NoFontBold
-        Disable the additional text bold configuration
+        Disable additional bold formatting.
     .PARAMETER IconType
         The subgraph table icon type
     .PARAMETER Label
@@ -78,14 +92,14 @@ function Add-HtmlSubGraph {
         The subgraph icon width (Default: 40)
     .PARAMETER IconHeight
         The subgraph icon height (Default: 40)
-    #>
-
-    <#
-        TODO
-        1. Add Icon to MultiColumns section Done
-        2. Change hardcoded values (FontName, FontColor, FontSize)
-        3. Document all parameters
-        4. Look for a solution for the Icon and Label problem
+    .PARAMETER IconPath
+        Path to the directory containing the icon image, required when ImageSizePercent is less than 100.
+    .PARAMETER Name
+        Name for the generated node object (required for every invocation).
+    .PARAMETER NodeObject
+        Return a Graphviz node object instead of the HTML table string.
+    .PARAMETER GraphvizAttributes
+        Additional Graphviz attributes to apply when returning a node object.
     #>
 
     [CmdletBinding()]
@@ -204,6 +218,7 @@ function Add-HtmlSubGraph {
             Mandatory = $false,
             HelpMessage = 'This value is used to specified a int used to split the object inside the HTML table'
         )]
+        [ValidateRange(1, [int]::MaxValue)]
         [int] $ColumnSize = 1,
 
         [Parameter(
@@ -330,9 +345,19 @@ function Add-HtmlSubGraph {
     $Number = 0
     $TD = ''
     $TR = ''
+    $CellFontOpen = if ($FontName -eq 'Segoe Ui' -and $FontColor -eq '#000000') {
+        '<FONT POINT-SIZE="{0}">'
+    } else {
+        '<FONT FACE="{0}" POINT-SIZE="{1}" COLOR="{2}">'
+    }
     while ($Number -ne $Group.Count) {
         foreach ($Element in $Group[$Number]) {
-            $TD += '<TD align="{0}" colspan="1"><FONT POINT-SIZE="{1}">{2}</FONT></TD>' -f $Align, $FontSize, $Element
+            if ($FontName -eq 'Segoe Ui' -and $FontColor -eq '#000000') {
+                $CellFont = $CellFontOpen -f $FontSize
+            } else {
+                $CellFont = $CellFontOpen -f $FontName, $FontSize, $FontColor
+            }
+            $TD += '<TD align="{0}" colspan="1">{1}{2}</FONT></TD>' -f $Align, $CellFont, $Element
         }
         $TR += '<TR>{0}</TR>' -f $TD
         $TD = ''
@@ -351,35 +376,45 @@ function Add-HtmlSubGraph {
         FontStrikeThrough = $FontStrikeThrough
         FontOverline = $FontOverline
     }
-    $FormattedLabel = Format-HtmlFontProperty @fontParams -Text $Label
+    $FormattedLabel = ''
+    if (-not [string]::IsNullOrWhiteSpace($Label)) {
+        $FormattedLabel = Format-HtmlFontProperty @fontParams -Text $Label
+    }
+    $ColumnCount = [Math]::Min($TableArray.Count, $ColumnSize)
 
     # Build subgraph icon/label rows and prepend or append based on LabelPos
     $TRTemp = ''
     if ($Icon) {
         if ($IconDebug) {
-            $TDSubgraphIcon = '<TD bgcolor="#FFCCCC" ALIGN="{0}" colspan="{1}"><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD>' -f $Align, $columnSize, $fontName, $fontColor, $fontSize, $Icon
-            $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
+            $TDSubgraphIcon = '<TD bgcolor="#FFCCCC" ALIGN="{0}" colspan="{1}"><FONT FACE="{2}" Color="{3}" POINT-SIZE="{4}">{5}</FONT></TD>' -f $Align, $ColumnCount, $FontName, $FontColor, $FontSize, $Icon
+            $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $ColumnCount, $FormattedLabel
         } else {
-            $TDSubgraphIcon = '<TD valign="BOTTOM" ALIGN="{0}" colspan="{1}" fixedsize="true" width="{3}" height="{4}"><IMG src="{2}"></IMG></TD>' -f $Align, $columnSize, $Icon, $IconWidth, $IconHeight
-            $TDSubgraph = '<TD valign="TOP" ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
+            $TDSubgraphIcon = '<TD valign="BOTTOM" ALIGN="{0}" colspan="{1}" fixedsize="true" width="{3}" height="{4}"><IMG src="{2}"></IMG></TD>' -f $Align, $ColumnCount, $Icon, $IconWidth, $IconHeight
+            $TDSubgraph = '<TD valign="TOP" ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $ColumnCount, $FormattedLabel
         }
         if ($LabelPos -eq 'down') {
             $TR += '<TR>{0}</TR>' -f $TDSubgraphIcon
-            $TR += '<TR>{0}</TR>' -f $TDSubgraph
+            if ($FormattedLabel) {
+                $TR += '<TR>{0}</TR>' -f $TDSubgraph
+            }
         } else {
             $TRTemp += '<TR>{0}</TR>' -f $TDSubgraphIcon
-            $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
+            if ($FormattedLabel) {
+                $TRTemp += '<TR>{0}</TR>' -f $TDSubgraph
+            }
             $TRTemp += $TR
             $TR = $TRTemp
         }
     } else {
-        $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $columnSize, $FormattedLabel
-        if ($LabelPos -eq 'down') {
-            $TR += '<TR>{0}</TR>' -f $TDSubgraph
-        } else {
-            $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
-            $TRTemp += $TR
-            $TR = $TRTemp
+        if ($FormattedLabel) {
+            $TDSubgraph = '<TD ALIGN="{0}" colspan="{1}">{2}</TD>' -f $Align, $ColumnCount, $FormattedLabel
+            if ($LabelPos -eq 'down') {
+                $TR += '<TR>{0}</TR>' -f $TDSubgraph
+            } else {
+                $TRTemp = '<TR>{0}</TR>' -f $TDSubgraph
+                $TRTemp += $TR
+                $TR = $TRTemp
+            }
         }
     }
 

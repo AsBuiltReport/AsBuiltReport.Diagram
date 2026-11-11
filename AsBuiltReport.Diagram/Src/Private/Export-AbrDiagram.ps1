@@ -156,7 +156,9 @@ function Export-AbrDiagram {
                         '/usr/local/bin/dot'
                     } elseif (Test-Path -Path '/opt/homebrew/bin/dot') {
                         '/opt/homebrew/bin/dot'
-                    } else {
+                    } elseif (Test-Path -Path '/opt/local/bin/dot') {
+                        '/opt/local/bin/dot'
+                    }else {
                         throw "Graphviz 'dot' executable not found in standard Unix paths. Please install Graphviz."
                     }
                 }

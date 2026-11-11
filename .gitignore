@@ -7,6 +7,9 @@ debug.log
 # Exclude .NET assemblies from source
 *.dll
 
+# Exclude sixlabors license file
+sixlabors.lic
+
 # Linux/OSX metadata files
 .DS_Store
 .AppleDouble
