@@ -19,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump module version v1.0.13
 - Update SixLabors.ImageSharp .Net library to fix multiple security vulnerabilities in the library
-- Update Graphviz binaries to v16.1.1
 - Update required module versions in Invoke-Tests.ps1
 
 ### :x: Removed
