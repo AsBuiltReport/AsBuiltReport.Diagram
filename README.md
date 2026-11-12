@@ -119,10 +119,6 @@ sudo port install graphviz
 brew install graphviz
 ```
 
-## :books: Documentation
-
-The documentation for the `AsBuiltReport.Diagram` module can be found in the [Docs](https://diagrammer.techmyth.blog/).
-
 ### :blue_book: Example Index
 
 All examples in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
