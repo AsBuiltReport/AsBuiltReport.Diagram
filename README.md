@@ -1,14 +1,14 @@
 <p align="center">
-    <a href="https://www.asbuiltreport.com/" alt="AsBuiltReport"></a>
-            <img src='https://avatars.githubusercontent.com/u/42958564' width="8%" height="8%" /></a>
+    <a href="https://www.asbuiltreport.com/">
+        <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/repo-banners/AsBuiltReport.Diagram.png" alt="AsBuiltReport.Diagram" width="880"></a>
 </p>
 <p align="center">
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PowerShell Gallery Version">
-        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.Diagram.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.Diagram.svg?color=1F5FD0" /></a>
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PS Gallery Downloads">
-        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.Diagram.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.Diagram.svg?color=012456" /></a>
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Diagram/" alt="PS Platform">
-        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.Diagram.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.Diagram.svg?color=FFD02B" /></a>
 </p>
 <p align="center">
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.Diagram/graphs/commit-activity" alt="GitHub Last Commit">
@@ -16,7 +16,7 @@
     <a href="https://raw.githubusercontent.com/rebelinux/AsBuiltReport.Diagram/master/LICENSE" alt="GitHub License">
         <img src="https://img.shields.io/github/license/rebelinux/AsBuiltReport.Diagram.svg" /></a>
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.Diagram/graphs/contributors" alt="GitHub Contributors">
-        <img src="https://img.shields.io/github/contributors/rebelinux/AsBuiltReport.Diagram.svg"/></a>
+        <img src="https://img.shields.io/github/contributors/rebelinux/AsBuiltReport.Diagram.svg?color=012456"/></a>
 </p>
 <p align="center">
     <a href="https://twitter.com/rebelinux" alt="Twitter">
@@ -27,15 +27,13 @@
     <a href='https://ko-fi.com/F1F8DEV80' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://ko-fi.com/img/githubbutton_sm.svg' border='0' alt='Want to keep alive this project? Support me on Ko-fi' /></a>
 </p>
 
-# AsBuiltReport.Diagram
-
 AsBuiltReport.Diagram is a PowerShell module that provides a foundational framework for creating sophisticated diagrams. It serves as a required dependency for individual diagram modules, which generate diagrams tailored to specific products or technologies.
 
-# :beginner: Getting Started
+# <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/getting-started.svg" alt="" width="28" height="28" align="top"> Getting Started
 
 The following simple list of instructions will get you started with the AsBuiltReport.Diagram module.
 
-## :floppy_disk: Supported Versions
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/supported-versions.svg" alt="" width="24" height="24" align="top"> Supported Versions
 ### **PowerShell**
 This module is compatible with the following PowerShell versions;
 
@@ -43,13 +41,13 @@ This module is compatible with the following PowerShell versions;
 | :--------------------: | :------------------------------: |
 |   :white_check_mark:   |        :white_check_mark:        |
 
-## :wrench: System Requirements
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/system-requirements.svg" alt="" width="24" height="24" align="top"> System Requirements
 
 PowerShell 5.1/7, and the following PowerShell modules are required for generating a AsBuiltReport.Diagram diagram.
 
 - [PSGraph Module](https://github.com/KevinMarquette/PSGraph)
 
-## :package: Module Installation
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/module-installation.svg" alt="" width="24" height="24" align="top"> Module Installation
 
 ### PowerShell
 #### Online Installation
@@ -119,7 +117,7 @@ sudo port install graphviz
 brew install graphviz
 ```
 
-### :blue_book: Example Index
+### <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/example-index.svg" alt="" width="20" height="20" align="top"> Example Index
 
 All examples in the latest release of AsBuiltReport.Diagram can be found in the table below, each with a link to their documentation page.
 
@@ -147,4 +145,4 @@ All examples in the latest release of AsBuiltReport.Diagram can be found in the 
 | [AdvancedExample2](./Examples/AdvancedExample02.ps1) | Add-NodeText cmdlet                 | AsBuiltReport.Diagram |
 
 
-## :x: Known Issues
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/known-issues.svg" alt="" width="24" height="24" align="top"> Known Issues
