@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+### :arrows_clockwise: Changed
+
+- Update the default AsBuiltReport logo (`AsBuiltReport.png`) used for the diagram main logo and signature to the new AsBuiltReport branding
+
 ## [1.0.13] - 2026-11-10
 
 ### :toolbox: Added
